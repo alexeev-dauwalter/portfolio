@@ -5,7 +5,7 @@
 </script>
 
 <article
-    class="space-y-4 p-6 bg-neutral-200/40 dark:bg-neutral-800/40 border border-neutral-50 dark:border-neutral-700 rounded-xl backdrop-blur-lg">
+    class="info-article">
   <H2>{title}</H2>
   <slot/>
 </article>

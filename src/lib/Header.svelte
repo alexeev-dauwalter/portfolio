@@ -12,7 +12,7 @@
     <slot name="name"/>
   </H1>
   <p class="text-lg sm:text-xl text-neutral-700 dark:text-neutral-400 italic">
-    <slot name="desc"/>
+    <slot name="position"/>
   </p>
   <slot/>
 </header>

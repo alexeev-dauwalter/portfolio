@@ -1,6 +1,6 @@
 <script>
   export let name = '',
-      color;
+      color = '';
 
   const colors = {
     neutral: 'bg-neutral-500/60 border-neutral-500 hover:shadow-neutral-500',
@@ -25,4 +25,4 @@
 </script>
 
 <span
-    class={`${colors[color]} px-2 py-1 rounded border hover:shadow-md select-none duration-100`}>{name}</span>
+    class={`${colors[color]} inline-block px-2 py-1 rounded border hover:shadow-md select-none duration-100`}>{name}</span>

@@ -3,9 +3,14 @@
 @tailwind utilities;
 
 .info-section {
-    @apply duration-200 sm:m-auto sm:my-6 p-4 sm:p-6 space-y-4 sm:space-y-4 rounded-3xl shadow-xl bg-white/40 dark:bg-neutral-700/40 backdrop-blur-lg border border-neutral-50 dark:border-neutral-700;
+    @apply duration-200
+    sm:m-auto sm:my-6 p-4 sm:p-6
+    space-y-4;
 }
 
 .info-article {
-    @apply space-y-4 p-6 bg-neutral-200/40 dark:bg-neutral-800/40 border border-neutral-50 dark:border-neutral-700 rounded-xl;
+    @apply space-y-4 p-6
+    bg-neutral-200/40 dark:bg-neutral-800/40
+    border border-neutral-50 dark:border-neutral-700
+    rounded-xl shadow-md backdrop-blur-lg;
 }
