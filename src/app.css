@@ -9,6 +9,5 @@
 
 .info-article {
     @apply space-y-6 p-6
-    border-y border-neutral-50 dark:border-neutral-800
-    shadow-md backdrop-blur-lg;
+    border-y border-neutral-200 dark:border-neutral-800;
 }
