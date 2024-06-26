@@ -9,7 +9,7 @@
     education,
     email,
     experience,
-    fullname,
+    fullName,
     languages,
     links,
     nav,
@@ -19,19 +19,21 @@
 </script>
 
 <Header avatar="/avatar.jpg">
-    <span slot="name">{fullname}</span>
-    <span slot="position">{position}</span>
-    <a class="block text-blue-500" href="mailto:{email}">{email}</a>
-    <nav class="flex flex-wrap gap-8 justify-center items-center">
-        {#each nav as { href, component }}
-            <a class="block text-blue-500 w-10 h-10" {href}>
+    <p slot="name">{fullName}</p>
+    <p slot="position">{position}</p>
+    <div class="flex justify-center">
+        <a class="text-blue-500" href="mailto:{email}" title="email">{email}</a>
+    </div>
+    <nav class="flex flex-wrap gap-4 md:gap-8 justify-center items-center">
+        {#each nav as { href, component, title }}
+            <a class="block text-blue-500 w-10 h-10" {href} {title}>
                 <svelte:component this={component}/>
             </a>
         {/each}
     </nav>
 </Header>
 
-<main class="space-y-2 sm:space-y-6">
+<main class="space-y-2 sm:space-y-24 sm:text-xl md:text-2xl">
     <Section title="Обо мне">
         {#each about as paragraph}
             <p>{paragraph}</p>
@@ -40,10 +42,12 @@
 
     {#if skills.main?.length}
         <Section title="Основной стек">
-            <section class="flex flex-wrap gap-2">
-                {#each skills.main as { name, color }}
-                    {#if name}
-                        <Badge {name} {color}/>
+            <section class="flex flex-wrap gap-8 justify-center">
+                {#each skills.main as { title, component }}
+                    {#if title}
+                        <div class="w-24 h-24 flex" {title}>
+                            <svelte:component this={component}/>
+                        </div>
                     {/if}
                 {/each}
             </section>
@@ -54,10 +58,12 @@
         <Section title="Ключевые навыки">
             {#if skills.hard?.languages.length}
                 <Article title="Языки программирования">
-                    <section class="flex flex-wrap gap-2 justify-center">
-                        {#each skills.hard.languages as { name, color }}
-                            {#if name}
-                                <Badge {name} {color}/>
+                    <section class="flex flex-wrap gap-8 justify-center">
+                        {#each skills.hard.languages as { title, component }}
+                            {#if title}
+                                <div class="w-24 h-24 flex" {title}>
+                                    <svelte:component this={component}/>
+                                </div>
                             {/if}
                         {/each}
                     </section>
@@ -66,10 +72,12 @@
 
             {#if skills.hard?.technologies.length}
                 <Article title="Технологии">
-                    <section class="flex flex-wrap gap-2 justify-center">
-                        {#each skills.hard.technologies as { name, color }}
-                            {#if name}
-                                <Badge {name} {color}/>
+                    <section class="flex flex-wrap gap-8 justify-center">
+                        {#each skills.hard.technologies as { title, component }}
+                            {#if title}
+                                <div class="w-24 h-24 flex" {title}>
+                                    <svelte:component this={component}/>
+                                </div>
                             {/if}
                         {/each}
                     </section>
@@ -78,10 +86,10 @@
 
             {#if skills.hard?.patterns.length}
                 <Article title="Паттерны">
-                    <section class="flex flex-wrap gap-2 justify-center">
-                        {#each skills.hard.patterns as { name, color }}
+                    <section class="flex flex-wrap gap-8 justify-center">
+                        {#each skills.hard.patterns as name}
                             {#if name}
-                                <Badge {name} {color}/>
+                                <Badge {name}/>
                             {/if}
                         {/each}
                     </section>
@@ -90,10 +98,10 @@
 
             {#if skills.tools?.length}
                 <Article title="Инструменты">
-                    <section class="flex flex-wrap gap-2 justify-center">
-                        {#each skills.tools as { name, color }}
+                    <section class="flex flex-wrap gap-8 justify-center">
+                        {#each skills.tools as { name }}
                             {#if name}
-                                <Badge {name} {color}/>
+                                <Badge {name}/>
                             {/if}
                         {/each}
                     </section>
@@ -102,8 +110,8 @@
 
             {#if skills.soft?.length}
                 <Article title="Гибкие навыки">
-                    <section class="flex flex-wrap gap-2 justify-center">
-                        {#each skills.soft as { name }}
+                    <section class="flex flex-wrap gap-8 justify-center">
+                        {#each skills.soft as name}
                             {#if name}
                                 <Badge {name}/>
                             {/if}
@@ -114,7 +122,7 @@
 
             {#if skills.other?.length}
                 <Article title="Другое">
-                    <section class="flex flex-wrap gap-2 justify-center">
+                    <section class="flex flex-wrap gap-8 justify-center">
                         {#each skills.other as { name }}
                             {#if name}
                                 <Badge {name}/>
@@ -142,13 +150,15 @@
                             </p>
                         {/if}
                         {#if begin}
-                            <p class="text-sm">{begin} — {end ?? 'по настоящее время'}</p>
+                            <p class="text-sm italic">{begin} — {end ?? 'по настоящее время'}</p>
                         {/if}
                         {#if skills}
-                            <section class="flex flex-wrap gap-2">
-                                {#each skills as { name, color }}
-                                    {#if name}
-                                        <Badge {color} {name}/>
+                            <section class="flex flex-wrap gap-8 justify-center">
+                                {#each skills as { title, component }}
+                                    {#if title}
+                                        <div class="w-24 h-24 flex" {title}>
+                                            <svelte:component this={component}/>
+                                        </div>
                                     {/if}
                                 {/each}
                             </section>
@@ -166,7 +176,7 @@
                     <Article title={institution}>
                         <p>{faculty}, <strong>{specialty}</strong></p>
                         {#if graduation}
-                            <time class="block text-sm">{graduation}</time>
+                            <time class="block text-sm italic">{graduation}</time>
                         {/if}
                     </Article>
                 {/if}
@@ -181,7 +191,7 @@
                     <Article title={organization}>
                         <p>{name}</p>
                         {#if graduation}
-                            <time class="block text-sm">{graduation}</time>
+                            <time class="block text-sm italic">{graduation}</time>
                         {/if}
                     </Article>
                 {/if}
@@ -191,13 +201,13 @@
 
     {#if languages?.length}
         <Section title="Знание языков">
-            <section class="flex flex-wrap gap-2">
-                {#each languages as name}
-                    {#if name}
+            {#each languages as { title, level: name }}
+                {#if title}
+                    <Article {title}>
                         <Badge {name}></Badge>
-                    {/if}
-                {/each}
-            </section>
+                    </Article>
+                {/if}
+            {/each}
         </Section>
     {/if}
 
@@ -213,7 +223,7 @@
         </Section>
     {/if}
 
-    <Section title="Дополнительные ссылки">
+    <Section title="Доп. ссылки">
         <nav class="flex flex-wrap gap-4 items-center">
             {#each links as { href, component }}
                 <a class="block" {href}>

@@ -4,8 +4,7 @@
   export let title;
 </script>
 
-<article
-    class="info-article">
+<article class="info-article">
   <H2>{title}</H2>
   <slot/>
 </article>

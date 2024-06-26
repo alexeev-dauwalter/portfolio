@@ -4,8 +4,11 @@
   export let title = '';
 </script>
 
-<section
-    class="sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl info-section">
-  <H1>{title}</H1>
-  <slot></slot>
+<section class="info-section grid lg:grid-cols-5 gap-8">
+    <div class="lg:col-span-2">
+        <H1 class="lg:sticky lg:top-8" bold>{title}</H1>
+    </div>
+    <article class="lg:col-span-3">
+        <slot/>
+    </article>
 </section>

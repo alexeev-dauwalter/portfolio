@@ -1,1 +1,1 @@
-<h2 class="text-xl sm:text-2xl"><slot/></h2>
+<h2 class="text-xl uppercase sm:text-2xl xl:text-4xl text-neutral-500 font-mono {$$props.class}"><slot/></h2>
