@@ -45,9 +45,9 @@
             <section class="flex flex-wrap gap-8 justify-center">
                 {#each skills.main as { title, component }}
                     {#if title}
-                        <div class="w-24 h-24 flex" {title}>
+                        <article class="w-24 h-24 flex" {title}>
                             <svelte:component this={component}/>
-                        </div>
+                        </article>
                     {/if}
                 {/each}
             </section>
@@ -61,9 +61,9 @@
                     <section class="flex flex-wrap gap-8 justify-center">
                         {#each skills.hard.languages as { title, component }}
                             {#if title}
-                                <div class="w-24 h-24 flex" {title}>
+                                <article class="w-24 h-24 flex" {title}>
                                     <svelte:component this={component}/>
-                                </div>
+                                </article>
                             {/if}
                         {/each}
                     </section>
@@ -75,9 +75,9 @@
                     <section class="flex flex-wrap gap-8 justify-center">
                         {#each skills.hard.technologies as { title, component }}
                             {#if title}
-                                <div class="w-24 h-24 flex" {title}>
+                                <article class="w-24 h-24 flex" {title}>
                                     <svelte:component this={component}/>
-                                </div>
+                                </article>
                             {/if}
                         {/each}
                     </section>
@@ -156,9 +156,9 @@
                             <section class="flex flex-wrap gap-8 justify-center">
                                 {#each skills as { title, component }}
                                     {#if title}
-                                        <div class="w-24 h-24 flex" {title}>
+                                        <article class="w-24 h-24 flex" {title}>
                                             <svelte:component this={component}/>
-                                        </div>
+                                        </article>
                                     {/if}
                                 {/each}
                             </section>

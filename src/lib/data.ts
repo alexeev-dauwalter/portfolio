@@ -410,10 +410,10 @@ export const fullName = 'Алексеев Пётр Сергеевич',
     author: 'Роберт Мартин'
   }],
   languages: Language[] = [{
-    title: 'Русский — Родной',
+    title: 'Русский',
     level: 'Родной'
   }, {
-    title: 'Английский — Родной',
+    title: 'Английский',
     level: 'A2 — Элементарный'
   }],
   about = [

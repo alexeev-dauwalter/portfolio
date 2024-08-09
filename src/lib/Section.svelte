@@ -5,9 +5,9 @@
 </script>
 
 <section class="info-section grid lg:grid-cols-5 gap-8">
-    <div class="lg:col-span-2">
+    <hgroup class="lg:col-span-2">
         <H1 class="lg:sticky lg:top-8" bold>{title}</H1>
-    </div>
+    </hgroup>
     <article class="lg:col-span-3">
         <slot/>
     </article>
