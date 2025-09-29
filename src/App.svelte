@@ -36,7 +36,11 @@
 <main class="space-y-2 sm:space-y-24 sm:text-xl md:text-2xl">
     <Section title="Обо мне">
         {#each about as paragraph}
-            <p>{paragraph}</p>
+            <p class="space-y-1">
+                {#each paragraph.split('\n') as row}
+                    <p>{row}</p>
+                {/each}
+            </p>
         {/each}
     </Section>
 
