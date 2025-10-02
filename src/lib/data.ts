@@ -383,7 +383,7 @@ export const fullName = 'Алексеев Пётр Сергеевич',
       Technology.laravel,
       Technology.tailwindcss,
       ProgrammingLanguage.javascript,
-      ProgrammingLanguage.rust
+      ProgrammingLanguage.go
     ]
   },{
     company: '41T',
