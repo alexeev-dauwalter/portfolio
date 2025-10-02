@@ -433,6 +433,7 @@ export const fullName = 'Алексеев Пётр Сергеевич',
       Technology.tailwindcss,
       ProgrammingLanguage.javascript,
       ProgrammingLanguage.kotlin,
+      ProgrammingLanguage.java,
       ProgrammingLanguage.php
     ]
   }, {
