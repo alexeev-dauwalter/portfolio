@@ -21,5 +21,14 @@ deploy-job:
     entrypoint:
       - '/usr/bin/env'
   environment: production
+  dependencies:
+    - build-job
+  before_script:
+    - mkdir -p ~/.selectels3
+    - wget https://secure.globalsign.net/cacert/root-r6.crt -O ~/.selectels3/root.crt
+    - openssl x509 -inform der -in ~/.selectels3/root.crt -out ~/.selectels3/root.crt
+    - chmod 600 ~/.selectels3/root.crt
+    - aws configure set default.s3.signature_version s3v4
+    - aws configure set default.ca_bundle ~/.selectels3/root.crt
   script:
-    - aws s3 --endpoint-url=$AWS_ENDPOINT sync ./dist s3://$AWS_BUCKET_NAME
+    - aws s3 --endpoint-url=$AWS_ENDPOINT sync ./dist s3://$AWS_BUCKET_NAME --delete
