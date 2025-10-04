@@ -24,6 +24,7 @@ deploy-job:
   dependencies:
     - build-job
   before_script:
+    - yum install -y openssl
     - mkdir -p ~/.selectels3
     - curl -o ~/.selectels3/root.crt https://secure.globalsign.net/cacert/root-r6.crt
     - openssl x509 -inform der -in ~/.selectels3/root.crt -out ~/.selectels3/root.crt
