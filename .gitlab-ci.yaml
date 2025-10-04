@@ -1,0 +1,25 @@
+stages:
+  - build
+  - deploy
+
+build-job:
+  stage: build
+  image:
+    name: node:lts
+  environment: production
+  artifacts:
+    paths:
+      - dist
+  script:
+    - yarn
+    - yarn build
+
+deploy-job:
+  stage: deploy
+  image:
+    name: amazon/aws-cli:latest
+    entrypoint:
+      - '/usr/bin/env'
+  environment: production
+  script:
+    - aws s3 --endpoint-url=$AWS_ENDPOINT sync ./dist s3://$AWS_BUCKET_NAME
