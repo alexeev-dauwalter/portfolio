@@ -4,11 +4,13 @@
   export let title = '';
 </script>
 
-<section class="duration-200 sm:m-auto sm:my-6 p-4 sm:p-6 grid lg:grid-cols-5 gap-8">
-    <hgroup class="lg:col-span-2">
-        <H1 class="lg:sticky lg:top-8" bold>{title}</H1>
-    </hgroup>
-    <article class="lg:col-span-3">
-        <slot/>
-    </article>
+<section
+  class="grid gap-8 p-4 duration-200 sm:m-auto sm:my-6 sm:p-6 lg:grid-cols-5"
+>
+  <hgroup class="lg:col-span-2">
+    <H1 class="lg:sticky lg:top-8" bold>{title}</H1>
+  </hgroup>
+  <article class="lg:col-span-3">
+    <slot />
+  </article>
 </section>
