@@ -1,0 +1,239 @@
+---
+import { Image } from 'astro:assets';
+import Layout from '@layouts/Layout.astro';
+import Header from '@components/Header.svelte';
+import Section from '@components/Section.svelte';
+import Article from '@components/Article.svelte';
+import Badge from '@components/Badge.svelte';
+import avatar from '@assets/avatar.jpg';
+
+import {
+  about,
+  books,
+  education,
+  email,
+  experience,
+  fullName,
+  languages,
+  links,
+  nav,
+  position,
+  skills
+} from '../data';
+---
+
+<Layout title={fullName}
+        bodyClass="m-2 sm:m-6 sm:text-xl duration-200 dark:bg-black text-neutral-900 dark:text-neutral-200 space-y-2 sm:space-y-6">
+    <Header client:load>
+        <Image
+            slot="avatar"
+            class="m-auto dark:border-neutral-600 shadow-md rounded-xl sm:col-span-2"
+            src={avatar}
+            alt=""
+            inferSize
+        />
+        <Fragment slot="name">{fullName}</Fragment>
+        <Fragment slot="position">{position}</Fragment>
+        <div class="flex justify-center">
+            <a class="text-blue-500" href={`mailto:${email}`} title="email">{email}</a>
+        </div>
+        <nav class="flex flex-wrap gap-4 md:gap-8 justify-center items-center">
+          {nav.map(({ href, Icon, title }) => (
+              <a class="block text-blue-500 w-10 h-10" href={href} title={title}>
+                  <Icon/>
+              </a>
+          ))}
+        </nav>
+    </Header>
+
+    <main class="space-y-2 sm:space-y-24 sm:text-xl md:text-2xl">
+        <Section title="Обо мне" client:load>
+          {about.map((paragraph) => (
+              <section class="space-y-1">
+                {paragraph.split('\n').map((row) => <p>{row}</p>)}
+              </section>
+          ))}
+        </Section>
+
+      {skills.main?.length > 0 && (
+          <Section title="Основной стек" client:load>
+              <section class="flex flex-wrap gap-8 justify-center">
+                {skills.main.map(({ title, Icon }) =>
+                    title && (
+                            <article class="w-24 h-24 flex" title={title}>
+                                <Icon/>
+                            </article>
+                    )
+                )}
+              </section>
+          </Section>
+      )}
+
+      {(skills.hard || skills.soft || skills.tools || skills.other) && (
+          <Section title="Ключевые навыки" client:load>
+            {skills.hard?.languages?.length > 0 && (
+                <Article title="Языки программирования" client:load>
+                    <section class="flex flex-wrap gap-8 justify-center">
+                      {skills.hard.languages.map(({ title, Icon }) =>
+                          title && (
+                                  <article class="w-24 h-24 flex" title={title}>
+                                      <Icon/>
+                                  </article>
+                          )
+                      )}
+                    </section>
+                </Article>
+            )}
+
+            {skills.hard?.technologies?.length > 0 && (
+                <Article title="Технологии" client:load>
+                    <section class="flex flex-wrap gap-8 justify-center">
+                      {skills.hard.technologies.map(({ title, Icon }) =>
+                          title && (
+                                  <article class="w-24 h-24 flex" title={title}>
+                                      <Icon/>
+                                  </article>
+                          )
+                      )}
+                    </section>
+                </Article>
+            )}
+
+            {skills.hard?.patterns?.length > 0 && (
+                <Article title="Паттерны" client:load>
+                    <section class="flex flex-wrap gap-8 justify-center">
+                      {skills.hard.patterns.map((name) =>
+                        name ?
+                            <Badge name={name} client:load/> : null
+                      )}
+                    </section>
+                </Article>
+            )}
+
+            {skills.tools?.length > 0 && (
+                <Article title="Инструменты" client:load>
+                    <section class="flex flex-wrap gap-8 justify-center">
+                      {skills.tools.map(({ name }) =>
+                        name ?
+                            <Badge name={name} client:load/> : null
+                      )}
+                    </section>
+                </Article>
+            )}
+
+            {skills.soft?.length > 0 && (
+                <Article title="Гибкие навыки" client:load>
+                    <section class="flex flex-wrap gap-8 justify-center">
+                      {skills.soft.map((name) =>
+                        name ?
+                            <Badge name={name} client:load/> : null
+                      )}
+                    </section>
+                </Article>
+            )}
+
+            {skills.other?.length > 0 && (
+                <Article title="Другое" client:load>
+                    <section class="flex flex-wrap gap-8 justify-center">
+                      {skills.other.map(({ name }) =>
+                        name ?
+                            <Badge name={name} client:load/> : null
+                      )}
+                    </section>
+                </Article>
+            )}
+          </Section>
+      )}
+
+      {experience?.length > 0 && (
+          <Section title="Опыт работы" client:load>
+            {experience.map(({ company, position: pos, begin, end, description, skills: expSkills }) =>
+              company ? (
+                  <Article title={company} client:load>
+                    {pos && <p><strong>{pos}</strong></p>}
+                    {description && (
+                        <section class="space-y-1">
+                          {description.split('\n').map((row) => <p>{row}</p>)}
+                        </section>
+                    )}
+                    {begin && <p class="text-sm italic">{begin} — {end ?? 'по настоящее време'}</p>}
+                    {expSkills && (
+                        <section class="flex flex-wrap gap-8 justify-center">
+                          {expSkills.map(({ title, Icon }) =>
+                              title && (
+                                      <article class="w-24 h-24 flex" title={title}>
+                                          <Icon/>
+                                      </article>
+                              )
+                          )}
+                        </section>
+                    )}
+                  </Article>
+              ) : null
+            )}
+          </Section>
+      )}
+
+      {education.main?.length > 0 && (
+          <Section title="Образование" client:load>
+            {education.main.map(({ institution, faculty, specialty, graduation }) =>
+              institution && faculty && specialty ? (
+                  <Article title={institution} client:load>
+                      <p>{faculty}, <strong>{specialty}</strong></p>
+                    {graduation &&
+                        <time class="block text-sm italic">{graduation}</time>}
+                  </Article>
+              ) : null
+            )}
+          </Section>
+      )}
+
+      {education.additional?.length > 0 && (
+          <Section title="Повышение квалификации" client:load>
+            {education.additional.map(({ organization, name, graduation }) =>
+              organization && name ? (
+                  <Article title={organization} client:load>
+                      <p>{name}</p>
+                    {graduation &&
+                        <time class="block text-sm italic">{graduation}</time>}
+                  </Article>
+              ) : null
+            )}
+          </Section>
+      )}
+
+      {languages?.length > 0 && (
+          <Section title="Знание языков" client:load>
+            {languages.map(({ title, level: name }) =>
+              title ? (
+                  <Article title={title} client:load>
+                      <Badge name={name} client:load/>
+                  </Article>
+              ) : null
+            )}
+          </Section>
+      )}
+
+      {books?.length > 0 && (
+          <Section title="Прочитано" client:load>
+            {books.map(({ name, author }) =>
+              name && author ? (
+                  <Article title={name} client:load>
+                      <address class="text-sm">{author}</address>
+                  </Article>
+              ) : null
+            )}
+          </Section>
+      )}
+
+        <Section title="Доп. ссылки" client:load>
+            <nav class="flex flex-wrap gap-4 items-center">
+              {links.map(({ href, Icon }) => (
+                  <a class="block" href={href}>
+                      <Icon/>
+                  </a>
+              ))}
+            </nav>
+        </Section>
+    </main>
+</Layout>
