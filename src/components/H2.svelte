@@ -1,5 +1,10 @@
+<script lang="ts">
+  let className: string = '';
+  export { className as class };
+</script>
+
 <h2
-  class="font-mono text-xl text-neutral-500 uppercase sm:text-2xl xl:text-4xl {$$props.class}"
+  class="font-sans text-xl font-medium tracking-tight text-[var(--color-ink)] sm:text-2xl md:text-3xl dark:text-[var(--color-ink-dark)] {className}"
 >
   <slot />
 </h2>

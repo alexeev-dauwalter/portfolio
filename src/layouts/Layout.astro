@@ -1,5 +1,21 @@
 ---
 import '../styles/global.css';
+
+import '@fontsource/inter/cyrillic-400.css';
+import '@fontsource/inter/cyrillic-500.css';
+import '@fontsource/inter/cyrillic-600.css';
+import '@fontsource/inter/400.css';
+import '@fontsource/inter/500.css';
+import '@fontsource/inter/600.css';
+
+import '@fontsource/lora/cyrillic-400-italic.css';
+import '@fontsource/lora/cyrillic-500-italic.css';
+import '@fontsource/lora/400-italic.css';
+import '@fontsource/lora/500-italic.css';
+
+import '@fontsource/jetbrains-mono/cyrillic-400.css';
+import '@fontsource/jetbrains-mono/400.css';
+
 const { title, bodyClass } = Astro.props;
 ---
 
@@ -7,7 +23,7 @@ const { title, bodyClass } = Astro.props;
 <html lang="ru">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
