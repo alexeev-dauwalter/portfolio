@@ -18,7 +18,7 @@
     class="mb-12 flex flex-wrap items-center justify-between gap-y-4 sm:mb-16"
   >
     <span
-      class="font-jetbrains-mono text-xs tracking-[0.12em] text-ink uppercase dark:text-ink-dark"
+      class="font-jetbrains-mono text-xs tracking-meta text-ink uppercase dark:text-ink-dark"
     >
       {shortName}
     </span>
@@ -26,7 +26,7 @@
       {#each sections as { number, title, id }}
         <a
           href={`#${id}`}
-          class="font-jetbrains-mono text-[0.7rem] tracking-[0.12em] text-ink-soft uppercase transition hover:text-rust dark:text-ink-dark-soft dark:hover:text-rust-soft"
+          class="font-jetbrains-mono text-2xs tracking-meta text-ink-soft uppercase transition hover:text-rust dark:text-ink-dark-soft dark:hover:text-rust-soft"
         >
           <span class="text-muted dark:text-ink-dark-soft/70">{number}</span>
           <span class="ml-1.5">{title}</span>
@@ -35,7 +35,7 @@
       {#if email}
         <a
           href={`mailto:${email}`}
-          class="rounded-full border border-ink/20 px-3.5 py-1 font-jetbrains-mono text-[0.7rem] tracking-[0.12em] text-ink uppercase transition hover:border-rust hover:text-rust dark:border-ink-dark/25 dark:text-ink-dark dark:hover:border-rust-soft dark:hover:text-rust-soft"
+          class="rounded-full border border-ink/20 px-3.5 py-1 font-jetbrains-mono text-2xs tracking-meta text-ink uppercase transition hover:border-rust hover:text-rust dark:border-ink-dark/25 dark:text-ink-dark dark:hover:border-rust-soft dark:hover:text-rust-soft"
         >
           Связаться
         </a>
@@ -44,13 +44,13 @@
   </section>
 
   <p
-    class="font-jetbrains-mono text-[0.7rem] tracking-[0.12em] text-muted uppercase dark:text-ink-dark-soft"
+    class="font-jetbrains-mono text-2xs tracking-meta text-muted uppercase dark:text-ink-dark-soft"
   >
     portfolio / 2026
   </p>
 
   <h1
-    class="mt-6 max-w-4xl font-inter text-4xl leading-[1.02] font-medium tracking-tight text-ink sm:text-5xl md:text-6xl lg:text-7xl dark:text-ink-dark"
+    class="mt-6 max-w-4xl font-inter text-4xl leading-hero font-medium tracking-tight text-ink sm:text-5xl md:text-6xl lg:text-7xl dark:text-ink-dark"
   >
     {positionPrefix}
     <em class="font-lora font-normal text-rust italic dark:text-rust-soft"
@@ -63,7 +63,7 @@
   >
     <section class="space-y-1">
       <p
-        class="font-jetbrains-mono text-[0.65rem] tracking-[0.14em] text-muted uppercase dark:text-ink-dark-soft"
+        class="font-jetbrains-mono text-3xs tracking-meta text-muted uppercase dark:text-ink-dark-soft"
       >
         Имя
       </p>
@@ -71,7 +71,7 @@
     </section>
     <section class="space-y-1">
       <p
-        class="font-jetbrains-mono text-[0.65rem] tracking-[0.14em] text-muted uppercase dark:text-ink-dark-soft"
+        class="font-jetbrains-mono text-3xs tracking-meta text-muted uppercase dark:text-ink-dark-soft"
       >
         Стек
       </p>
@@ -81,7 +81,7 @@
     </section>
     <section class="space-y-1">
       <p
-        class="font-jetbrains-mono text-[0.65rem] tracking-[0.14em] text-muted uppercase dark:text-ink-dark-soft"
+        class="font-jetbrains-mono text-3xs tracking-meta text-muted uppercase dark:text-ink-dark-soft"
       >
         Локация
       </p>
@@ -89,7 +89,7 @@
     </section>
     <section class="space-y-1">
       <p
-        class="font-jetbrains-mono text-[0.65rem] tracking-[0.14em] text-muted uppercase dark:text-ink-dark-soft"
+        class="font-jetbrains-mono text-3xs tracking-meta text-muted uppercase dark:text-ink-dark-soft"
       >
         Почта
       </p>
@@ -114,7 +114,7 @@
             {value}
           </p>
           <p
-            class="font-jetbrains-mono text-[0.65rem] tracking-[0.12em] text-muted uppercase dark:text-ink-dark-soft"
+            class="font-jetbrains-mono text-3xs tracking-meta text-muted uppercase dark:text-ink-dark-soft"
           >
             {label}
           </p>

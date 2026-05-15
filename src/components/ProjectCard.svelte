@@ -17,7 +17,7 @@
 >
   <header class="flex items-baseline justify-between">
     <span
-      class="font-jetbrains-mono text-[0.7rem] tracking-[0.12em] text-muted uppercase dark:text-ink-dark-soft"
+      class="font-jetbrains-mono text-2xs tracking-meta text-muted uppercase dark:text-ink-dark-soft"
     >
       {indexLabel}
     </span>
@@ -65,7 +65,7 @@
     <ul class="flex flex-wrap gap-x-3 gap-y-2">
       {#each stack as { title }}
         <li
-          class="font-jetbrains-mono text-[0.65rem] tracking-[0.1em] text-muted uppercase dark:text-ink-dark-soft"
+          class="font-jetbrains-mono text-3xs tracking-label text-muted uppercase dark:text-ink-dark-soft"
         >
           {title}
         </li>

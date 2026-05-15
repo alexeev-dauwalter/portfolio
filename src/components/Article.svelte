@@ -13,7 +13,7 @@
   class="grid gap-6 border-t border-ink/12 py-8 md:grid-cols-[8rem_1fr_4rem] md:gap-8 dark:border-ink-dark/15"
 >
   <time
-    class="font-jetbrains-mono text-xs tracking-[0.12em] text-muted uppercase dark:text-ink-dark-soft"
+    class="font-jetbrains-mono text-xs tracking-meta text-muted uppercase dark:text-ink-dark-soft"
   >
     {dateLabel}
   </time>

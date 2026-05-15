@@ -24,7 +24,7 @@
   </svg>
 {:else}
   <span
-    class="inline-flex shrink-0 items-center justify-center rounded-sm border border-current/30 font-jetbrains-mono text-[0.55em] leading-none font-medium uppercase select-none"
+    class="inline-flex shrink-0 items-center justify-center rounded-sm border border-current/30 font-jetbrains-mono text-3xs leading-none font-medium uppercase select-none"
     style="width: {size}px; height: {size}px;"
     aria-label={title || slug}
   >

@@ -20,6 +20,14 @@
   --font-lora: 'Lora', Georgia, 'Times New Roman', serif;
   --font-jetbrains-mono:
     'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  --text-2xs: 0.7rem;
+  --text-3xs: 0.65rem;
+
+  --tracking-label: 0.1em;
+  --tracking-meta: 0.12em;
+
+  --leading-hero: 1.02;
 }
 
 @media (prefers-color-scheme: dark) {
