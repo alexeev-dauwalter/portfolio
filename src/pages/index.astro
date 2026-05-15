@@ -30,22 +30,21 @@ import {
 } from '../data';
 
 const stats = [
-  { value: String(experience.length), label: 'мест работы' },
-  { value: String(skills.hard.languages.length), label: 'языков' },
-  { value: String(skills.hard.technologies.length), label: 'технологий' },
-  {
-    value: String(education.main.length + education.additional.length),
-    label: 'образований'
-  },
-  { value: String(books.length), label: 'книг прочитано' }
-];
-
-const mainStack = skills.main.map((s) => s.title);
-const techStack = [...skills.hard.languages, ...skills.hard.technologies];
+    { value: String(experience.length), label: 'мест работы' },
+    { value: String(skills.hard.languages.length), label: 'языков' },
+    { value: String(skills.hard.technologies.length), label: 'технологий' },
+    {
+      value: String(education.main.length + education.additional.length),
+      label: 'образований'
+    },
+    { value: String(books.length), label: 'книг прочитано' }
+  ],
+  mainStack = skills.main.map((s) => s.title),
+  techStack = [...skills.hard.languages, ...skills.hard.technologies];
 ---
 
 <Layout title={fullName}>
-  <div class="mx-auto max-w-6xl">
+  <main class="mx-auto max-w-6xl">
     <Header
       client:load
       {shortName}
@@ -58,351 +57,342 @@ const techStack = [...skills.hard.languages, ...skills.hard.technologies];
       {sections}
     />
 
-    <main>
-      {
-        about?.length > 0 && (
-          <Section client:load number="01" title="Обо мне" id="about">
-            <div class="max-w-3xl space-y-6 text-base leading-relaxed sm:text-lg">
-              {about.map((paragraph) => (
-                <section class="space-y-3">
-                  {paragraph.split('\n').map((row) => (
-                    <p class="text-[var(--color-ink-soft)] dark:text-[var(--color-ink-dark-soft)]">
-                      {row}
-                    </p>
-                  ))}
-                </section>
-              ))}
-            </div>
-          </Section>
-        )
-      }
+    {
+      about?.length > 0 && (
+        <Section client:load number="01" title="Обо мне" id="about">
+          <article class="max-w-3xl space-y-6 text-base leading-relaxed sm:text-lg">
+            {about.map((paragraph) => (
+              <section class="space-y-3">
+                {paragraph.split('\n').map((row) => (
+                  <p class="text-ink-soft dark:text-ink-dark-soft">{row}</p>
+                ))}
+              </section>
+            ))}
+          </article>
+        </Section>
+      )
+    }
 
-      {
-        experience?.length > 0 && (
-          <Section
-            client:load
-            number="02"
-            title="Опыт работы"
-            id="experience"
-          >
-            {experience.map(
-              (
-                {
-                  company,
-                  position: pos,
-                  begin,
-                  end,
-                  description,
-                  skills: expSkills
-                },
-                i
-              ) =>
-                company ? (
-                  <Article
-                    client:load
-                    title={company}
-                    subtitle={pos}
-                    dateLabel={`${begin}${end ? ` — ${end}` : ' — наст.'}`}
-                    index={i + 1}
-                  >
-                    {description && (
-                      <div class="space-y-2 text-sm leading-relaxed text-[var(--color-ink-soft)] sm:text-base dark:text-[var(--color-ink-dark-soft)]">
-                        {description.split('\n').map((row) => (
-                          <p>{row}</p>
-                        ))}
-                      </div>
-                    )}
-                    {expSkills && expSkills.length > 0 && (
-                      <ul class="flex flex-wrap items-center gap-x-4 gap-y-3 pt-2 text-[var(--color-ink-soft)] dark:text-[var(--color-ink-dark-soft)]">
-                        {expSkills.map(({ title, slug }) => (
-                          <li class="flex items-center gap-2" title={title}>
-                            <span class="flex h-5 w-5 items-center justify-center">
-                              <TechIcon
-                                client:load
-                                slug={slug}
-                                title={title}
-                                size={18}
-                              />
-                            </span>
-                            <span class="font-mono text-[0.7rem] tracking-[0.1em] uppercase">
-                              {title}
-                            </span>
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-                  </Article>
-                ) : null
-            )}
-          </Section>
-        )
-      }
-
-      {
-        projects?.length > 0 && (
-          <Section client:load number="03" title="Проекты" id="projects">
-            <div class="grid gap-4 sm:gap-5 md:grid-cols-2 lg:grid-cols-3">
-              {projects.map((p, i) => (
-                <ProjectCard
+    {
+      experience?.length > 0 && (
+        <Section client:load number="02" title="Опыт работы" id="experience">
+          {experience.map(
+            (
+              {
+                company,
+                position: pos,
+                begin,
+                end,
+                description,
+                skills: expSkills
+              },
+              i
+            ) =>
+              company ? (
+                <Article
                   client:load
-                  name={p.name}
-                  description={p.description}
-                  stack={p.stack}
-                  github={p.github}
-                  gitlab={p.gitlab}
+                  title={company}
+                  subtitle={pos}
+                  dateLabel={`${begin}${end ? ` — ${end}` : ' — наст.'}`}
                   index={i + 1}
-                />
-              ))}
-            </div>
-          </Section>
-        )
-      }
+                >
+                  {description && (
+                    <section class="space-y-2 text-sm leading-relaxed text-ink-soft sm:text-base dark:text-ink-dark-soft">
+                      {description.split('\n').map((row) => (
+                        <p>{row}</p>
+                      ))}
+                    </section>
+                  )}
+                  {expSkills && expSkills.length > 0 && (
+                    <ul class="flex flex-wrap items-center gap-x-4 gap-y-3 pt-2 text-ink-soft dark:text-ink-dark-soft">
+                      {expSkills.map(({ title, slug }) => (
+                        <li class="flex items-center gap-2" title={title}>
+                          <i class="flex h-5 w-5 items-center justify-center">
+                            <TechIcon
+                              client:load
+                              slug={slug}
+                              title={title}
+                              size={18}
+                            />
+                          </i>
+                          <span class="font-jetbrains-mono text-[0.7rem] tracking-[0.1em] uppercase">
+                            {title}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </Article>
+              ) : null
+          )}
+        </Section>
+      )
+    }
 
-      {
-        timeline?.length > 0 && (
-          <Section client:load number="04" title="Хронология" id="timeline">
-            <div>
-              {timeline.map(({ year, title, subtitle }) => (
-                <TimelineRow
-                  client:load
-                  year={year}
-                  title={title}
-                  subtitle={subtitle}
-                />
-              ))}
-            </div>
-          </Section>
-        )
-      }
+    {
+      projects?.length > 0 && (
+        <Section client:load number="03" title="Проекты" id="projects">
+          <section class="grid gap-4 sm:gap-5 md:grid-cols-2 lg:grid-cols-3">
+            {projects.map((p, i) => (
+              <ProjectCard
+                client:load
+                name={p.name}
+                description={p.description}
+                stack={p.stack}
+                github={p.github}
+                gitlab={p.gitlab}
+                index={i + 1}
+              />
+            ))}
+          </section>
+        </Section>
+      )
+    }
 
-      {
-        (skills.main?.length ||
-          skills.hard?.languages?.length ||
-          skills.hard?.technologies?.length ||
-          skills.hard?.patterns?.length) && (
-          <Section client:load number="05" title="Стек" id="stack">
-            {skills.main?.length > 0 && (
-              <div class="space-y-4">
-                <p class="font-mono text-[0.7rem] tracking-[0.12em] text-[var(--color-muted)] uppercase dark:text-[var(--color-ink-dark-soft)]">
-                  Основной стек
+    {
+      timeline?.length > 0 && (
+        <Section client:load number="04" title="Хронология" id="timeline">
+          <section>
+            {timeline.map(({ year, title, subtitle }) => (
+              <TimelineRow
+                client:load
+                year={year}
+                title={title}
+                subtitle={subtitle}
+              />
+            ))}
+          </section>
+        </Section>
+      )
+    }
+
+    {
+      (skills.main?.length ||
+        skills.hard?.languages?.length ||
+        skills.hard?.technologies?.length ||
+        skills.hard?.patterns?.length) && (
+        <Section client:load number="05" title="Стек" id="stack">
+          {skills.main?.length > 0 && (
+            <section class="space-y-4">
+              <p class="font-jetbrains-mono text-[0.7rem] tracking-[0.12em] text-muted uppercase dark:text-ink-dark-soft">
+                Основной стек
+              </p>
+              <ul class="flex flex-wrap gap-6">
+                {skills.main.map(({ title, slug }) => (
+                  <li
+                    class="flex items-center gap-3 text-ink dark:text-ink-dark"
+                    title={title}
+                  >
+                    <i class="flex h-6 w-6 items-center justify-center">
+                      <TechIcon
+                        client:load
+                        slug={slug}
+                        title={title}
+                        size={24}
+                      />
+                    </i>
+                    <span class="text-sm sm:text-base">{title}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+
+          {techStack.length > 0 && (
+            <section class="space-y-4">
+              <p class="font-jetbrains-mono text-[0.7rem] tracking-[0.12em] text-muted uppercase dark:text-ink-dark-soft">
+                Языки и технологии
+              </p>
+              <section class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                {techStack.map(({ title, slug, description }) => (
+                  <TechCard
+                    client:load
+                    title={title}
+                    slug={slug}
+                    description={description}
+                  />
+                ))}
+              </section>
+            </section>
+          )}
+
+          {skills.hard?.patterns?.length > 0 && (
+            <section class="space-y-4">
+              <p class="font-jetbrains-mono text-[0.7rem] tracking-[0.12em] text-muted uppercase dark:text-ink-dark-soft">
+                Паттерны
+              </p>
+              <ul class="flex flex-wrap gap-2">
+                {skills.hard.patterns.map((name) => (
+                  <li>
+                    <Badge client:load name={name} />
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+
+          {skills.tools?.length > 0 && (
+            <section class="space-y-4">
+              <p class="font-jetbrains-mono text-[0.7rem] tracking-[0.12em] text-muted uppercase dark:text-ink-dark-soft">
+                Инструменты
+              </p>
+              <ul class="flex flex-wrap gap-2">
+                {skills.tools.map(({ name }) => (
+                  <li>
+                    <Badge client:load name={name} />
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+
+          {skills.soft?.length > 0 && (
+            <section class="space-y-4">
+              <p class="font-jetbrains-mono text-[0.7rem] tracking-[0.12em] text-muted uppercase dark:text-ink-dark-soft">
+                Гибкие навыки
+              </p>
+              <ul class="flex flex-wrap gap-2">
+                {skills.soft.map((name) => (
+                  <li>
+                    <Badge client:load name={name} />
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+
+          {skills.other?.length > 0 && (
+            <section class="space-y-4">
+              <p class="font-jetbrains-mono text-[0.7rem] tracking-[0.12em] text-muted uppercase dark:text-ink-dark-soft">
+                Другое
+              </p>
+              <ul class="flex flex-wrap gap-2">
+                {skills.other.map(({ name }) => (
+                  <li>
+                    <Badge client:load name={name} />
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+        </Section>
+      )
+    }
+
+    {
+      (languages?.length || books?.length) && (
+        <Section client:load number="06" title="Чтение и языки" id="reading">
+          <section class="grid gap-10 md:grid-cols-2">
+            {languages?.length > 0 && (
+              <section class="space-y-4">
+                <p class="font-jetbrains-mono text-[0.7rem] tracking-[0.12em] text-muted uppercase dark:text-ink-dark-soft">
+                  Языки
                 </p>
-                <ul class="flex flex-wrap gap-6">
-                  {skills.main.map(({ title, slug }) => (
-                    <li
-                      class="flex items-center gap-3 text-[var(--color-ink)] dark:text-[var(--color-ink-dark)]"
-                      title={title}
-                    >
-                      <span class="flex h-6 w-6 items-center justify-center">
-                        <TechIcon
-                          client:load
-                          slug={slug}
-                          title={title}
-                          size={24}
-                        />
+                <ul class="space-y-3">
+                  {languages.map(({ title, level }) => (
+                    <li class="flex items-baseline justify-between gap-4 border-b border-ink/10 pb-3 dark:border-ink-dark/15">
+                      <span class="text-base text-ink dark:text-ink-dark">
+                        {title}
                       </span>
-                      <span class="text-sm sm:text-base">{title}</span>
+                      <span class="font-jetbrains-mono text-[0.7rem] tracking-[0.1em] text-muted uppercase dark:text-ink-dark-soft">
+                        {level}
+                      </span>
                     </li>
                   ))}
                 </ul>
-              </div>
+              </section>
             )}
-
-            {techStack.length > 0 && (
-              <div class="space-y-4">
-                <p class="font-mono text-[0.7rem] tracking-[0.12em] text-[var(--color-muted)] uppercase dark:text-[var(--color-ink-dark-soft)]">
-                  Языки и технологии
+            {books?.length > 0 && (
+              <section class="space-y-4">
+                <p class="font-jetbrains-mono text-[0.7rem] tracking-[0.12em] text-muted uppercase dark:text-ink-dark-soft">
+                  Прочитано
                 </p>
-                <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                  {techStack.map(({ title, slug, description }) => (
-                    <TechCard
-                      client:load
-                      title={title}
-                      slug={slug}
-                      description={description}
-                    />
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {skills.hard?.patterns?.length > 0 && (
-              <div class="space-y-4">
-                <p class="font-mono text-[0.7rem] tracking-[0.12em] text-[var(--color-muted)] uppercase dark:text-[var(--color-ink-dark-soft)]">
-                  Паттерны
-                </p>
-                <ul class="flex flex-wrap gap-2">
-                  {skills.hard.patterns.map((name) => (
-                    <li>
-                      <Badge client:load name={name} />
+                <ul class="space-y-3">
+                  {books.map(({ name, author }) => (
+                    <li class="space-y-1 border-b border-ink/10 pb-3 dark:border-ink-dark/15">
+                      <p class="text-base text-ink dark:text-ink-dark">
+                        {name}
+                      </p>
+                      <address class="font-jetbrains-mono text-[0.7rem] tracking-[0.1em] text-muted uppercase not-italic dark:text-ink-dark-soft">
+                        {author}
+                      </address>
                     </li>
                   ))}
                 </ul>
-              </div>
+              </section>
             )}
+          </section>
+        </Section>
+      )
+    }
 
-            {skills.tools?.length > 0 && (
-              <div class="space-y-4">
-                <p class="font-mono text-[0.7rem] tracking-[0.12em] text-[var(--color-muted)] uppercase dark:text-[var(--color-ink-dark-soft)]">
-                  Инструменты
-                </p>
-                <ul class="flex flex-wrap gap-2">
-                  {skills.tools.map(({ name }) => (
-                    <li>
-                      <Badge client:load name={name} />
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-
-            {skills.soft?.length > 0 && (
-              <div class="space-y-4">
-                <p class="font-mono text-[0.7rem] tracking-[0.12em] text-[var(--color-muted)] uppercase dark:text-[var(--color-ink-dark-soft)]">
-                  Гибкие навыки
-                </p>
-                <ul class="flex flex-wrap gap-2">
-                  {skills.soft.map((name) => (
-                    <li>
-                      <Badge client:load name={name} />
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-
-            {skills.other?.length > 0 && (
-              <div class="space-y-4">
-                <p class="font-mono text-[0.7rem] tracking-[0.12em] text-[var(--color-muted)] uppercase dark:text-[var(--color-ink-dark-soft)]">
-                  Другое
-                </p>
-                <ul class="flex flex-wrap gap-2">
-                  {skills.other.map(({ name }) => (
-                    <li>
-                      <Badge client:load name={name} />
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-          </Section>
-        )
-      }
-
-      {
-        (languages?.length || books?.length) && (
-          <Section client:load number="06" title="Чтение и языки" id="reading">
-            <div class="grid gap-10 md:grid-cols-2">
-              {languages?.length > 0 && (
-                <div class="space-y-4">
-                  <p class="font-mono text-[0.7rem] tracking-[0.12em] text-[var(--color-muted)] uppercase dark:text-[var(--color-ink-dark-soft)]">
-                    Языки
-                  </p>
-                  <ul class="space-y-3">
-                    {languages.map(({ title, level }) => (
-                      <li class="flex items-baseline justify-between gap-4 border-b border-[var(--color-ink)]/10 pb-3 dark:border-[var(--color-ink-dark)]/15">
-                        <span class="text-base text-[var(--color-ink)] dark:text-[var(--color-ink-dark)]">
-                          {title}
-                        </span>
-                        <span class="font-mono text-[0.7rem] tracking-[0.1em] text-[var(--color-muted)] uppercase dark:text-[var(--color-ink-dark-soft)]">
-                          {level}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-              {books?.length > 0 && (
-                <div class="space-y-4">
-                  <p class="font-mono text-[0.7rem] tracking-[0.12em] text-[var(--color-muted)] uppercase dark:text-[var(--color-ink-dark-soft)]">
-                    Прочитано
-                  </p>
-                  <ul class="space-y-3">
-                    {books.map(({ name, author }) => (
-                      <li class="space-y-1 border-b border-[var(--color-ink)]/10 pb-3 dark:border-[var(--color-ink-dark)]/15">
-                        <p class="text-base text-[var(--color-ink)] dark:text-[var(--color-ink-dark)]">
-                          {name}
-                        </p>
-                        <address class="font-mono text-[0.7rem] tracking-[0.1em] text-[var(--color-muted)] uppercase not-italic dark:text-[var(--color-ink-dark-soft)]">
-                          {author}
-                        </address>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-            </div>
-          </Section>
-        )
-      }
-
-      <footer
-        id="contact"
-        class="hairline scroll-mt-24 px-4 pt-12 pb-16 sm:px-8"
-      >
-        <div class="flex flex-wrap items-center justify-between gap-6">
-          <div class="space-y-2">
-            <p
-              class="font-mono text-[0.7rem] tracking-[0.12em] text-[var(--color-muted)] uppercase dark:text-[var(--color-ink-dark-soft)]"
-            >
-              Связаться
-            </p>
-            <a
-              href={`mailto:${email}`}
-              class="font-serif text-2xl text-[var(--color-rust)] italic underline decoration-[var(--color-rust)]/30 underline-offset-4 transition hover:decoration-[var(--color-rust)] sm:text-3xl dark:text-[var(--color-rust-soft)]"
-            >
-              {email}
-            </a>
-          </div>
-          <nav class="flex flex-wrap items-center gap-5">
-            {
-              nav.map(({ href, slug, title }) => (
-                <a
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={title}
-                  class="flex items-center gap-2 text-[var(--color-ink-soft)] transition hover:text-[var(--color-rust)] dark:text-[var(--color-ink-dark-soft)] dark:hover:text-[var(--color-rust-soft)]"
-                >
-                  <span class="flex h-5 w-5 items-center justify-center">
-                    <TechIcon
-                      client:load
-                      slug={slug}
-                      title={title}
-                      size={18}
-                    />
-                  </span>
-                  <span class="font-mono text-[0.7rem] tracking-[0.1em] uppercase">
-                    {title}
-                  </span>
-                </a>
-              ))
-            }
-            {
-              links.map(({ href, slug, title }) => (
-                <a
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={title}
-                  class="flex items-center gap-2 text-[var(--color-ink-soft)] transition hover:text-[var(--color-rust)] dark:text-[var(--color-ink-dark-soft)] dark:hover:text-[var(--color-rust-soft)]"
-                >
-                  <span class="flex h-5 w-5 items-center justify-center">
-                    <TechIcon
-                      client:load
-                      slug={slug}
-                      title={title}
-                      size={18}
-                    />
-                  </span>
-                  <span class="font-mono text-[0.7rem] tracking-[0.1em] uppercase">
-                    {title}
-                  </span>
-                </a>
-              ))
-            }
-          </nav>
-        </div>
-      </footer>
-    </main>
-  </div>
+    <footer
+      id="contact"
+      class="scroll-mt-24 border-t border-ink/12 px-4 pt-12 pb-16 sm:px-8 dark:border-ink-dark/15"
+    >
+      <section class="flex flex-wrap items-center justify-between gap-6">
+        <section class="space-y-2">
+          <p
+            class="font-jetbrains-mono text-[0.7rem] tracking-[0.12em] text-muted uppercase dark:text-ink-dark-soft"
+          >
+            Связаться
+          </p>
+          <a
+            href={`mailto:${email}`}
+            class="font-lora text-2xl text-rust italic underline decoration-rust/30 underline-offset-4 transition hover:decoration-rust sm:text-3xl dark:text-rust-soft"
+          >
+            {email}
+          </a>
+        </section>
+        <nav class="flex flex-wrap items-center gap-5">
+          {
+            nav.map(({ href, slug, title }) => (
+              <a
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={title}
+                class="flex items-center gap-2 text-ink-soft transition hover:text-rust dark:text-ink-dark-soft dark:hover:text-rust-soft"
+              >
+                <i class="flex h-5 w-5 items-center justify-center">
+                  <TechIcon
+                    client:load
+                    slug={slug}
+                    title={title}
+                    size={18}
+                  />
+                </i>
+                <span class="font-jetbrains-mono text-[0.7rem] tracking-[0.1em] uppercase">
+                  {title}
+                </span>
+              </a>
+            ))
+          }
+          {
+            links.map(({ href, slug, title }) => (
+              <a
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={title}
+                class="flex items-center gap-2 text-ink-soft transition hover:text-rust dark:text-ink-dark-soft dark:hover:text-rust-soft"
+              >
+                <i class="flex h-5 w-5 items-center justify-center">
+                  <TechIcon
+                    client:load
+                    slug={slug}
+                    title={title}
+                    size={18}
+                  />
+                </i>
+                <span class="font-jetbrains-mono text-[0.7rem] tracking-[0.1em] uppercase">
+                  {title}
+                </span>
+              </a>
+            ))
+          }
+        </nav>
+      </section>
+    </footer>
+  </main>
 </Layout>

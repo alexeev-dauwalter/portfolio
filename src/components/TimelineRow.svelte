@@ -1,29 +1,25 @@
 <script lang="ts">
-  export let year: number;
-  export let title: string;
-  export let subtitle: string = '';
+  export let year: number,
+    title: string,
+    subtitle: string = '';
 </script>
 
-<div
-  class="hairline grid gap-3 py-5 sm:grid-cols-[5rem_1fr] sm:gap-8 sm:py-6"
+<article
+  class="grid gap-3 border-t border-ink/12 py-5 sm:grid-cols-[5rem_1fr] sm:gap-8 sm:py-6 dark:border-ink-dark/15"
 >
-  <span
-    class="font-mono text-base text-[var(--color-ink)] tabular-nums sm:text-lg dark:text-[var(--color-ink-dark)]"
+  <time
+    class="font-jetbrains-mono text-base text-ink tabular-nums sm:text-lg dark:text-ink-dark"
   >
     {year}
-  </span>
-  <div class="space-y-1">
-    <p
-      class="text-sm font-medium text-[var(--color-ink)] sm:text-base dark:text-[var(--color-ink-dark)]"
-    >
+  </time>
+  <hgroup class="space-y-1">
+    <p class="text-sm font-medium text-ink sm:text-base dark:text-ink-dark">
       {title}
     </p>
     {#if subtitle}
-      <p
-        class="text-sm text-[var(--color-ink-soft)] dark:text-[var(--color-ink-dark-soft)]"
-      >
+      <p class="text-sm text-ink-soft dark:text-ink-dark-soft">
         {subtitle}
       </p>
     {/if}
-  </div>
-</div>
+  </hgroup>
+</article>

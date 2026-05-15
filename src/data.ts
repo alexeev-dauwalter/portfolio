@@ -342,12 +342,12 @@ const ProgrammingLanguage = {
   }
 } satisfies Record<string, Skill>;
 
-export const fullName = 'Алексеев Пётр Сергеевич';
-export const shortName = 'Алексеев П.С.';
-export const position = 'Full stack developer';
-export const positionAccent = 'developer';
-export const email = 'alexeev.dauwalter@gmail.com';
-export const location = 'Великий Новгород, Россия';
+export const fullName = 'Алексеев Пётр Сергеевич',
+  shortName = 'Алексеев П.С.',
+  position = 'Full stack developer',
+  positionAccent = 'developer',
+  email = 'alexeev.dauwalter@gmail.com',
+  location = 'Великий Новгород, Россия';
 
 export const skills = {
   main: [
@@ -613,16 +613,15 @@ export const timeline: TimelineRow[] = [
 ].sort((a, b) => a.year - b.year);
 
 export const books = [
-  {
-    name: 'Чистая архитектура. Искусство разработки программного обеспечения',
-    author: 'Роберт Мартин'
-  }
-];
-
-export const languages: Language[] = [
-  { title: 'Русский', level: 'Родной' },
-  { title: 'Английский', level: 'A2 — Элементарный' }
-];
+    {
+      name: 'Чистая архитектура. Искусство разработки программного обеспечения',
+      author: 'Роберт Мартин'
+    }
+  ],
+  languages: Language[] = [
+    { title: 'Русский', level: 'Родной' },
+    { title: 'Английский', level: 'A2 — Элементарный' }
+  ];
 
 export const about = [
   'Программирование является не только моей профессией, но и увлечением. Я нахожу удовлетворение как в выполнении профессиональных задач, так и в реализации собственных проектов и изучении новых технологий.\n' +
@@ -644,46 +643,44 @@ export const about = [
 ];
 
 export const links: Link[] = [
-  {
-    href: 'https://teletype.in/@alexeev.dauwalter',
-    slug: 'teletype',
-    title: 'Teletype'
-  },
-  {
-    href: 'https://www.npmjs.com/~ishi-inanis',
-    slug: 'npm',
-    title: 'Npm'
-  }
-];
-
-export const nav: Link[] = [
-  {
-    href: 'https://github.com/alexeev-dauwalter',
-    slug: 'github',
-    title: 'GitHub'
-  },
-  {
-    href: 'https://gitlab.com/alexeev-dauwalter',
-    slug: 'gitlab',
-    title: 'GitLab'
-  },
-  {
-    href: 'https://t.me/alexeev_dauwalter',
-    slug: 'telegram',
-    title: 'Telegram'
-  },
-  {
-    href: 'https://linkedin.com/in/alexeev-dauwalter/',
-    slug: 'linkedin',
-    title: 'LinkedIn'
-  }
-];
-
-export const sections = [
-  { number: '01', title: 'Обо мне', id: 'about' },
-  { number: '02', title: 'Опыт работы', id: 'experience' },
-  { number: '03', title: 'Проекты', id: 'projects' },
-  { number: '04', title: 'Хронология', id: 'timeline' },
-  { number: '05', title: 'Стек', id: 'stack' },
-  { number: '06', title: 'Чтение и языки', id: 'reading' }
-];
+    {
+      href: 'https://teletype.in/@alexeev.dauwalter',
+      slug: 'teletype',
+      title: 'Teletype'
+    },
+    {
+      href: 'https://www.npmjs.com/~ishi-inanis',
+      slug: 'npm',
+      title: 'Npm'
+    }
+  ],
+  nav: Link[] = [
+    {
+      href: 'https://github.com/alexeev-dauwalter',
+      slug: 'github',
+      title: 'GitHub'
+    },
+    {
+      href: 'https://gitlab.com/alexeev-dauwalter',
+      slug: 'gitlab',
+      title: 'GitLab'
+    },
+    {
+      href: 'https://t.me/alexeev_dauwalter',
+      slug: 'telegram',
+      title: 'Telegram'
+    },
+    {
+      href: 'https://linkedin.com/in/alexeev-dauwalter/',
+      slug: 'linkedin',
+      title: 'LinkedIn'
+    }
+  ],
+  sections = [
+    { number: '01', title: 'Обо мне', id: 'about' },
+    { number: '02', title: 'Опыт работы', id: 'experience' },
+    { number: '03', title: 'Проекты', id: 'projects' },
+    { number: '04', title: 'Хронология', id: 'timeline' },
+    { number: '05', title: 'Стек', id: 'stack' },
+    { number: '06', title: 'Чтение и языки', id: 'reading' }
+  ];

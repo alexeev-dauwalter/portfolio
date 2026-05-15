@@ -1,10 +1,5 @@
-<script lang="ts">
-  let className: string = '';
-  export { className as class };
-</script>
-
 <h2
-  class="font-sans text-xl font-medium tracking-tight text-[var(--color-ink)] sm:text-2xl md:text-3xl dark:text-[var(--color-ink-dark)] {className}"
+  class="font-inter text-xl font-medium tracking-tight text-ink sm:text-2xl md:text-3xl dark:text-ink-dark"
 >
   <slot />
 </h2>

@@ -1,30 +1,26 @@
 <script lang="ts">
   import TechIcon from './TechIcon.svelte';
 
-  export let title: string;
-  export let slug: string;
-  export let description: string = '';
+  export let title: string,
+    slug: string,
+    description: string = '';
 </script>
 
 <article
-  class="group flex flex-col gap-3 rounded-md border border-[var(--color-ink)]/10 bg-[var(--color-cream-soft)]/40 p-4 transition hover:border-[var(--color-rust)]/40 hover:bg-[var(--color-cream-soft)] dark:border-[var(--color-ink-dark)]/15 dark:bg-[var(--color-cream-dark-soft)]/50 dark:hover:border-[var(--color-rust-soft)]/40 dark:hover:bg-[var(--color-cream-dark-soft)]"
+  class="group flex flex-col gap-3 rounded-md border border-ink/10 bg-cream-soft/40 p-4 transition hover:border-rust/40 hover:bg-cream-soft dark:border-ink-dark/15 dark:bg-cream-dark-soft/50 dark:hover:border-rust-soft/40 dark:hover:bg-cream-dark-soft"
 >
-  <div class="flex items-center gap-3">
-    <span
-      class="flex h-8 w-8 shrink-0 items-center justify-center text-[var(--color-ink-soft)] transition group-hover:text-[var(--color-rust)] dark:text-[var(--color-ink-dark-soft)] dark:group-hover:text-[var(--color-rust-soft)]"
+  <header class="flex items-center gap-3">
+    <i
+      class="flex h-8 w-8 shrink-0 items-center justify-center text-ink-soft transition group-hover:text-rust dark:text-ink-dark-soft dark:group-hover:text-rust-soft"
     >
       <TechIcon {slug} {title} size={28} />
-    </span>
-    <h3
-      class="text-base font-medium text-[var(--color-ink)] dark:text-[var(--color-ink-dark)]"
-    >
+    </i>
+    <h3 class="font-inter text-base font-medium text-ink dark:text-ink-dark">
       {title}
     </h3>
-  </div>
+  </header>
   {#if description}
-    <p
-      class="text-sm leading-snug text-[var(--color-ink-soft)] dark:text-[var(--color-ink-dark-soft)]"
-    >
+    <p class="text-sm leading-snug text-ink-soft dark:text-ink-dark-soft">
       {description}
     </p>
   {/if}
