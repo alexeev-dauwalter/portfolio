@@ -41,10 +41,91 @@ const stats = [
   ],
   mainStack = skills.main.map((s) => s.title),
   techStack = [...skills.hard.languages, ...skills.hard.technologies];
+
+const RU_MONTHS: Record<string, number> = {
+  январь: 0,
+  февраль: 1,
+  март: 2,
+  апрель: 3,
+  май: 4,
+  июнь: 5,
+  июль: 6,
+  август: 7,
+  сентябрь: 8,
+  октябрь: 9,
+  ноябрь: 10,
+  декабрь: 11
+};
+
+function parseRuMonthYear(value: string): Date | null {
+  const parts = value.trim().toLowerCase().split(/\s+/);
+  if (parts.length !== 2) return null;
+  const month = RU_MONTHS[parts[0]];
+  const year = Number.parseInt(parts[1], 10);
+  if (month === undefined || Number.isNaN(year)) return null;
+  return new Date(year, month, 1);
+}
+
+function plural(n: number, one: string, few: string, many: string): string {
+  const mod100 = n % 100;
+  const mod10 = n % 10;
+  if (mod100 >= 11 && mod100 <= 14) return many;
+  if (mod10 === 1) return one;
+  if (mod10 >= 2 && mod10 <= 4) return few;
+  return many;
+}
+
+function formatDuration(begin: string, end?: string): string {
+  const start = parseRuMonthYear(begin);
+  const stop = end ? parseRuMonthYear(end) : new Date();
+  if (!start || !stop) return '';
+  const months =
+    (stop.getFullYear() - start.getFullYear()) * 12 +
+    (stop.getMonth() - start.getMonth()) +
+    1;
+  if (months <= 0) return '';
+  const years = Math.floor(months / 12);
+  const rest = months % 12;
+  const parts: string[] = [];
+  if (years) parts.push(`${years} ${plural(years, 'год', 'года', 'лет')}`);
+  if (rest) parts.push(`${rest} ${plural(rest, 'месяц', 'месяца', 'месяцев')}`);
+  return parts.join(' · ');
+}
+
+type DescriptionBlock = {
+  label?: string;
+  isBulleted: boolean;
+  items: string[];
+};
+
+function parseDescription(desc?: string): DescriptionBlock[] {
+  if (!desc) return [];
+  const lines = desc.split('\n').filter((row) => row.trim().length > 0);
+  const blocks: DescriptionBlock[] = [];
+  let current: DescriptionBlock = { isBulleted: false, items: [] };
+  for (const raw of lines) {
+    const line = raw.trim();
+    if (/:$/.test(line) && !line.startsWith('-')) {
+      if (current.items.length || current.label) blocks.push(current);
+      const label = line.slice(0, -1);
+      current = {
+        label,
+        isBulleted: /достижения|обязанности/i.test(label),
+        items: []
+      };
+    } else if (line.startsWith('- ')) {
+      current.items.push(line.slice(2));
+    } else {
+      current.items.push(line);
+    }
+  }
+  if (current.items.length || current.label) blocks.push(current);
+  return blocks;
+}
 ---
 
 <Layout title={fullName}>
-  <main class="mx-auto max-w-6xl">
+  <main class="mx-auto w-full max-w-[1280px] 2xl:max-w-[1440px]">
     <Header
       client:load
       {shortName}
@@ -60,7 +141,7 @@ const stats = [
     {
       about?.length > 0 && (
         <Section client:load number="01" title="Обо мне" id="about">
-          <article class="max-w-3xl space-y-6 text-base leading-relaxed sm:text-lg">
+          <article class="max-w-3xl space-y-6 text-base leading-relaxed sm:text-lg 2xl:max-w-4xl 2xl:text-xl">
             {about.map((paragraph) => (
               <section class="space-y-3">
                 {paragraph.split('\n').map((row) => (
@@ -75,7 +156,13 @@ const stats = [
 
     {
       experience?.length > 0 && (
-        <Section client:load number="02" title="Опыт работы" id="experience">
+        <Section
+          client:load
+          number="02"
+          title="Опыт работы"
+          meta={`${experience.length} ${plural(experience.length, 'место', 'места', 'мест')}`}
+          id="experience"
+        >
           {experience.map(
             (
               {
@@ -87,35 +174,63 @@ const stats = [
                 skills: expSkills
               },
               i
-            ) =>
-              company ? (
+            ) => {
+              if (!company) return null;
+              const blocks = parseDescription(description);
+              const durationLabel = formatDuration(begin, end);
+              return (
                 <Article
                   client:load
                   title={company}
                   subtitle={pos}
-                  dateLabel={`${begin}${end ? ` — ${end}` : ' — наст.'}`}
+                  dateLabel={`${begin}${end ? ` — ${end}` : ' — настоящее время'}`}
+                  durationLabel={durationLabel}
                   index={i + 1}
                 >
-                  {description && (
-                    <section class="space-y-2 text-sm leading-relaxed text-ink-soft sm:text-base dark:text-ink-dark-soft">
-                      {description.split('\n').map((row) => (
-                        <p>{row}</p>
+                  {blocks.length > 0 && (
+                    <section class="space-y-4 text-sm leading-relaxed text-ink-soft sm:text-base dark:text-ink-dark-soft">
+                      {blocks.map((block) => (
+                        <section class="space-y-2">
+                          {block.label && (
+                            <p class="font-jetbrains-mono text-2xs tracking-meta text-muted uppercase dark:text-ink-dark-soft">
+                              {block.label}
+                            </p>
+                          )}
+                          {block.isBulleted ? (
+                            <ul class="space-y-1.5">
+                              {block.items.map((item) => (
+                                <li class="flex gap-2.5">
+                                  <span
+                                    class="mt-1.5 inline-block h-1 w-1 shrink-0 rounded-full bg-rust/70 dark:bg-rust-soft/70"
+                                    aria-hidden="true"
+                                  />
+                                  <span>{item}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          ) : (
+                            block.items.map((row) => <p>{row}</p>)
+                          )}
+                        </section>
                       ))}
                     </section>
                   )}
                   {expSkills && expSkills.length > 0 && (
-                    <ul class="flex flex-wrap items-center gap-x-4 gap-y-3 pt-2 text-ink-soft dark:text-ink-dark-soft">
+                    <ul class="flex flex-wrap gap-2 pt-3">
                       {expSkills.map(({ title, slug }) => (
-                        <li class="flex items-center gap-2" title={title}>
-                          <i class="flex h-5 w-5 items-center justify-center">
+                        <li
+                          class="inline-flex items-center gap-1.5 rounded-sm border border-ink/15 px-2.5 py-1 transition hover:border-rust/40 dark:border-ink-dark/20 dark:hover:border-rust-soft/45"
+                          title={title}
+                        >
+                          <i class="flex h-3.5 w-3.5 items-center justify-center text-muted dark:text-ink-dark-soft">
                             <TechIcon
                               client:load
                               slug={slug}
                               title={title}
-                              size={18}
+                              size={14}
                             />
                           </i>
-                          <span class="font-jetbrains-mono text-2xs tracking-label uppercase">
+                          <span class="font-jetbrains-mono text-2xs tracking-label text-ink-soft uppercase dark:text-ink-dark-soft">
                             {title}
                           </span>
                         </li>
@@ -123,7 +238,8 @@ const stats = [
                     </ul>
                   )}
                 </Article>
-              ) : null
+              );
+            }
           )}
         </Section>
       )
@@ -131,8 +247,14 @@ const stats = [
 
     {
       projects?.length > 0 && (
-        <Section client:load number="03" title="Проекты" id="projects">
-          <section class="grid gap-4 sm:gap-5 md:grid-cols-2 lg:grid-cols-3">
+        <Section
+          client:load
+          number="03"
+          title="Проекты"
+          meta={`${projects.length} ${plural(projects.length, 'проект', 'проекта', 'проектов')}`}
+          id="projects"
+        >
+          <section class="grid gap-4 sm:gap-5 md:grid-cols-2 lg:grid-cols-3 2xl:gap-6">
             {projects.map((p, i) => (
               <ProjectCard
                 client:load
@@ -177,7 +299,7 @@ const stats = [
               <p class="font-jetbrains-mono text-2xs tracking-meta text-muted uppercase dark:text-ink-dark-soft">
                 Основной стек
               </p>
-              <ul class="flex flex-wrap gap-6">
+              <ul class="flex flex-wrap gap-6 2xl:gap-8">
                 {skills.main.map(({ title, slug }) => (
                   <li
                     class="flex items-center gap-3 text-ink dark:text-ink-dark"
@@ -203,7 +325,7 @@ const stats = [
               <p class="font-jetbrains-mono text-2xs tracking-meta text-muted uppercase dark:text-ink-dark-soft">
                 Языки и технологии
               </p>
-              <section class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              <section class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
                 {techStack.map(({ title, slug, description }) => (
                   <TechCard
                     client:load
@@ -282,7 +404,7 @@ const stats = [
     {
       (languages?.length || books?.length) && (
         <Section client:load number="06" title="Чтение и языки" id="reading">
-          <section class="grid gap-10 md:grid-cols-2">
+          <section class="grid gap-10 md:grid-cols-2 2xl:gap-16">
             {languages?.length > 0 && (
               <section class="space-y-4">
                 <p class="font-jetbrains-mono text-2xs tracking-meta text-muted uppercase dark:text-ink-dark-soft">
@@ -328,9 +450,11 @@ const stats = [
 
     <footer
       id="contact"
-      class="scroll-mt-24 border-t border-ink/12 px-4 pt-12 pb-16 sm:px-8 dark:border-ink-dark/15"
+      class="scroll-mt-24 border-t border-ink/12 px-4 pt-12 pb-16 sm:px-8 2xl:px-12 2xl:pt-16 2xl:pb-24 dark:border-ink-dark/15"
     >
-      <section class="flex flex-wrap items-center justify-between gap-6">
+      <section
+        class="flex flex-wrap items-center justify-between gap-6 2xl:gap-10"
+      >
         <section class="space-y-2">
           <p
             class="font-jetbrains-mono text-2xs tracking-meta text-muted uppercase dark:text-ink-dark-soft"
@@ -339,12 +463,12 @@ const stats = [
           </p>
           <a
             href={`mailto:${email}`}
-            class="font-lora text-2xl text-rust italic underline decoration-rust/30 underline-offset-4 transition hover:decoration-rust sm:text-3xl dark:text-rust-soft"
+            class="font-lora text-2xl text-rust italic underline decoration-rust/30 underline-offset-4 transition hover:decoration-rust sm:text-3xl 2xl:text-4xl dark:text-rust-soft"
           >
             {email}
           </a>
         </section>
-        <nav class="flex flex-wrap items-center gap-5">
+        <nav class="flex flex-wrap items-center gap-5 2xl:gap-7">
           {
             nav.map(({ href, slug, title }) => (
               <a
