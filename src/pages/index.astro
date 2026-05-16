@@ -8,11 +8,12 @@ import TechIcon from '@components/TechIcon.svelte';
 import TechCard from '@components/TechCard.svelte';
 import ProjectCard from '@components/ProjectCard.svelte';
 import TimelineRow from '@components/TimelineRow.svelte';
+import LongPathRow from '@components/LongPathRow.svelte';
 
 import {
   about,
   books,
-  education,
+  currentRole,
   email,
   experience,
   fullName,
@@ -21,7 +22,6 @@ import {
   location,
   nav,
   position,
-  positionAccent,
   projects,
   sections,
   shortName,
@@ -29,18 +29,39 @@ import {
   timeline
 } from '../data';
 
-const stats = [
-    { value: String(experience.length), label: 'мест работы' },
-    { value: String(skills.hard.languages.length), label: 'языков' },
-    { value: String(skills.hard.technologies.length), label: 'технологий' },
-    {
-      value: String(education.main.length + education.additional.length),
-      label: 'образований'
-    },
-    { value: String(books.length), label: 'книг прочитано' }
-  ],
-  mainStack = skills.main.map((s) => s.title),
-  techStack = [...skills.hard.languages, ...skills.hard.technologies];
+const techStack = [...skills.hard.languages, ...skills.hard.technologies];
+
+const currentJobs = experience
+  .filter((e) => !e.end)
+  .map((e) => e.shortLabel ?? e.company.split(' ').pop() ?? e.company);
+
+const stackShort = skills.main.slice(0, 3).map((s) => s.title);
+
+const githubLink = nav.find((n) => n.slug === 'github');
+const telegramLink = nav.find((n) => n.slug === 'telegram');
+const contactLinks = [
+  ...(githubLink ? [{ href: githubLink.href, label: 'github' }] : []),
+  ...(telegramLink ? [{ href: telegramLink.href, label: 'tg' }] : []),
+  { href: `mailto:${email}`, label: 'mail' }
+];
+
+const longPathYearRe = /^(\d{4})\s*год:\s*(.+)$/i;
+const longPath: { year: number; title: string; description: string }[] = [];
+for (const block of about) {
+  for (const line of block.split('\n')) {
+    const m = line.match(longPathYearRe);
+    if (!m) continue;
+    const year = Number(m[1]);
+    const body = m[2].trim();
+    const splitIdx = body.search(/[.!?](?:\s|$)/);
+    const title = splitIdx > 0 ? body.slice(0, splitIdx) : body;
+    const description = splitIdx > 0 ? body.slice(splitIdx + 2).trim() : '';
+    longPath.push({ year, title: title.trim(), description });
+  }
+}
+longPath.sort((a, b) => a.year - b.year);
+
+const aboutShort = about[0]?.split('\n').slice(0, 2) ?? [];
 
 const RU_MONTHS: Record<string, number> = {
   январь: 0,
@@ -130,26 +151,41 @@ function parseDescription(desc?: string): DescriptionBlock[] {
       client:load
       {shortName}
       {position}
-      {positionAccent}
       {email}
       {location}
-      {mainStack}
-      {stats}
+      {currentJobs}
+      {currentRole}
+      {stackShort}
+      {contactLinks}
       {sections}
     />
 
     {
-      about?.length > 0 && (
+      aboutShort.length > 0 && (
         <Section client:load number="01" title="Обо мне" id="about">
-          <article class="max-w-3xl space-y-6 text-base leading-relaxed sm:text-lg 2xl:max-w-4xl 2xl:text-xl">
-            {about.map((paragraph) => (
-              <section class="space-y-3">
-                {paragraph.split('\n').map((row) => (
-                  <p class="text-ink-soft dark:text-ink-dark-soft">{row}</p>
-                ))}
-              </section>
+          <article class="space-y-6 text-base leading-relaxed sm:text-lg 2xl:text-xl">
+            {aboutShort.map((row) => (
+              <p class="text-ink-soft dark:text-ink-dark-soft">{row}</p>
             ))}
           </article>
+        </Section>
+      )
+    }
+
+    {
+      longPath.length > 0 && (
+        <Section client:load number="02" title="Долгий путь" id="longpath">
+          <section>
+            {longPath.map((row, i) => (
+              <LongPathRow
+                client:load
+                year={row.year}
+                title={row.title}
+                description={row.description}
+                isLast={i === longPath.length - 1}
+              />
+            ))}
+          </section>
         </Section>
       )
     }
@@ -158,7 +194,7 @@ function parseDescription(desc?: string): DescriptionBlock[] {
       experience?.length > 0 && (
         <Section
           client:load
-          number="02"
+          number="03"
           title="Опыт работы"
           meta={`${experience.length} ${plural(experience.length, 'место', 'места', 'мест')}`}
           id="experience"
@@ -188,11 +224,11 @@ function parseDescription(desc?: string): DescriptionBlock[] {
                   index={i + 1}
                 >
                   {blocks.length > 0 && (
-                    <section class="space-y-4 text-sm leading-relaxed text-ink-soft sm:text-base dark:text-ink-dark-soft">
+                    <section class="space-y-4 text-sm leading-relaxed text-ink-soft sm:text-base 2xl:text-lg dark:text-ink-dark-soft">
                       {blocks.map((block) => (
                         <section class="space-y-2">
                           {block.label && (
-                            <p class="font-jetbrains-mono text-2xs tracking-meta text-muted uppercase dark:text-ink-dark-soft">
+                            <p class="font-jetbrains-mono text-2xs tracking-meta text-muted uppercase 2xl:text-sm dark:text-ink-dark-soft">
                               {block.label}
                             </p>
                           )}
@@ -230,7 +266,7 @@ function parseDescription(desc?: string): DescriptionBlock[] {
                               size={14}
                             />
                           </i>
-                          <span class="font-jetbrains-mono text-2xs tracking-label text-ink-soft uppercase dark:text-ink-dark-soft">
+                          <span class="font-jetbrains-mono text-2xs tracking-label text-ink-soft uppercase 2xl:text-sm dark:text-ink-dark-soft">
                             {title}
                           </span>
                         </li>
@@ -249,7 +285,7 @@ function parseDescription(desc?: string): DescriptionBlock[] {
       projects?.length > 0 && (
         <Section
           client:load
-          number="03"
+          number="04"
           title="Проекты"
           meta={`${projects.length} ${plural(projects.length, 'проект', 'проекта', 'проектов')}`}
           id="projects"
@@ -273,7 +309,7 @@ function parseDescription(desc?: string): DescriptionBlock[] {
 
     {
       timeline?.length > 0 && (
-        <Section client:load number="04" title="Хронология" id="timeline">
+        <Section client:load number="05" title="Хронология" id="timeline">
           <section>
             {timeline.map(({ year, title, subtitle }) => (
               <TimelineRow
@@ -293,10 +329,10 @@ function parseDescription(desc?: string): DescriptionBlock[] {
         skills.hard?.languages?.length ||
         skills.hard?.technologies?.length ||
         skills.hard?.patterns?.length) && (
-        <Section client:load number="05" title="Стек" id="stack">
+        <Section client:load number="06" title="Стек" id="stack">
           {skills.main?.length > 0 && (
             <section class="space-y-4">
-              <p class="font-jetbrains-mono text-2xs tracking-meta text-muted uppercase dark:text-ink-dark-soft">
+              <p class="font-jetbrains-mono text-2xs tracking-meta text-muted uppercase 2xl:text-sm dark:text-ink-dark-soft">
                 Основной стек
               </p>
               <ul class="flex flex-wrap gap-6 2xl:gap-8">
@@ -322,7 +358,7 @@ function parseDescription(desc?: string): DescriptionBlock[] {
 
           {techStack.length > 0 && (
             <section class="space-y-4">
-              <p class="font-jetbrains-mono text-2xs tracking-meta text-muted uppercase dark:text-ink-dark-soft">
+              <p class="font-jetbrains-mono text-2xs tracking-meta text-muted uppercase 2xl:text-sm dark:text-ink-dark-soft">
                 Языки и технологии
               </p>
               <section class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
@@ -340,7 +376,7 @@ function parseDescription(desc?: string): DescriptionBlock[] {
 
           {skills.hard?.patterns?.length > 0 && (
             <section class="space-y-4">
-              <p class="font-jetbrains-mono text-2xs tracking-meta text-muted uppercase dark:text-ink-dark-soft">
+              <p class="font-jetbrains-mono text-2xs tracking-meta text-muted uppercase 2xl:text-sm dark:text-ink-dark-soft">
                 Паттерны
               </p>
               <ul class="flex flex-wrap gap-2">
@@ -355,7 +391,7 @@ function parseDescription(desc?: string): DescriptionBlock[] {
 
           {skills.tools?.length > 0 && (
             <section class="space-y-4">
-              <p class="font-jetbrains-mono text-2xs tracking-meta text-muted uppercase dark:text-ink-dark-soft">
+              <p class="font-jetbrains-mono text-2xs tracking-meta text-muted uppercase 2xl:text-sm dark:text-ink-dark-soft">
                 Инструменты
               </p>
               <ul class="flex flex-wrap gap-2">
@@ -370,7 +406,7 @@ function parseDescription(desc?: string): DescriptionBlock[] {
 
           {skills.soft?.length > 0 && (
             <section class="space-y-4">
-              <p class="font-jetbrains-mono text-2xs tracking-meta text-muted uppercase dark:text-ink-dark-soft">
+              <p class="font-jetbrains-mono text-2xs tracking-meta text-muted uppercase 2xl:text-sm dark:text-ink-dark-soft">
                 Гибкие навыки
               </p>
               <ul class="flex flex-wrap gap-2">
@@ -385,7 +421,7 @@ function parseDescription(desc?: string): DescriptionBlock[] {
 
           {skills.other?.length > 0 && (
             <section class="space-y-4">
-              <p class="font-jetbrains-mono text-2xs tracking-meta text-muted uppercase dark:text-ink-dark-soft">
+              <p class="font-jetbrains-mono text-2xs tracking-meta text-muted uppercase 2xl:text-sm dark:text-ink-dark-soft">
                 Другое
               </p>
               <ul class="flex flex-wrap gap-2">
@@ -403,11 +439,11 @@ function parseDescription(desc?: string): DescriptionBlock[] {
 
     {
       (languages?.length || books?.length) && (
-        <Section client:load number="06" title="Чтение и языки" id="reading">
+        <Section client:load number="07" title="Чтение и языки" id="reading">
           <section class="grid gap-10 md:grid-cols-2 2xl:gap-16">
             {languages?.length > 0 && (
               <section class="space-y-4">
-                <p class="font-jetbrains-mono text-2xs tracking-meta text-muted uppercase dark:text-ink-dark-soft">
+                <p class="font-jetbrains-mono text-2xs tracking-meta text-muted uppercase 2xl:text-sm dark:text-ink-dark-soft">
                   Языки
                 </p>
                 <ul class="space-y-3">
@@ -416,7 +452,7 @@ function parseDescription(desc?: string): DescriptionBlock[] {
                       <span class="text-base text-ink dark:text-ink-dark">
                         {title}
                       </span>
-                      <span class="font-jetbrains-mono text-2xs tracking-label text-muted uppercase dark:text-ink-dark-soft">
+                      <span class="font-jetbrains-mono text-2xs tracking-label text-muted uppercase 2xl:text-sm dark:text-ink-dark-soft">
                         {level}
                       </span>
                     </li>
@@ -426,7 +462,7 @@ function parseDescription(desc?: string): DescriptionBlock[] {
             )}
             {books?.length > 0 && (
               <section class="space-y-4">
-                <p class="font-jetbrains-mono text-2xs tracking-meta text-muted uppercase dark:text-ink-dark-soft">
+                <p class="font-jetbrains-mono text-2xs tracking-meta text-muted uppercase 2xl:text-sm dark:text-ink-dark-soft">
                   Прочитано
                 </p>
                 <ul class="space-y-3">
@@ -435,7 +471,7 @@ function parseDescription(desc?: string): DescriptionBlock[] {
                       <p class="text-base text-ink dark:text-ink-dark">
                         {name}
                       </p>
-                      <address class="font-jetbrains-mono text-2xs tracking-label text-muted uppercase not-italic dark:text-ink-dark-soft">
+                      <address class="font-jetbrains-mono text-2xs tracking-label text-muted uppercase not-italic 2xl:text-sm dark:text-ink-dark-soft">
                         {author}
                       </address>
                     </li>
@@ -457,7 +493,7 @@ function parseDescription(desc?: string): DescriptionBlock[] {
       >
         <section class="space-y-2">
           <p
-            class="font-jetbrains-mono text-2xs tracking-meta text-muted uppercase dark:text-ink-dark-soft"
+            class="font-jetbrains-mono text-2xs tracking-meta text-muted uppercase 2xl:text-sm dark:text-ink-dark-soft"
           >
             Связаться
           </p>
@@ -486,7 +522,7 @@ function parseDescription(desc?: string): DescriptionBlock[] {
                     size={18}
                   />
                 </i>
-                <span class="font-jetbrains-mono text-2xs tracking-label uppercase">
+                <span class="font-jetbrains-mono text-2xs tracking-label uppercase 2xl:text-sm">
                   {title}
                 </span>
               </a>
@@ -509,7 +545,7 @@ function parseDescription(desc?: string): DescriptionBlock[] {
                     size={18}
                   />
                 </i>
-                <span class="font-jetbrains-mono text-2xs tracking-label uppercase">
+                <span class="font-jetbrains-mono text-2xs tracking-label uppercase 2xl:text-sm">
                   {title}
                 </span>
               </a>

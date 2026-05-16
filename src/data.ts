@@ -22,6 +22,7 @@ export interface Experience {
   end?: string;
   description?: string;
   skills?: Skill[];
+  shortLabel?: string;
 }
 
 export interface Project {
@@ -346,6 +347,7 @@ export const fullName = 'Алексеев Пётр Сергеевич',
   shortName = 'Алексеев П.С.',
   position = 'Full stack developer',
   positionAccent = 'developer',
+  currentRole = 'Full-stack · CEO',
   email = 'alexeev.dauwalter@gmail.com',
   location = 'Великий Новгород, Россия';
 
@@ -414,6 +416,7 @@ export const education = {
 export const experience: Experience[] = [
   {
     company: 'Московская Школа Управления СКОЛКОВО',
+    shortLabel: 'Сколково',
     position: 'Разработчик',
     begin: 'Ноябрь 2024',
     skills: [
@@ -426,6 +429,7 @@ export const experience: Experience[] = [
   },
   {
     company: '41T',
+    shortLabel: '41T',
     position: 'Founder | CEO | Full stack engineer',
     begin: 'Февраль 2023',
     description:
@@ -678,9 +682,10 @@ export const links: Link[] = [
   ],
   sections = [
     { number: '01', title: 'Обо мне', id: 'about' },
-    { number: '02', title: 'Опыт работы', id: 'experience' },
-    { number: '03', title: 'Проекты', id: 'projects' },
-    { number: '04', title: 'Хронология', id: 'timeline' },
-    { number: '05', title: 'Стек', id: 'stack' },
-    { number: '06', title: 'Чтение и языки', id: 'reading' }
+    { number: '02', title: 'Долгий путь', id: 'longpath' },
+    { number: '03', title: 'Опыт работы', id: 'experience' },
+    { number: '04', title: 'Проекты', id: 'projects' },
+    { number: '05', title: 'Хронология', id: 'timeline' },
+    { number: '06', title: 'Стек', id: 'stack' },
+    { number: '07', title: 'Чтение и языки', id: 'reading' }
   ];

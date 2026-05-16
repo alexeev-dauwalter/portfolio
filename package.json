@@ -15,7 +15,6 @@
     "@fontsource/lora": "^5.2.8",
     "@tailwindcss/vite": "^4.1.14",
     "astro": "^5.14.1",
-    "simple-icons": "^16.19.0",
     "svelte": "^5.39.8",
     "tailwindcss": "^4.1.14",
     "typescript": "^5.9.3"

@@ -15,20 +15,20 @@
   </time>
   <hgroup class="space-y-1">
     <p
-      class="flex gap-2.5 text-sm font-medium text-ink sm:text-base dark:text-ink-dark"
+      class="flex gap-2.5 text-sm font-medium text-ink sm:text-base 2xl:text-lg dark:text-ink-dark"
     >
       <span class="text-rust dark:text-rust-soft" aria-hidden="true">•</span>
       <span>{title}</span>
     </p>
     {#if subtitle}
-      <p class="pl-5 text-sm text-ink-soft dark:text-ink-dark-soft">
+      <p class="pl-5 text-sm text-ink-soft 2xl:text-base dark:text-ink-dark-soft">
         {subtitle}
       </p>
     {/if}
   </hgroup>
   {#if tag}
     <span
-      class="font-jetbrains-mono text-3xs tracking-meta text-muted/80 uppercase sm:self-start sm:text-right dark:text-ink-dark-soft/80"
+      class="font-jetbrains-mono text-3xs tracking-meta text-muted/80 uppercase sm:self-start sm:text-right 2xl:text-xs dark:text-ink-dark-soft/80"
     >
       {tag}
     </span>

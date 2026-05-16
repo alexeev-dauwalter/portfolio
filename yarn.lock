@@ -2858,11 +2858,6 @@ shiki@^3.12.0, shiki@^3.12.2:
     "@shikijs/vscode-textmate" "^10.0.2"
     "@types/hast" "^3.0.4"
 
-simple-icons@^16.19.0:
-  version "16.19.0"
-  resolved "https://registry.yarnpkg.com/simple-icons/-/simple-icons-16.19.0.tgz#e1ef0aab3c2d4695ad15810773da0c3ff4945ee4"
-  integrity sha512-muxcz/FDvWFPrKJdsjaz79qsBjtZeVKUVIFl7wLVOwb+yqAag8FPe8+hFlMVRnmAXYQIm4eUDDm2+dhOj0cFgQ==
-
 sisteransi@^1.0.5:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/sisteransi/-/sisteransi-1.0.5.tgz#134d681297756437cc05ca01370d3a7a571075ed"

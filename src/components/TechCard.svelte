@@ -15,12 +15,12 @@
     >
       <TechIcon {slug} {title} size={28} />
     </i>
-    <h3 class="font-inter text-base font-medium text-ink dark:text-ink-dark">
+    <h3 class="font-inter text-base font-medium text-ink 2xl:text-lg dark:text-ink-dark">
       {title}
     </h3>
   </header>
   {#if description}
-    <p class="text-sm leading-snug text-ink-soft dark:text-ink-dark-soft">
+    <p class="text-sm leading-snug text-ink-soft 2xl:text-base dark:text-ink-dark-soft">
       {description}
     </p>
   {/if}

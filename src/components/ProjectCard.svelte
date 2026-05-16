@@ -19,7 +19,7 @@
 >
   <header class="flex items-baseline justify-between gap-3">
     <span
-      class="font-jetbrains-mono text-2xs tracking-meta text-muted/80 uppercase dark:text-ink-dark-soft/80"
+      class="font-jetbrains-mono text-2xs tracking-meta text-muted/80 uppercase 2xl:text-sm dark:text-ink-dark-soft/80"
     >
       {indexLabel}
     </span>
@@ -40,7 +40,7 @@
     </h3>
     {#if tag}
       <p
-        class="font-jetbrains-mono text-3xs tracking-meta text-muted uppercase dark:text-ink-dark-soft"
+        class="font-jetbrains-mono text-3xs tracking-meta text-muted uppercase 2xl:text-xs dark:text-ink-dark-soft"
       >
         {tag}
       </p>
@@ -48,7 +48,7 @@
   </hgroup>
 
   <p
-    class="grow text-sm leading-relaxed text-ink-soft dark:text-ink-dark-soft"
+    class="grow text-sm leading-relaxed text-ink-soft 2xl:text-base dark:text-ink-dark-soft"
   >
     {description}
   </p>
@@ -57,7 +57,7 @@
     <ul class="flex flex-wrap gap-1.5">
       {#each stack as { title }}
         <li
-          class="rounded-sm border border-ink/12 px-2 py-0.5 font-jetbrains-mono text-3xs tracking-label text-muted uppercase dark:border-ink-dark/20 dark:text-ink-dark-soft"
+          class="rounded-sm border border-ink/12 px-2 py-0.5 font-jetbrains-mono text-3xs tracking-label text-muted uppercase 2xl:text-xs dark:border-ink-dark/20 dark:text-ink-dark-soft"
         >
           {title}
         </li>

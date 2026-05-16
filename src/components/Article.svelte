@@ -16,13 +16,13 @@
 >
   <header class="space-y-2">
     <time
-      class="block font-jetbrains-mono text-xs tracking-meta text-muted uppercase dark:text-ink-dark-soft"
+      class="block font-jetbrains-mono text-xs tracking-meta text-muted uppercase 2xl:text-sm dark:text-ink-dark-soft"
     >
       {dateLabel}
     </time>
     {#if durationLabel}
       <p
-        class="font-jetbrains-mono text-3xs tracking-meta text-muted/70 uppercase dark:text-ink-dark-soft/70"
+        class="font-jetbrains-mono text-3xs tracking-meta text-muted/70 uppercase 2xl:text-xs dark:text-ink-dark-soft/70"
       >
         {durationLabel}
       </p>
@@ -33,7 +33,7 @@
       <H2>{title}</H2>
       {#if subtitle}
         <p
-          class="font-lora text-base text-ink-soft italic dark:text-ink-dark-soft"
+          class="font-lora text-base text-ink-soft italic 2xl:text-lg dark:text-ink-dark-soft"
         >
           {subtitle}
         </p>
@@ -42,7 +42,7 @@
     <slot />
   </section>
   <aside
-    class="hidden font-jetbrains-mono text-3xs tracking-meta text-muted/70 uppercase md:block md:text-right dark:text-ink-dark-soft/70"
+    class="hidden font-jetbrains-mono text-3xs tracking-meta text-muted/70 uppercase md:block md:text-right 2xl:text-xs dark:text-ink-dark-soft/70"
   >
     {indexLabel}
   </aside>
