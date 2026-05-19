@@ -17,7 +17,6 @@ import {
   experience,
   fullName,
   languages,
-  links,
   nav,
   projects,
   sections,
@@ -550,24 +549,6 @@ function parseDescription(desc?: string): DescriptionBlock[] {
         <nav class="flex flex-wrap items-center gap-5 2xl:gap-7">
           {
             nav.map(({ href, slug, title }) => (
-              <a
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={title}
-                class="text-ink-soft hover:text-rust dark:text-ink-dark-soft dark:hover:text-rust-soft flex items-center gap-2 transition"
-              >
-                <i class="flex h-5 w-5 items-center justify-center">
-                  <TechIcon client:load slug={slug} title={title} size={18} />
-                </i>
-                <span class="font-jetbrains-mono text-2xs tracking-label uppercase 2xl:text-sm">
-                  {title}
-                </span>
-              </a>
-            ))
-          }
-          {
-            links.map(({ href, slug, title }) => (
               <a
                 href={href}
                 target="_blank"
