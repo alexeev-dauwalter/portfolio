@@ -13,8 +13,7 @@
     };
   }
 
-  export let shortName: string = '',
-    position: string = '',
+  export let position: string = '',
     email: string = '',
     currentJobs: string[] = [],
     currentRole: string = '',
@@ -66,11 +65,6 @@
   <section
     class="mb-12 flex flex-wrap items-center justify-between gap-x-6 gap-y-3 sm:mb-16"
   >
-    <span
-      class="font-jetbrains-mono tracking-meta text-ink dark:text-ink-dark text-xs 2xl:text-sm"
-    >
-      {shortName}
-    </span>
     <nav
       class="order-3 flex w-full flex-wrap items-center gap-x-3 gap-y-2 sm:order-none sm:w-auto sm:gap-x-4 2xl:gap-x-6"
     >
