@@ -344,9 +344,6 @@ const ProgrammingLanguage = {
 } satisfies Record<string, Skill>;
 
 export const fullName = 'Алексеев Пётр Сергеевич',
-  position = 'Product Manager | Team Lead | Full Stack Engineer',
-  positionAccent = 'engineer',
-  currentRole = 'Full Stack Engineer',
   email = 'alexeev.dauwalter@gmail.com';
 
 export const skills = {
