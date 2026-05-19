@@ -81,10 +81,10 @@
 
 <header class="px-4 pt-8 pb-12 sm:px-8 sm:pt-12 md:pt-16 2xl:px-12 2xl:pt-20">
   <section
-    class="mb-12 flex flex-wrap items-center justify-end gap-x-6 gap-y-3 sm:mb-16 sm:justify-between"
+    class="mb-12 flex flex-wrap items-center justify-end gap-x-6 gap-y-3 sm:mb-16"
   >
     <nav
-      class="order-3 flex w-full flex-wrap items-center gap-x-3 gap-y-2 sm:order-none sm:w-auto sm:gap-x-4 2xl:gap-x-6"
+      class="order-3 flex w-full flex-wrap items-center gap-x-3 gap-y-2 sm:gap-x-4 2xl:gap-x-6"
     >
       {#each sections as { title, id }, i}
         {#if i > 0}
