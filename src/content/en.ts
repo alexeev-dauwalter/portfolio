@@ -329,13 +329,6 @@ export const enContent: Content = {
         'Dice-roll calculator supporting complex expressions and modifiers.',
       stack: [L.rust],
       github: 'https://github.com/alexeev-dauwalter/dicecalc'
-    },
-    {
-      name: 'My Keymap App',
-      description:
-        'Tauri desktop app for managing keyboard layouts and hotkeys.',
-      stack: [L.rust, T.astro, T.svelte],
-      github: 'https://github.com/alexeev-dauwalter/my-keymap-app'
     }
   ],
   commercialProjects: [
