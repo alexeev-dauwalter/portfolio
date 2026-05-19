@@ -13,7 +13,6 @@ import LongPathRow from '@components/LongPathRow.svelte';
 import {
   about,
   books,
-  currentRole,
   email,
   experience,
   fullName,
@@ -28,9 +27,14 @@ import {
 
 const techStack = [...skills.hard.languages, ...skills.hard.technologies];
 
-const currentJobs = experience
-  .filter((e) => !e.end)
-  .map((e) => e.shortLabel ?? e.company.split(' ').pop() ?? e.company);
+const currentExperience = experience.filter((e) => !e.end);
+const currentJobs = currentExperience.map(
+  (e) => e.shortLabel ?? e.company.split(' ').pop() ?? e.company
+);
+const currentRoles = currentExperience
+  .map((e) => e.position)
+  .filter(Boolean)
+  .join(' · ');
 
 const stackShort = skills.main.slice(0, 3).map((s) => s.title);
 
@@ -192,7 +196,7 @@ function parseDescription(desc?: string): DescriptionBlock[] {
       client:load
       {email}
       {currentJobs}
-      {currentRole}
+      currentRole={currentRoles}
       {stackShort}
       {contactLinks}
       {connectLinks}
