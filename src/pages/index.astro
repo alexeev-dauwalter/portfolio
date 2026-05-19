@@ -9,6 +9,7 @@ import TechCard from '@components/TechCard.svelte';
 import ProjectCard from '@components/ProjectCard.svelte';
 import TimelineRow from '@components/TimelineRow.svelte';
 import LongPathRow from '@components/LongPathRow.svelte';
+import avatar from '../assets/avatar.png';
 
 import {
   about,
@@ -262,6 +263,8 @@ function parseDescription(desc?: string): DescriptionBlock[] {
       {contactLinks}
       {connectLinks}
       {sections}
+      avatarSrc={avatar.src}
+      avatarAlt={fullName}
     />
 
     {

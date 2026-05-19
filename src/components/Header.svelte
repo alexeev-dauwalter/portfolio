@@ -25,7 +25,9 @@
       handle: string;
       slug: string;
     }[] = [],
-    sections: { number: string; title: string; id: string }[] = [];
+    sections: { number: string; title: string; id: string }[] = [],
+    avatarSrc: string = '',
+    avatarAlt: string = '';
 
   let open = false;
   let triggerRef: HTMLButtonElement;
@@ -168,31 +170,51 @@
     {/if}
   </section>
 
-  <h1
-    class="font-inter leading-hero text-ink dark:text-ink-dark mt-6 max-w-5xl text-4xl font-medium tracking-tight sm:mt-8 sm:text-5xl md:text-6xl lg:text-7xl 2xl:mt-12 2xl:text-8xl"
+  <div
+    class="grid gap-8 md:grid-cols-[minmax(0,1fr)_auto] md:items-center md:gap-12 lg:gap-16 2xl:gap-20"
   >
-    Программирование —
-    <em class="font-lora text-rust dark:text-rust-soft font-normal italic"
-      >не профессия,</em
-    ><br />
-    а образ жизни.
-  </h1>
+    <div class="order-2 md:order-1">
+      <h1
+        class="font-inter leading-hero text-ink dark:text-ink-dark max-w-5xl text-4xl font-medium tracking-tight sm:text-5xl md:text-6xl lg:text-7xl 2xl:text-8xl"
+      >
+        Программирование —
+        <em class="font-lora text-rust dark:text-rust-soft font-normal italic"
+          >не профессия,</em
+        ><br />
+        а образ жизни.
+      </h1>
 
-  <p
-    class="text-ink-soft dark:text-ink-dark-soft mt-6 max-w-2xl text-base leading-relaxed sm:mt-8 sm:text-lg 2xl:mt-10 2xl:max-w-3xl 2xl:text-xl"
-  >
-    Меня зовут Пётр Алексеев. Пишу софт уже четырнадцатый год — от школьного
-    <code
-      class="bg-cream-soft/60 font-jetbrains-mono text-ink dark:bg-cream-dark-soft/60 dark:text-ink-dark rounded-sm px-1 py-0.5 text-[0.92em]"
-      >PascalABC.NET</code
-    >
-    до асинхронного
-    <code
-      class="bg-cream-soft/60 font-jetbrains-mono text-ink dark:bg-cream-dark-soft/60 dark:text-ink-dark rounded-sm px-1 py-0.5 text-[0.92em]"
-      >Rust</code
-    >. Делаю продукты, в которых видно работу: код, который не стыдно показать,
-    и интерфейсы, которые не стыдно отдать людям.
-  </p>
+      <p
+        class="text-ink-soft dark:text-ink-dark-soft mt-6 max-w-2xl text-base leading-relaxed sm:mt-8 sm:text-lg 2xl:mt-10 2xl:max-w-3xl 2xl:text-xl"
+      >
+        Меня зовут Пётр Алексеев. Пишу софт уже четырнадцатый год — от школьного
+        <code
+          class="bg-cream-soft/60 font-jetbrains-mono text-ink dark:bg-cream-dark-soft/60 dark:text-ink-dark rounded-sm px-1 py-0.5 text-[0.92em]"
+          >PascalABC.NET</code
+        >
+        до асинхронного
+        <code
+          class="bg-cream-soft/60 font-jetbrains-mono text-ink dark:bg-cream-dark-soft/60 dark:text-ink-dark rounded-sm px-1 py-0.5 text-[0.92em]"
+          >Rust</code
+        >. Делаю продукты, в которых видно работу: код, который не стыдно
+        показать, и интерфейсы, которые не стыдно отдать людям.
+      </p>
+    </div>
+
+    {#if avatarSrc}
+      <div class="order-1 shrink-0 md:order-2">
+        <img
+          src={avatarSrc}
+          alt={avatarAlt}
+          width="320"
+          height="320"
+          loading="eager"
+          decoding="async"
+          class="ring-ink/10 dark:ring-ink-dark/15 h-40 w-40 rounded-full object-cover ring-1 sm:h-52 sm:w-52 md:h-56 md:w-56 lg:h-64 lg:w-64 2xl:h-80 2xl:w-80"
+        />
+      </div>
+    {/if}
+  </div>
 
   <aside
     class="border-ink/10 dark:border-ink-dark/15 mt-12 grid grid-cols-2 gap-x-6 gap-y-8 border-t pt-6 sm:mt-16 md:grid-cols-4 2xl:mt-20 2xl:gap-x-12 2xl:pt-10"
