@@ -1,6 +1,6 @@
 <script lang="ts">
   import TechIcon from './TechIcon.svelte';
-  import type { Skill } from '../data';
+  import type { Skill } from '../content/types';
 
   export let name: string,
     description: string,
@@ -55,11 +55,19 @@
 
   {#if stack?.length}
     <ul class="flex flex-wrap gap-1.5">
-      {#each stack as { title }}
+      {#each stack as { title, slug }}
         <li
-          class="rounded-sm border border-ink/12 px-2 py-0.5 font-jetbrains-mono text-3xs tracking-label text-muted uppercase 2xl:text-xs dark:border-ink-dark/20 dark:text-ink-dark-soft"
+          class="inline-flex items-center gap-1.5 rounded-sm border border-ink/12 px-2 py-0.5 transition hover:border-rust/40 dark:border-ink-dark/20 dark:hover:border-rust-soft/45"
+          title={title}
         >
-          {title}
+          <i class="flex h-3 w-3 items-center justify-center text-muted dark:text-ink-dark-soft">
+            <TechIcon slug={slug} title={title} size={12} />
+          </i>
+          <span
+            class="font-jetbrains-mono text-3xs tracking-label text-muted uppercase 2xl:text-xs dark:text-ink-dark-soft"
+          >
+            {title}
+          </span>
         </li>
       {/each}
     </ul>
