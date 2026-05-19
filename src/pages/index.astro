@@ -41,8 +41,14 @@ const telegramLink = nav.find((n) => n.slug === 'telegram');
 const xLink = nav.find((n) => n.slug === 'x');
 const linkedinLink = nav.find((n) => n.slug === 'linkedin');
 const contactLinks = [
-  ...(telegramLink ? [{ href: telegramLink.href, label: 'tg' }] : []),
-  { href: `mailto:${email}`, label: 'mail' }
+  ...(telegramLink
+    ? [{ href: telegramLink.href, label: 'telegram' }]
+    : []),
+  { href: `mailto:${email}`, label: 'email' },
+  ...(xLink ? [{ href: xLink.href, label: 'x.com' }] : []),
+  ...(linkedinLink
+    ? [{ href: linkedinLink.href, label: 'linkedin' }]
+    : [])
 ];
 
 function handleFromUrl(href: string): string {
