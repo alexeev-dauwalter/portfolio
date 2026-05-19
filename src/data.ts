@@ -339,17 +339,16 @@ const ProgrammingLanguage = {
   python: {
     title: 'Python',
     slug: 'python',
-    description: 'Скрипты, ML-эксперименты, веб на Django/Flask.'
+    description: 'Скрипты, ML-эксперименты.'
   }
 } satisfies Record<string, Skill>;
 
 export const fullName = 'Алексеев Пётр Сергеевич',
   shortName = 'Алексеев П.С.',
-  position = 'Full stack developer',
-  positionAccent = 'developer',
-  currentRole = 'Full-stack · CEO',
-  email = 'alexeev.dauwalter@gmail.com',
-  location = 'Великий Новгород, Россия';
+  position = 'Product Manager | Team Lead | Full Stack Engineer',
+  positionAccent = 'engineer',
+  currentRole = 'Full Stack Engineer',
+  email = 'alexeev.dauwalter@gmail.com';
 
 export const skills = {
   main: [
@@ -417,13 +416,16 @@ export const experience: Experience[] = [
   {
     company: 'Московская Школа Управления СКОЛКОВО',
     shortLabel: 'Сколково',
-    position: 'Разработчик',
+    position: 'Product Manager | Team Lead | Full Stack Engineer',
     begin: 'Ноябрь 2024',
     skills: [
       Technology.vuejs,
       Technology.laravel,
       Technology.tailwindcss,
       ProgrammingLanguage.javascript,
+      ProgrammingLanguage.typescript,
+      ProgrammingLanguage.php,
+      ProgrammingLanguage.python,
       ProgrammingLanguage.go
     ]
   },
@@ -570,14 +572,24 @@ export const projects: Project[] = [
     name: 'Серверная лаборатория',
     description:
       'Домашний кластер с Kubernetes и Docker: эксперименты с networking, observability и self-hosted сервисами.',
-    stack: [Technology.k8s, Technology.docker, Technology.linux, Technology.nginx],
+    stack: [
+      Technology.k8s,
+      Technology.docker,
+      Technology.linux,
+      Technology.nginx
+    ],
     github: 'https://github.com/alexeev-dauwalter/homelab'
   },
   {
     name: 'E-commerce платформа',
     description:
       'Высоконагруженный магазин: NestJS API, очереди, кеш, админка на React и каталог с фасетной фильтрацией.',
-    stack: [Technology.nestjs, Technology.react, Technology.postgresql, Technology.tailwindcss],
+    stack: [
+      Technology.nestjs,
+      Technology.react,
+      Technology.postgresql,
+      Technology.tailwindcss
+    ],
     gitlab: 'https://gitlab.com/alexeev-dauwalter/ecommerce'
   },
   {
@@ -598,7 +610,12 @@ export const projects: Project[] = [
     name: 'Образовательная платформа',
     description:
       'LMS со студенческими профилями, заданиями и проверкой кода на стороне сервера.',
-    stack: [Technology.nextjs, Technology.nestjs, Technology.mongodb, Technology.tailwindcss],
+    stack: [
+      Technology.nextjs,
+      Technology.nestjs,
+      Technology.mongodb,
+      Technology.tailwindcss
+    ],
     github: 'https://github.com/alexeev-dauwalter/lms'
   }
 ];

@@ -19,7 +19,6 @@ import {
   fullName,
   languages,
   links,
-  location,
   nav,
   position,
   projects,
@@ -40,7 +39,6 @@ const stackShort = skills.main.slice(0, 3).map((s) => s.title);
 const githubLink = nav.find((n) => n.slug === 'github');
 const telegramLink = nav.find((n) => n.slug === 'telegram');
 const contactLinks = [
-  ...(githubLink ? [{ href: githubLink.href, label: 'github' }] : []),
   ...(telegramLink ? [{ href: telegramLink.href, label: 'tg' }] : []),
   { href: `mailto:${email}`, label: 'mail' }
 ];
@@ -152,7 +150,6 @@ function parseDescription(desc?: string): DescriptionBlock[] {
       {shortName}
       {position}
       {email}
-      {location}
       {currentJobs}
       {currentRole}
       {stackShort}
@@ -224,11 +221,11 @@ function parseDescription(desc?: string): DescriptionBlock[] {
                   index={i + 1}
                 >
                   {blocks.length > 0 && (
-                    <section class="space-y-4 text-sm leading-relaxed text-ink-soft sm:text-base 2xl:text-lg dark:text-ink-dark-soft">
+                    <section class="text-ink-soft dark:text-ink-dark-soft space-y-4 text-sm leading-relaxed sm:text-base 2xl:text-lg">
                       {blocks.map((block) => (
                         <section class="space-y-2">
                           {block.label && (
-                            <p class="font-jetbrains-mono text-2xs tracking-meta text-muted uppercase 2xl:text-sm dark:text-ink-dark-soft">
+                            <p class="font-jetbrains-mono text-2xs tracking-meta text-muted dark:text-ink-dark-soft uppercase 2xl:text-sm">
                               {block.label}
                             </p>
                           )}
@@ -237,7 +234,7 @@ function parseDescription(desc?: string): DescriptionBlock[] {
                               {block.items.map((item) => (
                                 <li class="flex gap-2.5">
                                   <span
-                                    class="mt-1.5 inline-block h-1 w-1 shrink-0 rounded-full bg-rust/70 dark:bg-rust-soft/70"
+                                    class="bg-rust/70 dark:bg-rust-soft/70 mt-1.5 inline-block h-1 w-1 shrink-0 rounded-full"
                                     aria-hidden="true"
                                   />
                                   <span>{item}</span>
@@ -255,10 +252,10 @@ function parseDescription(desc?: string): DescriptionBlock[] {
                     <ul class="flex flex-wrap gap-2 pt-3">
                       {expSkills.map(({ title, slug }) => (
                         <li
-                          class="inline-flex items-center gap-1.5 rounded-sm border border-ink/15 px-2.5 py-1 transition hover:border-rust/40 dark:border-ink-dark/20 dark:hover:border-rust-soft/45"
+                          class="border-ink/15 hover:border-rust/40 dark:border-ink-dark/20 dark:hover:border-rust-soft/45 inline-flex items-center gap-1.5 rounded-sm border px-2.5 py-1 transition"
                           title={title}
                         >
-                          <i class="flex h-3.5 w-3.5 items-center justify-center text-muted dark:text-ink-dark-soft">
+                          <i class="text-muted dark:text-ink-dark-soft flex h-3.5 w-3.5 items-center justify-center">
                             <TechIcon
                               client:load
                               slug={slug}
@@ -266,7 +263,7 @@ function parseDescription(desc?: string): DescriptionBlock[] {
                               size={14}
                             />
                           </i>
-                          <span class="font-jetbrains-mono text-2xs tracking-label text-ink-soft uppercase 2xl:text-sm dark:text-ink-dark-soft">
+                          <span class="font-jetbrains-mono text-2xs tracking-label text-ink-soft dark:text-ink-dark-soft uppercase 2xl:text-sm">
                             {title}
                           </span>
                         </li>
@@ -332,13 +329,13 @@ function parseDescription(desc?: string): DescriptionBlock[] {
         <Section client:load number="06" title="Стек" id="stack">
           {skills.main?.length > 0 && (
             <section class="space-y-4">
-              <p class="font-jetbrains-mono text-2xs tracking-meta text-muted uppercase 2xl:text-sm dark:text-ink-dark-soft">
+              <p class="font-jetbrains-mono text-2xs tracking-meta text-muted dark:text-ink-dark-soft uppercase 2xl:text-sm">
                 Основной стек
               </p>
               <ul class="flex flex-wrap gap-6 2xl:gap-8">
                 {skills.main.map(({ title, slug }) => (
                   <li
-                    class="flex items-center gap-3 text-ink dark:text-ink-dark"
+                    class="text-ink dark:text-ink-dark flex items-center gap-3"
                     title={title}
                   >
                     <i class="flex h-6 w-6 items-center justify-center">
@@ -358,7 +355,7 @@ function parseDescription(desc?: string): DescriptionBlock[] {
 
           {techStack.length > 0 && (
             <section class="space-y-4">
-              <p class="font-jetbrains-mono text-2xs tracking-meta text-muted uppercase 2xl:text-sm dark:text-ink-dark-soft">
+              <p class="font-jetbrains-mono text-2xs tracking-meta text-muted dark:text-ink-dark-soft uppercase 2xl:text-sm">
                 Языки и технологии
               </p>
               <section class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
@@ -376,7 +373,7 @@ function parseDescription(desc?: string): DescriptionBlock[] {
 
           {skills.hard?.patterns?.length > 0 && (
             <section class="space-y-4">
-              <p class="font-jetbrains-mono text-2xs tracking-meta text-muted uppercase 2xl:text-sm dark:text-ink-dark-soft">
+              <p class="font-jetbrains-mono text-2xs tracking-meta text-muted dark:text-ink-dark-soft uppercase 2xl:text-sm">
                 Паттерны
               </p>
               <ul class="flex flex-wrap gap-2">
@@ -391,7 +388,7 @@ function parseDescription(desc?: string): DescriptionBlock[] {
 
           {skills.tools?.length > 0 && (
             <section class="space-y-4">
-              <p class="font-jetbrains-mono text-2xs tracking-meta text-muted uppercase 2xl:text-sm dark:text-ink-dark-soft">
+              <p class="font-jetbrains-mono text-2xs tracking-meta text-muted dark:text-ink-dark-soft uppercase 2xl:text-sm">
                 Инструменты
               </p>
               <ul class="flex flex-wrap gap-2">
@@ -406,7 +403,7 @@ function parseDescription(desc?: string): DescriptionBlock[] {
 
           {skills.soft?.length > 0 && (
             <section class="space-y-4">
-              <p class="font-jetbrains-mono text-2xs tracking-meta text-muted uppercase 2xl:text-sm dark:text-ink-dark-soft">
+              <p class="font-jetbrains-mono text-2xs tracking-meta text-muted dark:text-ink-dark-soft uppercase 2xl:text-sm">
                 Гибкие навыки
               </p>
               <ul class="flex flex-wrap gap-2">
@@ -421,7 +418,7 @@ function parseDescription(desc?: string): DescriptionBlock[] {
 
           {skills.other?.length > 0 && (
             <section class="space-y-4">
-              <p class="font-jetbrains-mono text-2xs tracking-meta text-muted uppercase 2xl:text-sm dark:text-ink-dark-soft">
+              <p class="font-jetbrains-mono text-2xs tracking-meta text-muted dark:text-ink-dark-soft uppercase 2xl:text-sm">
                 Другое
               </p>
               <ul class="flex flex-wrap gap-2">
@@ -443,16 +440,16 @@ function parseDescription(desc?: string): DescriptionBlock[] {
           <section class="grid gap-10 md:grid-cols-2 2xl:gap-16">
             {languages?.length > 0 && (
               <section class="space-y-4">
-                <p class="font-jetbrains-mono text-2xs tracking-meta text-muted uppercase 2xl:text-sm dark:text-ink-dark-soft">
+                <p class="font-jetbrains-mono text-2xs tracking-meta text-muted dark:text-ink-dark-soft uppercase 2xl:text-sm">
                   Языки
                 </p>
                 <ul class="space-y-3">
                   {languages.map(({ title, level }) => (
-                    <li class="flex items-baseline justify-between gap-4 border-b border-ink/10 pb-3 dark:border-ink-dark/15">
-                      <span class="text-base text-ink dark:text-ink-dark">
+                    <li class="border-ink/10 dark:border-ink-dark/15 flex items-baseline justify-between gap-4 border-b pb-3">
+                      <span class="text-ink dark:text-ink-dark text-base">
                         {title}
                       </span>
-                      <span class="font-jetbrains-mono text-2xs tracking-label text-muted uppercase 2xl:text-sm dark:text-ink-dark-soft">
+                      <span class="font-jetbrains-mono text-2xs tracking-label text-muted dark:text-ink-dark-soft uppercase 2xl:text-sm">
                         {level}
                       </span>
                     </li>
@@ -462,16 +459,16 @@ function parseDescription(desc?: string): DescriptionBlock[] {
             )}
             {books?.length > 0 && (
               <section class="space-y-4">
-                <p class="font-jetbrains-mono text-2xs tracking-meta text-muted uppercase 2xl:text-sm dark:text-ink-dark-soft">
+                <p class="font-jetbrains-mono text-2xs tracking-meta text-muted dark:text-ink-dark-soft uppercase 2xl:text-sm">
                   Прочитано
                 </p>
                 <ul class="space-y-3">
                   {books.map(({ name, author }) => (
-                    <li class="space-y-1 border-b border-ink/10 pb-3 dark:border-ink-dark/15">
-                      <p class="text-base text-ink dark:text-ink-dark">
+                    <li class="border-ink/10 dark:border-ink-dark/15 space-y-1 border-b pb-3">
+                      <p class="text-ink dark:text-ink-dark text-base">
                         {name}
                       </p>
-                      <address class="font-jetbrains-mono text-2xs tracking-label text-muted uppercase not-italic 2xl:text-sm dark:text-ink-dark-soft">
+                      <address class="font-jetbrains-mono text-2xs tracking-label text-muted dark:text-ink-dark-soft uppercase not-italic 2xl:text-sm">
                         {author}
                       </address>
                     </li>
@@ -486,20 +483,20 @@ function parseDescription(desc?: string): DescriptionBlock[] {
 
     <footer
       id="contact"
-      class="scroll-mt-24 border-t border-ink/12 px-4 pt-12 pb-16 sm:px-8 2xl:px-12 2xl:pt-16 2xl:pb-24 dark:border-ink-dark/15"
+      class="border-ink/12 dark:border-ink-dark/15 scroll-mt-24 border-t px-4 pt-12 pb-16 sm:px-8 2xl:px-12 2xl:pt-16 2xl:pb-24"
     >
       <section
         class="flex flex-wrap items-center justify-between gap-6 2xl:gap-10"
       >
         <section class="space-y-2">
           <p
-            class="font-jetbrains-mono text-2xs tracking-meta text-muted uppercase 2xl:text-sm dark:text-ink-dark-soft"
+            class="font-jetbrains-mono text-2xs tracking-meta text-muted dark:text-ink-dark-soft uppercase 2xl:text-sm"
           >
             Связаться
           </p>
           <a
             href={`mailto:${email}`}
-            class="font-lora text-2xl text-rust italic underline decoration-rust/30 underline-offset-4 transition hover:decoration-rust sm:text-3xl 2xl:text-4xl dark:text-rust-soft"
+            class="font-lora text-rust decoration-rust/30 hover:decoration-rust dark:text-rust-soft text-2xl italic underline underline-offset-4 transition sm:text-3xl 2xl:text-4xl"
           >
             {email}
           </a>
@@ -512,15 +509,10 @@ function parseDescription(desc?: string): DescriptionBlock[] {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={title}
-                class="flex items-center gap-2 text-ink-soft transition hover:text-rust dark:text-ink-dark-soft dark:hover:text-rust-soft"
+                class="text-ink-soft hover:text-rust dark:text-ink-dark-soft dark:hover:text-rust-soft flex items-center gap-2 transition"
               >
                 <i class="flex h-5 w-5 items-center justify-center">
-                  <TechIcon
-                    client:load
-                    slug={slug}
-                    title={title}
-                    size={18}
-                  />
+                  <TechIcon client:load slug={slug} title={title} size={18} />
                 </i>
                 <span class="font-jetbrains-mono text-2xs tracking-label uppercase 2xl:text-sm">
                   {title}
@@ -535,15 +527,10 @@ function parseDescription(desc?: string): DescriptionBlock[] {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={title}
-                class="flex items-center gap-2 text-ink-soft transition hover:text-rust dark:text-ink-dark-soft dark:hover:text-rust-soft"
+                class="text-ink-soft hover:text-rust dark:text-ink-dark-soft dark:hover:text-rust-soft flex items-center gap-2 transition"
               >
                 <i class="flex h-5 w-5 items-center justify-center">
-                  <TechIcon
-                    client:load
-                    slug={slug}
-                    title={title}
-                    size={18}
-                  />
+                  <TechIcon client:load slug={slug} title={title} size={18} />
                 </i>
                 <span class="font-jetbrains-mono text-2xs tracking-label uppercase 2xl:text-sm">
                   {title}

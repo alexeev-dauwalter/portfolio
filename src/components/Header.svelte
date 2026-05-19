@@ -2,7 +2,6 @@
   export let shortName: string = '',
     position: string = '',
     email: string = '',
-    location: string = '',
     currentJobs: string[] = [],
     currentRole: string = '',
     stackShort: string[] = [],
@@ -15,7 +14,7 @@
     class="mb-12 flex flex-wrap items-center justify-between gap-x-6 gap-y-3 sm:mb-16"
   >
     <span
-      class="font-jetbrains-mono text-xs tracking-meta text-ink 2xl:text-sm dark:text-ink-dark"
+      class="font-jetbrains-mono tracking-meta text-ink dark:text-ink-dark text-xs 2xl:text-sm"
     >
       {shortName}
     </span>
@@ -25,13 +24,13 @@
       {#each sections as { title, id }, i}
         {#if i > 0}
           <span
-            class="font-jetbrains-mono text-2xs text-muted/60 2xl:text-sm dark:text-ink-dark-soft/50"
+            class="font-jetbrains-mono text-2xs text-muted/60 dark:text-ink-dark-soft/50 2xl:text-sm"
             aria-hidden="true">·</span
           >
         {/if}
         <a
           href={`#${id}`}
-          class="font-jetbrains-mono text-2xs tracking-meta text-ink-soft lowercase transition hover:text-rust 2xl:text-sm dark:text-ink-dark-soft dark:hover:text-rust-soft"
+          class="font-jetbrains-mono text-2xs tracking-meta text-ink-soft hover:text-rust dark:text-ink-dark-soft dark:hover:text-rust-soft lowercase transition 2xl:text-sm"
         >
           {title.toLowerCase()}
         </a>
@@ -40,7 +39,7 @@
     {#if email}
       <a
         href={`mailto:${email}`}
-        class="font-jetbrains-mono text-2xs tracking-meta text-ink transition hover:text-rust 2xl:text-sm dark:text-ink-dark dark:hover:text-rust-soft"
+        class="font-jetbrains-mono text-2xs tracking-meta text-ink hover:text-rust dark:text-ink-dark dark:hover:text-rust-soft transition 2xl:text-sm"
       >
         {email}
       </a>
@@ -48,13 +47,9 @@
   </section>
 
   <p
-    class="flex flex-wrap items-center gap-x-2 gap-y-1 font-jetbrains-mono text-2xs tracking-meta text-muted uppercase sm:text-xs 2xl:text-sm dark:text-ink-dark-soft"
+    class="font-jetbrains-mono text-2xs tracking-meta text-muted dark:text-ink-dark-soft flex flex-wrap items-center gap-x-2 gap-y-1 uppercase sm:text-xs 2xl:text-sm"
   >
     <span>01</span>
-    <span class="text-muted/60 dark:text-ink-dark-soft/50" aria-hidden="true"
-      >·</span
-    >
-    <span>{location}</span>
     <span class="text-muted/60 dark:text-ink-dark-soft/50" aria-hidden="true"
       >·</span
     >
@@ -66,73 +61,73 @@
   </p>
 
   <h1
-    class="mt-6 max-w-5xl font-inter text-4xl leading-hero font-medium tracking-tight text-ink sm:mt-8 sm:text-5xl md:text-6xl lg:text-7xl 2xl:mt-12 2xl:text-8xl dark:text-ink-dark"
+    class="font-inter leading-hero text-ink dark:text-ink-dark mt-6 max-w-5xl text-4xl font-medium tracking-tight sm:mt-8 sm:text-5xl md:text-6xl lg:text-7xl 2xl:mt-12 2xl:text-8xl"
   >
     Программирование —
-    <em class="font-lora font-normal text-rust italic dark:text-rust-soft"
+    <em class="font-lora text-rust dark:text-rust-soft font-normal italic"
       >не профессия,</em
     ><br />
     а образ жизни.
   </h1>
 
   <p
-    class="mt-6 max-w-2xl text-base leading-relaxed text-ink-soft sm:mt-8 sm:text-lg 2xl:mt-10 2xl:max-w-3xl 2xl:text-xl dark:text-ink-dark-soft"
+    class="text-ink-soft dark:text-ink-dark-soft mt-6 max-w-2xl text-base leading-relaxed sm:mt-8 sm:text-lg 2xl:mt-10 2xl:max-w-3xl 2xl:text-xl"
   >
     Меня зовут Пётр Алексеев. Пишу софт уже четырнадцатый год — от школьного
     <code
-      class="rounded-sm bg-cream-soft/60 px-1 py-0.5 font-jetbrains-mono text-[0.92em] text-ink dark:bg-cream-dark-soft/60 dark:text-ink-dark"
+      class="bg-cream-soft/60 font-jetbrains-mono text-ink dark:bg-cream-dark-soft/60 dark:text-ink-dark rounded-sm px-1 py-0.5 text-[0.92em]"
       >PascalABC.NET</code
     >
     до асинхронного
     <code
-      class="rounded-sm bg-cream-soft/60 px-1 py-0.5 font-jetbrains-mono text-[0.92em] text-ink dark:bg-cream-dark-soft/60 dark:text-ink-dark"
+      class="bg-cream-soft/60 font-jetbrains-mono text-ink dark:bg-cream-dark-soft/60 dark:text-ink-dark rounded-sm px-1 py-0.5 text-[0.92em]"
       >Rust</code
     >. Делаю продукты, в которых видно работу: код, который не стыдно показать,
     и интерфейсы, которые не стыдно отдать людям.
   </p>
 
   <aside
-    class="mt-12 grid grid-cols-2 gap-x-6 gap-y-8 border-t border-ink/10 pt-6 sm:mt-16 md:grid-cols-4 2xl:mt-20 2xl:gap-x-12 2xl:pt-10 dark:border-ink-dark/15"
+    class="border-ink/10 dark:border-ink-dark/15 mt-12 grid grid-cols-2 gap-x-6 gap-y-8 border-t pt-6 sm:mt-16 md:grid-cols-4 2xl:mt-20 2xl:gap-x-12 2xl:pt-10"
   >
     <section class="space-y-2">
       <p
-        class="font-jetbrains-mono text-3xs tracking-meta text-muted uppercase sm:text-2xs 2xl:text-xs dark:text-ink-dark-soft"
+        class="font-jetbrains-mono text-3xs tracking-meta text-muted sm:text-2xs dark:text-ink-dark-soft uppercase 2xl:text-xs"
       >
         Сейчас
       </p>
       <p
-        class="font-lora text-base text-ink sm:text-lg 2xl:text-2xl dark:text-ink-dark"
+        class="font-lora text-ink dark:text-ink-dark text-base sm:text-lg 2xl:text-2xl"
       >
         {currentJobs.join(' · ')}
       </p>
     </section>
     <section class="space-y-2">
       <p
-        class="font-jetbrains-mono text-3xs tracking-meta text-muted uppercase sm:text-2xs 2xl:text-xs dark:text-ink-dark-soft"
+        class="font-jetbrains-mono text-3xs tracking-meta text-muted sm:text-2xs dark:text-ink-dark-soft uppercase 2xl:text-xs"
       >
         Роль
       </p>
       <p
-        class="font-lora text-base text-ink sm:text-lg 2xl:text-2xl dark:text-ink-dark"
+        class="font-lora text-ink dark:text-ink-dark text-base sm:text-lg 2xl:text-2xl"
       >
         {currentRole}
       </p>
     </section>
     <section class="space-y-2">
       <p
-        class="font-jetbrains-mono text-3xs tracking-meta text-muted uppercase sm:text-2xs 2xl:text-xs dark:text-ink-dark-soft"
+        class="font-jetbrains-mono text-3xs tracking-meta text-muted sm:text-2xs dark:text-ink-dark-soft uppercase 2xl:text-xs"
       >
         Стек
       </p>
       <p
-        class="font-lora text-base text-ink sm:text-lg 2xl:text-2xl dark:text-ink-dark"
+        class="font-lora text-ink dark:text-ink-dark text-base sm:text-lg 2xl:text-2xl"
       >
         {stackShort.join(' · ')}
       </p>
     </section>
     <section class="space-y-2">
       <p
-        class="font-jetbrains-mono text-3xs tracking-meta text-muted uppercase sm:text-2xs 2xl:text-xs dark:text-ink-dark-soft"
+        class="font-jetbrains-mono text-3xs tracking-meta text-muted sm:text-2xs dark:text-ink-dark-soft uppercase 2xl:text-xs"
       >
         Связь
       </p>
@@ -140,7 +135,7 @@
         {#each contactLinks as { href, label }, i}
           {#if i > 0}
             <span
-              class="font-lora text-base text-muted/70 sm:text-lg 2xl:text-2xl dark:text-ink-dark-soft/60"
+              class="font-lora text-muted/70 dark:text-ink-dark-soft/60 text-base sm:text-lg 2xl:text-2xl"
               aria-hidden="true">·</span
             >
           {/if}
@@ -148,7 +143,7 @@
             {href}
             target={href.startsWith('http') ? '_blank' : undefined}
             rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
-            class="font-lora text-base text-ink transition hover:text-rust sm:text-lg 2xl:text-2xl dark:text-ink-dark dark:hover:text-rust-soft"
+            class="font-lora text-ink hover:text-rust dark:text-ink-dark dark:hover:text-rust-soft text-base transition sm:text-lg 2xl:text-2xl"
           >
             {label}
           </a>
