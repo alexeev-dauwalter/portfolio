@@ -1,0 +1,66 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          cache: yarn
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Build
+        run: yarn build
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist
+          retention-days: 1
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist
+
+      - name: Prepare Selectel root certificate
+        run: |
+          mkdir -p ~/.selectels3
+          curl -fsSL -o ~/.selectels3/root.crt https://secure.globalsign.net/cacert/root-r6.crt
+          openssl x509 -inform der -in ~/.selectels3/root.crt -out ~/.selectels3/root.crt
+          chmod 600 ~/.selectels3/root.crt
+
+      - name: Configure AWS CLI
+        run: |
+          aws configure set default.s3.signature_version s3v4
+          aws configure set default.ca_bundle "$HOME/.selectels3/root.crt"
+
+      - name: Deploy to S3
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_ENDPOINT: ${{ secrets.AWS_ENDPOINT }}
+          AWS_BUCKET_NAME: ${{ secrets.AWS_BUCKET_NAME }}
+        run: |
+          aws s3 --endpoint-url="$AWS_ENDPOINT" sync ./dist "s3://$AWS_BUCKET_NAME" --delete
