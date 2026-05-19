@@ -348,8 +348,8 @@ export const fullName = 'Алексеев Пётр Сергеевич',
 
 export const skills = {
   main: [
-    Technology.svelte,
     ProgrammingLanguage.rust,
+    Technology.svelte,
     Technology.tailwindcss,
     Technology.nestjs,
     Technology.tokio,
