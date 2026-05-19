@@ -32,8 +32,7 @@ const currentJobs = currentExperience.map(
 );
 const currentRoles = currentExperience
   .map((e) => e.position)
-  .filter(Boolean)
-  .join(' · ');
+  .filter((p): p is string => Boolean(p));
 
 const stackShort = skills.main.slice(0, 3).map((s) => s.title);
 
@@ -201,7 +200,7 @@ function parseDescription(desc?: string): DescriptionBlock[] {
       client:load
       {email}
       {currentJobs}
-      currentRole={currentRoles}
+      {currentRoles}
       {stackShort}
       {contactLinks}
       {connectLinks}
