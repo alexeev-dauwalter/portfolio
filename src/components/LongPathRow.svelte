@@ -2,6 +2,7 @@
   export let year: number,
     title: string,
     description: string = '',
+    bullets: string[] = [],
     isLast: boolean = false;
 </script>
 
@@ -33,6 +34,21 @@
       >
         {description}
       </p>
+    {/if}
+    {#if bullets.length > 0}
+      <ul class="mt-2 space-y-1.5 text-sm leading-relaxed text-ink-soft sm:text-base 2xl:text-lg dark:text-ink-dark-soft">
+        {#each bullets as bullet}
+          <li class="flex gap-2.5">
+            <span
+              class="flex h-[1.625em] shrink-0 items-center"
+              aria-hidden="true"
+            >
+              <span class="block h-1 w-1 rounded-full bg-rust/70 dark:bg-rust-soft/70"></span>
+            </span>
+            <span>{bullet}</span>
+          </li>
+        {/each}
+      </ul>
     {/if}
   </div>
 </article>
