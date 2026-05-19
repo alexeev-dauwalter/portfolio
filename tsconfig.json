@@ -6,7 +6,11 @@
     "paths": {
       "@components/*": ["./src/components/*"],
       "@assets/*": ["./src/assets/*"],
-      "@layouts/*": ["./src/layouts/*"]
+      "@layouts/*": ["./src/layouts/*"],
+      "@i18n": ["./src/i18n/index.ts"],
+      "@i18n/*": ["./src/i18n/*"],
+      "@content": ["./src/content/index.ts"],
+      "@content/*": ["./src/content/*"]
     }
   }
 }

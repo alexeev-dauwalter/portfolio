@@ -12,23 +12,35 @@ import LongPathRow from '@components/LongPathRow.svelte';
 import avatar from '../assets/avatar.png';
 
 import {
-  about,
-  books,
-  desiredPositions,
-  email,
-  experience,
-  fullName,
-  languages,
-  nav,
-  projects,
-  sections,
-  skills,
-  timeline
-} from '../data';
+  getDictionary,
+  formatMonthYear,
+  formatYearsMonths,
+  monthsBetween,
+  totalExperienceMonths,
+  plural,
+  LOCALES,
+  type Locale
+} from '@i18n';
+import { getContent, buildTimeline } from '@content';
 
-const techStack = [...skills.hard.languages, ...skills.hard.technologies];
+interface Props {
+  locale: Locale;
+}
 
-const currentExperience = experience.filter((e) => !e.end);
+const { locale } = Astro.props;
+const dict = getDictionary(locale);
+const content = getContent(locale);
+const timeline = buildTimeline(content);
+
+const otherLocale: Locale = LOCALES.find((l) => l !== locale) ?? 'en';
+const otherLocaleHref = `/${otherLocale}/`;
+
+const techStack = [
+  ...content.skills.hard.languages,
+  ...content.skills.hard.technologies
+];
+
+const currentExperience = content.experience.filter((e) => !e.end);
 const currentJobs = currentExperience.map(
   (e) => e.shortLabel ?? e.company.split(' ').pop() ?? e.company
 );
@@ -36,16 +48,17 @@ const currentRoles = currentExperience
   .map((e) => e.position)
   .filter((p): p is string => Boolean(p));
 
-const stackShort = skills.main.slice(0, 3).map((s) => s.title);
+const stackShort = content.skills.main.slice(0, 3).map((s) => s.title);
 
-const telegramLink = nav.find((n) => n.slug === 'telegram');
-const xLink = nav.find((n) => n.slug === 'x');
-const linkedinLink = nav.find((n) => n.slug === 'linkedin');
+const telegramLink = content.nav.find((n) => n.slug === 'telegram');
+const xLink = content.nav.find((n) => n.slug === 'x');
+const linkedinLink = content.nav.find((n) => n.slug === 'linkedin');
+
 const contactLinks = [
   ...(telegramLink
     ? [{ href: telegramLink.href, label: 'telegram' }]
     : []),
-  { href: `mailto:${email}`, label: 'email' },
+  { href: `mailto:${content.email}`, label: 'email' },
   ...(xLink ? [{ href: xLink.href, label: 'x.com' }] : []),
   ...(linkedinLink
     ? [{ href: linkedinLink.href, label: 'linkedin' }]
@@ -63,7 +76,12 @@ function handleFromUrl(href: string): string {
 }
 
 const connectLinks = [
-  { href: `mailto:${email}`, label: 'email', handle: email, slug: 'email' },
+  {
+    href: `mailto:${content.email}`,
+    label: 'email',
+    handle: content.email,
+    slug: 'email'
+  },
   ...(xLink
     ? [
         {
@@ -96,16 +114,19 @@ const connectLinks = [
     : [])
 ];
 
-const longPathYearRe = /^(\d{4})\s*год:\s*(.+)$/i;
+const yearKeyword = dict.parse.yearKeyword;
+const yearPrefix = yearKeyword ? `\\s*${yearKeyword}` : '';
+const longPathYearRe = new RegExp(`^(\\d{4})${yearPrefix}:\\s*(.+)$`, 'i');
+
 type LongPathEntry = {
   year: number;
   title: string;
   description: string;
   bullets: string[];
 };
-const longPath: LongPathEntry[] = [];
 
-for (const block of about) {
+const longPath: LongPathEntry[] = [];
+for (const block of content.about) {
   let current: LongPathEntry | null = null;
   for (const line of block.split('\n')) {
     const m = line.match(longPathYearRe);
@@ -138,112 +159,9 @@ for (const block of about) {
 }
 longPath.sort((a, b) => a.year - b.year);
 
-const aboutShort = about[0]?.split('\n').slice(0, 2) ?? [];
+const aboutShort = content.about[0]?.split('\n').slice(0, 2) ?? [];
 
-const RU_MONTH_NAMES = [
-  'Январь',
-  'Февраль',
-  'Март',
-  'Апрель',
-  'Май',
-  'Июнь',
-  'Июль',
-  'Август',
-  'Сентябрь',
-  'Октябрь',
-  'Ноябрь',
-  'Декабрь'
-];
-
-function parseIsoMonth(value: string): { year: number; month: number } | null {
-  const m = /^(\d{4})-(\d{2})$/.exec(value.trim());
-  if (!m) return null;
-  const year = Number(m[1]);
-  const month = Number(m[2]) - 1;
-  if (Number.isNaN(year) || month < 0 || month > 11) return null;
-  return { year, month };
-}
-
-function formatMonthYear(value: string): string {
-  const parsed = parseIsoMonth(value);
-  if (!parsed) return value;
-  return `${RU_MONTH_NAMES[parsed.month]} ${parsed.year}`;
-}
-
-function plural(n: number, one: string, few: string, many: string): string {
-  const mod100 = n % 100;
-  const mod10 = n % 10;
-  if (mod100 >= 11 && mod100 <= 14) return many;
-  if (mod10 === 1) return one;
-  if (mod10 >= 2 && mod10 <= 4) return few;
-  return many;
-}
-
-function monthsBetween(beginIso: string, endIso?: string): number {
-  const start = parseIsoMonth(beginIso);
-  const stop = endIso ? parseIsoMonth(endIso) : null;
-  const now = new Date();
-  const stopY = stop?.year ?? now.getFullYear();
-  const stopM = stop?.month ?? now.getMonth();
-  if (!start) return 0;
-  const months =
-    (stopY - start.year) * 12 + (stopM - start.month) + 1;
-  return months > 0 ? months : 0;
-}
-
-function formatYearsMonths(months: number): string {
-  if (months <= 0) return '';
-  const years = Math.floor(months / 12);
-  const rest = months % 12;
-  const parts: string[] = [];
-  if (years) parts.push(`${years} ${plural(years, 'год', 'года', 'лет')}`);
-  if (rest) parts.push(`${rest} ${plural(rest, 'месяц', 'месяца', 'месяцев')}`);
-  return parts.join(' · ');
-}
-
-function formatDuration(begin: string, end?: string): string {
-  return formatYearsMonths(monthsBetween(begin, end));
-}
-
-function totalExperienceMonths(items: { begin: string; end?: string }[]): number {
-  const intervals = items
-    .map(({ begin, end }) => {
-      const start = parseIsoMonth(begin);
-      const stop = end ? parseIsoMonth(end) : null;
-      const now = new Date();
-      const stopY = stop?.year ?? now.getFullYear();
-      const stopM = stop?.month ?? now.getMonth();
-      if (!start) return null;
-      const startIdx = start.year * 12 + start.month;
-      const stopIdx = stopY * 12 + stopM;
-      if (stopIdx < startIdx) return null;
-      return [startIdx, stopIdx] as [number, number];
-    })
-    .filter((x): x is [number, number] => x !== null)
-    .sort((a, b) => a[0] - b[0]);
-
-  let total = 0;
-  let curStart: number | null = null;
-  let curEnd = 0;
-  for (const [s, e] of intervals) {
-    if (curStart === null) {
-      curStart = s;
-      curEnd = e;
-    } else if (s > curEnd + 1) {
-      total += curEnd - curStart + 1;
-      curStart = s;
-      curEnd = e;
-    } else {
-      curEnd = Math.max(curEnd, e);
-    }
-  }
-  if (curStart !== null) total += curEnd - curStart + 1;
-  return total;
-}
-
-const totalExperienceLabel = formatYearsMonths(
-  totalExperienceMonths(experience)
-);
+const bulletedHeadersRe = dict.parse.bulletedHeaders;
 
 type DescriptionBlock = {
   label?: string;
@@ -263,7 +181,7 @@ function parseDescription(desc?: string): DescriptionBlock[] {
       const label = line.slice(0, -1);
       current = {
         label,
-        isBulleted: /достижения|обязанности/i.test(label),
+        isBulleted: bulletedHeadersRe.test(label),
         items: []
       };
     } else if (line.startsWith('- ')) {
@@ -275,27 +193,59 @@ function parseDescription(desc?: string): DescriptionBlock[] {
   if (current.items.length || current.label) blocks.push(current);
   return blocks;
 }
+
+const totalExperienceLabel = formatYearsMonths(
+  totalExperienceMonths(content.experience),
+  locale,
+  dict
+);
+
+const projectsMeta = `${content.projects.length} ${plural(content.projects.length, locale, dict.count.project)}`;
+
+function sectionTitle(key: typeof content.sections[number]['key']): string {
+  return dict.sections[key];
+}
 ---
 
-<Layout title={fullName}>
+<Layout title={content.fullName} {locale}>
   <main class="mx-auto w-full max-w-[1280px] 2xl:max-w-[1440px]">
     <Header
       client:load
-      {email}
+      email={content.email}
       {currentJobs}
       {currentRoles}
-      {desiredPositions}
+      desiredPositions={content.desiredPositions}
       {stackShort}
       {contactLinks}
       {connectLinks}
-      {sections}
+      sections={content.sections.map((s) => ({
+        number: s.number,
+        title: sectionTitle(s.key),
+        id: s.id
+      }))}
       avatarSrc={avatar.src}
-      avatarAlt={fullName}
+      avatarAlt={content.fullName}
+      connectLabel={dict.header.connect}
+      contactWaysHeader={dict.header.contactWaysHeader}
+      jobSearchLabel={dict.header.jobSearch}
+      panelLabels={dict.header.panel}
+      {locale}
+      {otherLocale}
+      {otherLocaleHref}
+      heroTitleStart={content.hero.titleStart}
+      heroTitleAccent={content.hero.titleAccent}
+      heroTitleEnd={content.hero.titleEnd}
+      heroIntroHtml={content.hero.introHtml}
     />
 
     {
       aboutShort.length > 0 && (
-        <Section client:load number="01" title="Обо мне" id="about">
+        <Section
+          client:load
+          number="01"
+          title={sectionTitle('about')}
+          id="about"
+        >
           <article class="space-y-6 text-base leading-relaxed sm:text-lg 2xl:text-xl">
             {aboutShort.map((row) => (
               <p class="text-ink-soft dark:text-ink-dark-soft">{row}</p>
@@ -307,7 +257,12 @@ function parseDescription(desc?: string): DescriptionBlock[] {
 
     {
       longPath.length > 0 && (
-        <Section client:load number="02" title="Долгий путь" id="longpath">
+        <Section
+          client:load
+          number="02"
+          title={sectionTitle('longPath')}
+          id="longpath"
+        >
           <section>
             {longPath.map((row, i) => (
               <LongPathRow
@@ -325,15 +280,15 @@ function parseDescription(desc?: string): DescriptionBlock[] {
     }
 
     {
-      experience?.length > 0 && (
+      content.experience?.length > 0 && (
         <Section
           client:load
           number="03"
-          title="Опыт работы"
+          title={sectionTitle('experience')}
           meta={totalExperienceLabel}
           id="experience"
         >
-          {experience.map(
+          {content.experience.map(
             (
               {
                 company,
@@ -347,9 +302,15 @@ function parseDescription(desc?: string): DescriptionBlock[] {
             ) => {
               if (!company) return null;
               const blocks = parseDescription(description);
-              const durationLabel = formatDuration(begin, end);
-              const beginLabel = formatMonthYear(begin);
-              const endLabel = end ? formatMonthYear(end) : 'настоящее время';
+              const durationLabel = formatYearsMonths(
+                monthsBetween(begin, end),
+                locale,
+                dict
+              );
+              const beginLabel = formatMonthYear(begin, locale);
+              const endLabel = end
+                ? formatMonthYear(end, locale)
+                : dict.duration.presentTime;
               return (
                 <Article
                   client:load
@@ -420,16 +381,16 @@ function parseDescription(desc?: string): DescriptionBlock[] {
     }
 
     {
-      projects?.length > 0 && (
+      content.projects?.length > 0 && (
         <Section
           client:load
           number="04"
-          title="Проекты"
-          meta={`${projects.length} ${plural(projects.length, 'проект', 'проекта', 'проектов')}`}
+          title={sectionTitle('projects')}
+          meta={projectsMeta}
           id="projects"
         >
           <section class="grid gap-4 sm:gap-5 md:grid-cols-2 lg:grid-cols-3 2xl:gap-6">
-            {projects.map((p, i) => (
+            {content.projects.map((p, i) => (
               <ProjectCard
                 client:load
                 name={p.name}
@@ -447,7 +408,12 @@ function parseDescription(desc?: string): DescriptionBlock[] {
 
     {
       timeline?.length > 0 && (
-        <Section client:load number="05" title="Хронология" id="timeline">
+        <Section
+          client:load
+          number="05"
+          title={sectionTitle('timeline')}
+          id="timeline"
+        >
           <section>
             {timeline.map(({ year, title, subtitle }) => (
               <TimelineRow
@@ -463,18 +429,23 @@ function parseDescription(desc?: string): DescriptionBlock[] {
     }
 
     {
-      (skills.main?.length ||
-        skills.hard?.languages?.length ||
-        skills.hard?.technologies?.length ||
-        skills.hard?.patterns?.length) && (
-        <Section client:load number="06" title="Стек" id="stack">
-          {skills.main?.length > 0 && (
+      (content.skills.main?.length ||
+        content.skills.hard?.languages?.length ||
+        content.skills.hard?.technologies?.length ||
+        content.skills.hard?.patterns?.length) && (
+        <Section
+          client:load
+          number="06"
+          title={sectionTitle('stack')}
+          id="stack"
+        >
+          {content.skills.main?.length > 0 && (
             <section class="space-y-4">
               <p class="font-jetbrains-mono text-2xs tracking-meta text-muted dark:text-ink-dark-soft uppercase 2xl:text-sm">
-                Основной стек
+                {dict.stack.main}
               </p>
               <ul class="flex flex-wrap gap-6 2xl:gap-8">
-                {skills.main.map(({ title, slug }) => (
+                {content.skills.main.map(({ title, slug }) => (
                   <li
                     class="text-ink dark:text-ink-dark flex items-center gap-3"
                     title={title}
@@ -497,7 +468,7 @@ function parseDescription(desc?: string): DescriptionBlock[] {
           {techStack.length > 0 && (
             <section class="space-y-4">
               <p class="font-jetbrains-mono text-2xs tracking-meta text-muted dark:text-ink-dark-soft uppercase 2xl:text-sm">
-                Языки и технологии
+                {dict.stack.langsTech}
               </p>
               <section class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
                 {techStack.map(({ title, slug, description }) => (
@@ -512,13 +483,13 @@ function parseDescription(desc?: string): DescriptionBlock[] {
             </section>
           )}
 
-          {skills.hard?.patterns?.length > 0 && (
+          {content.skills.hard?.patterns?.length > 0 && (
             <section class="space-y-4">
               <p class="font-jetbrains-mono text-2xs tracking-meta text-muted dark:text-ink-dark-soft uppercase 2xl:text-sm">
-                Паттерны
+                {dict.stack.patterns}
               </p>
               <ul class="flex flex-wrap gap-2">
-                {skills.hard.patterns.map((name) => (
+                {content.skills.hard.patterns.map((name) => (
                   <li>
                     <Badge client:load name={name} />
                   </li>
@@ -527,13 +498,13 @@ function parseDescription(desc?: string): DescriptionBlock[] {
             </section>
           )}
 
-          {skills.tools?.length > 0 && (
+          {content.skills.tools?.length > 0 && (
             <section class="space-y-4">
               <p class="font-jetbrains-mono text-2xs tracking-meta text-muted dark:text-ink-dark-soft uppercase 2xl:text-sm">
-                Инструменты
+                {dict.stack.tools}
               </p>
               <ul class="flex flex-wrap gap-2">
-                {skills.tools.map(({ name }) => (
+                {content.skills.tools.map(({ name }) => (
                   <li>
                     <Badge client:load name={name} />
                   </li>
@@ -542,13 +513,13 @@ function parseDescription(desc?: string): DescriptionBlock[] {
             </section>
           )}
 
-          {skills.soft?.length > 0 && (
+          {content.skills.soft?.length > 0 && (
             <section class="space-y-4">
               <p class="font-jetbrains-mono text-2xs tracking-meta text-muted dark:text-ink-dark-soft uppercase 2xl:text-sm">
-                Гибкие навыки
+                {dict.stack.softSkills}
               </p>
               <ul class="flex flex-wrap gap-2">
-                {skills.soft.map((name) => (
+                {content.skills.soft.map((name) => (
                   <li>
                     <Badge client:load name={name} />
                   </li>
@@ -557,13 +528,13 @@ function parseDescription(desc?: string): DescriptionBlock[] {
             </section>
           )}
 
-          {skills.other?.length > 0 && (
+          {content.skills.other?.length > 0 && (
             <section class="space-y-4">
               <p class="font-jetbrains-mono text-2xs tracking-meta text-muted dark:text-ink-dark-soft uppercase 2xl:text-sm">
-                Другое
+                {dict.stack.other}
               </p>
               <ul class="flex flex-wrap gap-2">
-                {skills.other.map(({ name }) => (
+                {content.skills.other.map(({ name }) => (
                   <li>
                     <Badge client:load name={name} />
                   </li>
@@ -576,16 +547,21 @@ function parseDescription(desc?: string): DescriptionBlock[] {
     }
 
     {
-      (languages?.length || books?.length) && (
-        <Section client:load number="07" title="Чтение и языки" id="reading">
+      (content.languages?.length || content.books?.length) && (
+        <Section
+          client:load
+          number="07"
+          title={sectionTitle('reading')}
+          id="reading"
+        >
           <section class="grid gap-10 md:grid-cols-2 2xl:gap-16">
-            {languages?.length > 0 && (
+            {content.languages?.length > 0 && (
               <section class="space-y-4">
                 <p class="font-jetbrains-mono text-2xs tracking-meta text-muted dark:text-ink-dark-soft uppercase 2xl:text-sm">
-                  Языки
+                  {dict.reading.languages}
                 </p>
                 <ul class="space-y-3">
-                  {languages.map(({ title, level }) => (
+                  {content.languages.map(({ title, level }) => (
                     <li class="border-ink/10 dark:border-ink-dark/15 flex items-baseline justify-between gap-4 border-b pb-3">
                       <span class="text-ink dark:text-ink-dark text-base">
                         {title}
@@ -598,13 +574,13 @@ function parseDescription(desc?: string): DescriptionBlock[] {
                 </ul>
               </section>
             )}
-            {books?.length > 0 && (
+            {content.books?.length > 0 && (
               <section class="space-y-4">
                 <p class="font-jetbrains-mono text-2xs tracking-meta text-muted dark:text-ink-dark-soft uppercase 2xl:text-sm">
-                  Прочитано
+                  {dict.reading.books}
                 </p>
                 <ul class="space-y-3">
-                  {books.map(({ name, author }) => (
+                  {content.books.map(({ name, author }) => (
                     <li class="border-ink/10 dark:border-ink-dark/15 space-y-1 border-b pb-3">
                       <p class="text-ink dark:text-ink-dark text-base">
                         {name}
@@ -633,18 +609,18 @@ function parseDescription(desc?: string): DescriptionBlock[] {
           <p
             class="font-jetbrains-mono text-2xs tracking-meta text-muted dark:text-ink-dark-soft uppercase 2xl:text-sm"
           >
-            Связаться
+            {dict.footer.contactLabel}
           </p>
           <a
-            href={`mailto:${email}`}
+            href={`mailto:${content.email}`}
             class="font-lora text-rust decoration-rust/30 hover:decoration-rust dark:text-rust-soft text-2xl italic underline underline-offset-4 transition sm:text-3xl 2xl:text-4xl"
           >
-            {email}
+            {content.email}
           </a>
         </section>
         <nav class="flex flex-wrap items-center gap-5 2xl:gap-7">
           {
-            nav.map(({ href, slug, title }) => (
+            content.nav.map(({ href, slug, title }) => (
               <a
                 href={href}
                 target="_blank"

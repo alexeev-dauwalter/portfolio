@@ -27,7 +27,23 @@
     }[] = [],
     sections: { number: string; title: string; id: string }[] = [],
     avatarSrc: string = '',
-    avatarAlt: string = '';
+    avatarAlt: string = '',
+    connectLabel: string = 'connect',
+    contactWaysHeader: string = 'Contacts',
+    jobSearchLabel: string = 'Open to work',
+    panelLabels: {
+      current: string;
+      role: string;
+      stack: string;
+      contact: string;
+    } = { current: 'Now', role: 'Role', stack: 'Stack', contact: 'Contacts' },
+    locale: string = 'en',
+    otherLocale: string = 'ru',
+    otherLocaleHref: string = '/ru/',
+    heroTitleStart: string = '',
+    heroTitleAccent: string = '',
+    heroTitleEnd: string = '',
+    heroIntroHtml: string = '';
 
   let open = false;
   let triggerRef: HTMLButtonElement;
@@ -85,6 +101,14 @@
         </a>
       {/each}
     </nav>
+    <div class="flex items-center gap-3 sm:gap-4">
+      <a
+        href={otherLocaleHref}
+        aria-label={`Switch language to ${otherLocale.toUpperCase()}`}
+        class="font-jetbrains-mono text-2xs tracking-meta text-ink-soft hover:text-rust dark:text-ink-dark-soft dark:hover:text-rust-soft uppercase transition 2xl:text-sm"
+      >
+        {otherLocale}
+      </a>
     {#if connectLinks.length > 0}
       <div class="relative">
         <button
@@ -97,7 +121,7 @@
           class="group inline-flex items-center gap-2 rounded-sm border border-ink/15 bg-cream-soft/50 px-3 py-1.5 font-jetbrains-mono text-2xs tracking-meta text-ink uppercase transition hover:border-rust/40 hover:text-rust 2xl:text-sm dark:border-ink-dark/20 dark:bg-cream-dark-soft/50 dark:text-ink-dark dark:hover:border-rust-soft/45 dark:hover:text-rust-soft"
         >
           <span class="block h-1.5 w-1.5 rounded-full bg-rust/80 dark:bg-rust-soft/80" aria-hidden="true"></span>
-          <span>связаться</span>
+          <span>{connectLabel}</span>
           <svg
             width="10"
             height="10"
@@ -129,7 +153,7 @@
             <p
               class="border-b border-ink/8 px-4 pt-3 pb-2 font-jetbrains-mono text-3xs tracking-meta text-muted uppercase 2xl:text-2xs dark:border-ink-dark/15 dark:text-ink-dark-soft"
             >
-              Способы связи
+              {contactWaysHeader}
             </p>
             <ul class="py-1">
               {#each connectLinks as { href, label, handle }}
@@ -168,6 +192,7 @@
         {/if}
       </div>
     {/if}
+    </div>
   </section>
 
   <div
@@ -177,27 +202,17 @@
       <h1
         class="font-inter leading-hero text-ink dark:text-ink-dark max-w-5xl text-4xl font-medium tracking-tight sm:text-5xl md:text-6xl lg:text-7xl 2xl:text-8xl"
       >
-        Программирование —
+        {heroTitleStart}
         <em class="font-lora text-rust dark:text-rust-soft font-normal italic"
-          >не профессия,</em
+          >{heroTitleAccent}</em
         ><br />
-        а образ жизни.
+        {heroTitleEnd}
       </h1>
 
       <p
         class="text-ink-soft dark:text-ink-dark-soft mt-6 max-w-2xl text-base leading-relaxed sm:mt-8 sm:text-lg 2xl:mt-10 2xl:max-w-3xl 2xl:text-xl"
       >
-        Меня зовут Пётр Алексеев. Пишу софт уже четырнадцатый год — от школьного
-        <code
-          class="bg-cream-soft/60 font-jetbrains-mono text-ink dark:bg-cream-dark-soft/60 dark:text-ink-dark rounded-sm px-1 py-0.5 text-[0.92em]"
-          >PascalABC.NET</code
-        >
-        до асинхронного
-        <code
-          class="bg-cream-soft/60 font-jetbrains-mono text-ink dark:bg-cream-dark-soft/60 dark:text-ink-dark rounded-sm px-1 py-0.5 text-[0.92em]"
-          >Rust</code
-        >. Делаю продукты, в которых видно работу: код, который не стыдно
-        показать, и интерфейсы, которые не стыдно отдать людям.
+        {@html heroIntroHtml}
       </p>
     </div>
 
@@ -223,13 +238,13 @@
       <p
         class="font-jetbrains-mono text-3xs tracking-meta text-muted sm:text-2xs dark:text-ink-dark-soft uppercase 2xl:text-xs"
       >
-        Сейчас
+        {panelLabels.current}
       </p>
       <p
         class="font-lora text-ink dark:text-ink-dark flex flex-wrap items-baseline gap-x-2 text-base sm:text-lg 2xl:text-2xl"
       >
         {#if currentJobs.length === 0}
-          <span class="italic text-rust dark:text-rust-soft">В поиске работы</span>
+          <span class="italic text-rust dark:text-rust-soft">{jobSearchLabel}</span>
         {:else}
           {#each currentJobs as job, i}
             {#if i > 0}
@@ -247,7 +262,7 @@
       <p
         class="font-jetbrains-mono text-3xs tracking-meta text-muted sm:text-2xs dark:text-ink-dark-soft uppercase 2xl:text-xs"
       >
-        Роль
+        {panelLabels.role}
       </p>
       <p
         class="font-lora text-ink dark:text-ink-dark flex flex-wrap items-baseline gap-x-2 text-base sm:text-lg 2xl:text-2xl"
@@ -286,7 +301,7 @@
       <p
         class="font-jetbrains-mono text-3xs tracking-meta text-muted sm:text-2xs dark:text-ink-dark-soft uppercase 2xl:text-xs"
       >
-        Стек
+        {panelLabels.stack}
       </p>
       <p
         class="font-lora text-ink dark:text-ink-dark flex flex-wrap items-baseline gap-x-2 text-base sm:text-lg 2xl:text-2xl"
@@ -306,7 +321,7 @@
       <p
         class="font-jetbrains-mono text-3xs tracking-meta text-muted sm:text-2xs dark:text-ink-dark-soft uppercase 2xl:text-xs"
       >
-        Связь
+        {panelLabels.contact}
       </p>
       <p class="flex flex-wrap items-baseline gap-x-2">
         {#each contactLinks as { href, label }, i}
