@@ -327,13 +327,6 @@ export const ruContent: Content = {
         'Калькулятор бросков костей с поддержкой сложных формул и модификаторов.',
       stack: [L.rust],
       github: 'https://github.com/alexeev-dauwalter/dicecalc'
-    },
-    {
-      name: 'My Keymap App',
-      description:
-        'Desktop-приложение на Tauri для управления раскладками клавиатуры и хоткеями.',
-      stack: [L.rust, T.astro, T.svelte],
-      github: 'https://github.com/alexeev-dauwalter/my-keymap-app'
     }
   ],
   commercialProjects: [
