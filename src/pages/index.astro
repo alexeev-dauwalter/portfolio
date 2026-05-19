@@ -113,28 +113,34 @@ longPath.sort((a, b) => a.year - b.year);
 
 const aboutShort = about[0]?.split('\n').slice(0, 2) ?? [];
 
-const RU_MONTHS: Record<string, number> = {
-  январь: 0,
-  февраль: 1,
-  март: 2,
-  апрель: 3,
-  май: 4,
-  июнь: 5,
-  июль: 6,
-  август: 7,
-  сентябрь: 8,
-  октябрь: 9,
-  ноябрь: 10,
-  декабрь: 11
-};
+const RU_MONTH_NAMES = [
+  'Январь',
+  'Февраль',
+  'Март',
+  'Апрель',
+  'Май',
+  'Июнь',
+  'Июль',
+  'Август',
+  'Сентябрь',
+  'Октябрь',
+  'Ноябрь',
+  'Декабрь'
+];
 
-function parseRuMonthYear(value: string): Date | null {
-  const parts = value.trim().toLowerCase().split(/\s+/);
-  if (parts.length !== 2) return null;
-  const month = RU_MONTHS[parts[0]];
-  const year = Number.parseInt(parts[1], 10);
-  if (month === undefined || Number.isNaN(year)) return null;
-  return new Date(year, month, 1);
+function parseIsoMonth(value: string): { year: number; month: number } | null {
+  const m = /^(\d{4})-(\d{2})$/.exec(value.trim());
+  if (!m) return null;
+  const year = Number(m[1]);
+  const month = Number(m[2]) - 1;
+  if (Number.isNaN(year) || month < 0 || month > 11) return null;
+  return { year, month };
+}
+
+function formatMonthYear(value: string): string {
+  const parsed = parseIsoMonth(value);
+  if (!parsed) return value;
+  return `${RU_MONTH_NAMES[parsed.month]} ${parsed.year}`;
 }
 
 function plural(n: number, one: string, few: string, many: string): string {
@@ -146,14 +152,19 @@ function plural(n: number, one: string, few: string, many: string): string {
   return many;
 }
 
-function formatDuration(begin: string, end?: string): string {
-  const start = parseRuMonthYear(begin);
-  const stop = end ? parseRuMonthYear(end) : new Date();
-  if (!start || !stop) return '';
+function monthsBetween(beginIso: string, endIso?: string): number {
+  const start = parseIsoMonth(beginIso);
+  const stop = endIso ? parseIsoMonth(endIso) : null;
+  const now = new Date();
+  const stopY = stop?.year ?? now.getFullYear();
+  const stopM = stop?.month ?? now.getMonth();
+  if (!start) return 0;
   const months =
-    (stop.getFullYear() - start.getFullYear()) * 12 +
-    (stop.getMonth() - start.getMonth()) +
-    1;
+    (stopY - start.year) * 12 + (stopM - start.month) + 1;
+  return months > 0 ? months : 0;
+}
+
+function formatYearsMonths(months: number): string {
   if (months <= 0) return '';
   const years = Math.floor(months / 12);
   const rest = months % 12;
@@ -162,6 +173,50 @@ function formatDuration(begin: string, end?: string): string {
   if (rest) parts.push(`${rest} ${plural(rest, 'месяц', 'месяца', 'месяцев')}`);
   return parts.join(' · ');
 }
+
+function formatDuration(begin: string, end?: string): string {
+  return formatYearsMonths(monthsBetween(begin, end));
+}
+
+function totalExperienceMonths(items: { begin: string; end?: string }[]): number {
+  const intervals = items
+    .map(({ begin, end }) => {
+      const start = parseIsoMonth(begin);
+      const stop = end ? parseIsoMonth(end) : null;
+      const now = new Date();
+      const stopY = stop?.year ?? now.getFullYear();
+      const stopM = stop?.month ?? now.getMonth();
+      if (!start) return null;
+      const startIdx = start.year * 12 + start.month;
+      const stopIdx = stopY * 12 + stopM;
+      if (stopIdx < startIdx) return null;
+      return [startIdx, stopIdx] as [number, number];
+    })
+    .filter((x): x is [number, number] => x !== null)
+    .sort((a, b) => a[0] - b[0]);
+
+  let total = 0;
+  let curStart: number | null = null;
+  let curEnd = 0;
+  for (const [s, e] of intervals) {
+    if (curStart === null) {
+      curStart = s;
+      curEnd = e;
+    } else if (s > curEnd + 1) {
+      total += curEnd - curStart + 1;
+      curStart = s;
+      curEnd = e;
+    } else {
+      curEnd = Math.max(curEnd, e);
+    }
+  }
+  if (curStart !== null) total += curEnd - curStart + 1;
+  return total;
+}
+
+const totalExperienceLabel = formatYearsMonths(
+  totalExperienceMonths(experience)
+);
 
 type DescriptionBlock = {
   label?: string;
@@ -245,7 +300,7 @@ function parseDescription(desc?: string): DescriptionBlock[] {
           client:load
           number="03"
           title="Опыт работы"
-          meta={`${experience.length} ${plural(experience.length, 'место', 'места', 'мест')}`}
+          meta={totalExperienceLabel}
           id="experience"
         >
           {experience.map(
@@ -263,12 +318,14 @@ function parseDescription(desc?: string): DescriptionBlock[] {
               if (!company) return null;
               const blocks = parseDescription(description);
               const durationLabel = formatDuration(begin, end);
+              const beginLabel = formatMonthYear(begin);
+              const endLabel = end ? formatMonthYear(end) : 'настоящее время';
               return (
                 <Article
                   client:load
                   title={company}
                   subtitle={pos}
-                  dateLabel={`${begin}${end ? ` — ${end}` : ' — настоящее время'}`}
+                  dateLabel={`${beginLabel} — ${endLabel}`}
                   durationLabel={durationLabel}
                   index={i + 1}
                 >
