@@ -7,11 +7,9 @@
 		"build": "astro build",
 		"preview": "astro preview",
 		"astro": "astro",
-		"i18n:extract": "astro-i18n extract",
-		"i18n:generate:pages": "astro-i18n generate:pages --purge",
-		"i18n:generate:types": "astro-i18n generate:types",
-		"i18n:sync": "npm run i18n:generate:pages && npm run i18n:generate:types"
+		"check": "astro check"
 	},
+	"packageManager": "pnpm@10.33.2",
 	"dependencies": {
 		"@astrojs/sitemap": "^3.7.2",
 		"@astrojs/svelte": "^7.2.0",
