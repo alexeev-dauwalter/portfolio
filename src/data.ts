@@ -429,7 +429,7 @@ export const experience: Experience[] = [
   {
     company: '41T',
     shortLabel: '41T',
-    position: 'Founder | CEO | Full stack engineer',
+    position: 'Founder | CEO | Full Stack Engineer',
     begin: '2023-02',
     end: '2024-10',
     description:
@@ -455,7 +455,7 @@ export const experience: Experience[] = [
   },
   {
     company: 'Antares Software Group',
-    position: 'Full stack engineer | Team lead',
+    position: 'Full Stack Engineer | Team Lead',
     begin: '2023-05',
     end: '2024-10',
     description:
@@ -555,6 +555,15 @@ export const experience: Experience[] = [
       ProgrammingLanguage.java,
       ProgrammingLanguage.kotlin
     ]
+  },
+  {
+    company: 'Фриланс',
+    position: 'Full Stack Engineer',
+    begin: '2017-12',
+    end: '2021-07',
+    description:
+      'Веб-разработка по заказам: реализовал множество проектов разного масштаба — от лендингов и интернет-магазинов до корпоративных сайтов и информационных платформ.',
+    skills: [ProgrammingLanguage.javascript, ProgrammingLanguage.php]
   }
 ];
 
