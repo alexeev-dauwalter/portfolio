@@ -15,7 +15,7 @@
 
   export let email: string = '',
     currentJobs: string[] = [],
-    currentRole: string = '',
+    currentRoles: string[] = [],
     stackShort: string[] = [],
     contactLinks: { href: string; label: string }[] = [],
     connectLinks: {
@@ -203,9 +203,17 @@
         Сейчас
       </p>
       <p
-        class="font-lora text-ink dark:text-ink-dark text-base sm:text-lg 2xl:text-2xl"
+        class="font-lora text-ink dark:text-ink-dark flex flex-wrap items-baseline gap-x-2 text-base sm:text-lg 2xl:text-2xl"
       >
-        {currentJobs.join(' · ')}
+        {#each currentJobs as job, i}
+          {#if i > 0}
+            <span
+              class="text-muted/70 dark:text-ink-dark-soft/60"
+              aria-hidden="true">·</span
+            >
+          {/if}
+          <span>{job}</span>
+        {/each}
       </p>
     </section>
     <section class="space-y-2">
@@ -215,9 +223,17 @@
         Роль
       </p>
       <p
-        class="font-lora text-ink dark:text-ink-dark text-base sm:text-lg 2xl:text-2xl"
+        class="font-lora text-ink dark:text-ink-dark flex flex-wrap items-baseline gap-x-2 text-base sm:text-lg 2xl:text-2xl"
       >
-        {currentRole}
+        {#each currentRoles as role, i}
+          {#if i > 0}
+            <span
+              class="text-muted/70 dark:text-ink-dark-soft/60"
+              aria-hidden="true">·</span
+            >
+          {/if}
+          <span>{role}</span>
+        {/each}
       </p>
     </section>
     <section class="space-y-2">
@@ -227,9 +243,17 @@
         Стек
       </p>
       <p
-        class="font-lora text-ink dark:text-ink-dark text-base sm:text-lg 2xl:text-2xl"
+        class="font-lora text-ink dark:text-ink-dark flex flex-wrap items-baseline gap-x-2 text-base sm:text-lg 2xl:text-2xl"
       >
-        {stackShort.join(' · ')}
+        {#each stackShort as item, i}
+          {#if i > 0}
+            <span
+              class="text-muted/70 dark:text-ink-dark-soft/60"
+              aria-hidden="true">·</span
+            >
+          {/if}
+          <span>{item}</span>
+        {/each}
       </p>
     </section>
     <section class="space-y-2">
