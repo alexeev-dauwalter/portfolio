@@ -207,9 +207,19 @@ const commercialProjectsMeta = `${content.commercialProjects.length} ${plural(co
 function sectionTitle(key: typeof content.sections[number]['key']): string {
   return dict.sections[key];
 }
+
+const shortName = content.fullName.split(/\s+/).slice(0, 2).join(' ');
+const roleSource =
+  currentRoles.length > 0 ? currentRoles : content.desiredPositions;
+const roleForTitle = roleSource
+  .map((r) => r.replace(/\s*\|\s*/g, ' / '))
+  .join(' / ');
+const pageTitle = roleForTitle
+  ? `${shortName} | ${roleForTitle}`
+  : shortName;
 ---
 
-<Layout title={content.fullName} {locale}>
+<Layout title={pageTitle} {locale}>
   <TopBar
     client:load
     {connectLinks}
