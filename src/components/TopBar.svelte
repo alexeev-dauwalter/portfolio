@@ -58,13 +58,17 @@
   });
 </script>
 
-<div
+<header
   class="sticky top-0 z-40 border-b border-transparent bg-cream/85 backdrop-blur-md dark:bg-cream-dark/85"
+  role="banner"
 >
   <div
     class="mx-auto w-full max-w-[1280px] 2xl:max-w-[1440px] px-4 sm:px-8 2xl:px-12"
   >
-    <div class="flex items-center justify-end gap-3 py-3 sm:gap-4 sm:py-4">
+    <nav
+      class="flex items-center justify-end gap-3 py-3 sm:gap-4 sm:py-4"
+      aria-label="Top navigation"
+    >
       <a
         href={otherLocaleHref}
         aria-label={`Switch language to ${otherLocale.toUpperCase()}`}
@@ -158,6 +162,6 @@
           {/if}
         </div>
       {/if}
-    </div>
+    </nav>
   </div>
-</div>
+</header>

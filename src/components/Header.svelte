@@ -45,10 +45,11 @@
     </nav>
   </section>
 
-  <div
+  <section
     class="grid gap-8 md:grid-cols-[minmax(0,1fr)_auto] md:items-center md:gap-12 lg:gap-16 2xl:gap-20"
+    aria-label="Hero"
   >
-    <div class="order-2 md:order-1">
+    <section class="order-2 md:order-1">
       <h1
         class="font-inter leading-hero text-ink dark:text-ink-dark max-w-5xl text-4xl font-medium tracking-tight sm:text-5xl md:text-6xl lg:text-7xl 2xl:text-8xl"
       >
@@ -64,10 +65,10 @@
       >
         {@html heroIntroHtml}
       </p>
-    </div>
+    </section>
 
     {#if avatarSrc}
-      <div class="order-1 shrink-0 md:order-2">
+      <figure class="order-1 m-0 shrink-0 md:order-2">
         <img
           src={avatarSrc}
           alt={avatarAlt}
@@ -77,9 +78,9 @@
           decoding="async"
           class="ring-ink/10 dark:ring-ink-dark/15 h-40 w-40 rounded-full object-cover ring-1 sm:h-52 sm:w-52 md:h-56 md:w-56 lg:h-64 lg:w-64 2xl:h-80 2xl:w-80"
         />
-      </div>
+      </figure>
     {/if}
-  </div>
+  </section>
 
   <aside
     class="border-ink/10 dark:border-ink-dark/15 mt-12 grid grid-cols-2 gap-x-6 gap-y-8 border-t pt-6 sm:mt-16 md:grid-cols-4 2xl:mt-20 2xl:gap-x-12 2xl:pt-10"

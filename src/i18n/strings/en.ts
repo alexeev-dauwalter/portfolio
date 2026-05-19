@@ -57,6 +57,14 @@ export type Dictionary = {
   footer: {
     contactLabel: string;
   };
+  seo: {
+    /** Short page description for <meta name="description"> (≤160 chars). */
+    description: string;
+    /** Comma-separated keywords for <meta name="keywords">. */
+    keywords: string;
+    /** BCP-47 locale code for <meta property="og:locale"> (e.g. en_US). */
+    ogLocale: string;
+  };
 };
 
 export const en: Dictionary = {
@@ -107,5 +115,12 @@ export const en: Dictionary = {
   },
   footer: {
     contactLabel: 'Get in touch'
+  },
+  seo: {
+    description:
+      'Peter Alexeev — Full Stack Engineer & Team Lead. Rust, Svelte, NestJS, TypeScript. 6+ years of experience building products and leading teams.',
+    keywords:
+      'Peter Alexeev, full stack engineer, team lead, product manager, Rust, Svelte, NestJS, TypeScript, JavaScript, Tokio, portfolio',
+    ogLocale: 'en_US'
   }
 };

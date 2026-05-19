@@ -13,6 +13,7 @@
 		"i18n:sync": "npm run i18n:generate:pages && npm run i18n:generate:types"
 	},
 	"dependencies": {
+		"@astrojs/sitemap": "^3.7.2",
 		"@astrojs/svelte": "^7.2.0",
 		"@fontsource/inter": "^5.2.8",
 		"@fontsource/jetbrains-mono": "^5.2.8",

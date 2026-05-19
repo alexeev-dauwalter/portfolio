@@ -53,5 +53,12 @@ export const ru: Dictionary = {
   },
   footer: {
     contactLabel: 'Связаться'
+  },
+  seo: {
+    description:
+      'Пётр Алексеев — Full Stack Engineer и тимлид. Rust, Svelte, NestJS, TypeScript. 6+ лет опыта в разработке продуктов и руководстве командами.',
+    keywords:
+      'Пётр Алексеев, full stack engineer, тимлид, продакт-менеджер, Rust, Svelte, NestJS, TypeScript, JavaScript, Tokio, портфолио',
+    ogLocale: 'ru_RU'
   }
 };
