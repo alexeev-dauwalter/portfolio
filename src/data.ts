@@ -349,12 +349,11 @@ export const fullName = 'Алексеев Пётр Сергеевич',
 export const skills = {
   main: [
     Technology.svelte,
-    Technology.astro,
+    ProgrammingLanguage.rust,
     Technology.tailwindcss,
     Technology.nestjs,
     Technology.tokio,
-    ProgrammingLanguage.javascript,
-    ProgrammingLanguage.rust
+    ProgrammingLanguage.javascript
   ] as Skill[],
   hard: {
     languages: Object.values(ProgrammingLanguage) as Skill[],
