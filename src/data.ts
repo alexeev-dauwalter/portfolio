@@ -659,19 +659,7 @@ export const about = [
     '2024 год: купил сервер для детального изучения работы с железом. Продолжаю развиваться в низкоуровневой разработке и совершенствую навыки в создании веб-приложений различной сложности. В свободное время изучаю новые технологии, такие как Go и Angular.'
 ];
 
-export const links: Link[] = [
-    {
-      href: 'https://teletype.in/@alexeev.dauwalter',
-      slug: 'teletype',
-      title: 'Teletype'
-    },
-    {
-      href: 'https://www.npmjs.com/~ishi-inanis',
-      slug: 'npm',
-      title: 'Npm'
-    }
-  ],
-  nav: Link[] = [
+export const nav: Link[] = [
     {
       href: 'https://github.com/alexeev-dauwalter',
       slug: 'github',
