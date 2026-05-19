@@ -13,8 +13,7 @@
     };
   }
 
-  export let position: string = '',
-    email: string = '',
+  export let email: string = '',
     currentJobs: string[] = [],
     currentRole: string = '',
     stackShort: string[] = [],
@@ -167,20 +166,6 @@
       </div>
     {/if}
   </section>
-
-  <p
-    class="font-jetbrains-mono text-2xs tracking-meta text-muted dark:text-ink-dark-soft flex flex-wrap items-center gap-x-2 gap-y-1 uppercase sm:text-xs 2xl:text-sm"
-  >
-    <span>01</span>
-    <span class="text-muted/60 dark:text-ink-dark-soft/50" aria-hidden="true"
-      >·</span
-    >
-    <span>{position}</span>
-    <span class="text-muted/60 dark:text-ink-dark-soft/50" aria-hidden="true"
-      >·</span
-    >
-    <span>2026</span>
-  </p>
 
   <h1
     class="font-inter leading-hero text-ink dark:text-ink-dark mt-6 max-w-5xl text-4xl font-medium tracking-tight sm:mt-8 sm:text-5xl md:text-6xl lg:text-7xl 2xl:mt-12 2xl:text-8xl"
