@@ -23,7 +23,6 @@ import {
   position,
   projects,
   sections,
-  shortName,
   skills,
   timeline
 } from '../data';
@@ -192,7 +191,6 @@ function parseDescription(desc?: string): DescriptionBlock[] {
   <main class="mx-auto w-full max-w-[1280px] 2xl:max-w-[1440px]">
     <Header
       client:load
-      {shortName}
       {position}
       {email}
       {currentJobs}
