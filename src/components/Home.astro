@@ -1,6 +1,7 @@
 ---
 import Layout from '@layouts/Layout.astro';
 import Header from '@components/Header.svelte';
+import TopBar from '@components/TopBar.svelte';
 import Section from '@components/Section.svelte';
 import Article from '@components/Article.svelte';
 import Badge from '@components/Badge.svelte';
@@ -209,6 +210,14 @@ function sectionTitle(key: typeof content.sections[number]['key']): string {
 ---
 
 <Layout title={content.fullName} {locale}>
+  <TopBar
+    client:load
+    {connectLinks}
+    connectLabel={dict.header.connect}
+    contactWaysHeader={dict.header.contactWaysHeader}
+    {otherLocale}
+    {otherLocaleHref}
+  />
   <main class="mx-auto w-full max-w-[1280px] 2xl:max-w-[1440px]">
     <Header
       client:load
@@ -218,7 +227,6 @@ function sectionTitle(key: typeof content.sections[number]['key']): string {
       desiredPositions={content.desiredPositions}
       {stackShort}
       {contactLinks}
-      {connectLinks}
       sections={content.sections.map((s) => ({
         number: s.number,
         title: sectionTitle(s.key),
@@ -226,13 +234,8 @@ function sectionTitle(key: typeof content.sections[number]['key']): string {
       }))}
       avatarSrc={avatar.src}
       avatarAlt={content.fullName}
-      connectLabel={dict.header.connect}
-      contactWaysHeader={dict.header.contactWaysHeader}
       jobSearchLabel={dict.header.jobSearch}
       panelLabels={dict.header.panel}
-      {locale}
-      {otherLocale}
-      {otherLocaleHref}
       heroTitleStart={content.hero.titleStart}
       heroTitleAccent={content.hero.titleAccent}
       heroTitleEnd={content.hero.titleEnd}
