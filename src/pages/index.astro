@@ -39,10 +39,56 @@ const stackShort = skills.main.slice(0, 3).map((s) => s.title);
 
 const githubLink = nav.find((n) => n.slug === 'github');
 const telegramLink = nav.find((n) => n.slug === 'telegram');
+const xLink = nav.find((n) => n.slug === 'x');
+const linkedinLink = nav.find((n) => n.slug === 'linkedin');
 const contactLinks = [
   ...(githubLink ? [{ href: githubLink.href, label: 'github' }] : []),
   ...(telegramLink ? [{ href: telegramLink.href, label: 'tg' }] : []),
   { href: `mailto:${email}`, label: 'mail' }
+];
+
+function handleFromUrl(href: string): string {
+  try {
+    const url = new URL(href);
+    const path = url.pathname.replace(/^\/+|\/+$/g, '');
+    return path || url.hostname;
+  } catch {
+    return href;
+  }
+}
+
+const connectLinks = [
+  { href: `mailto:${email}`, label: 'email', handle: email, slug: 'email' },
+  ...(xLink
+    ? [
+        {
+          href: xLink.href,
+          label: 'x.com',
+          handle: `@${handleFromUrl(xLink.href)}`,
+          slug: 'x'
+        }
+      ]
+    : []),
+  ...(linkedinLink
+    ? [
+        {
+          href: linkedinLink.href,
+          label: 'linkedin',
+          handle: handleFromUrl(linkedinLink.href),
+          slug: 'linkedin'
+        }
+      ]
+    : []),
+  ...(telegramLink
+    ? [
+        {
+          href: telegramLink.href,
+          label: 'telegram',
+          handle: `@${handleFromUrl(telegramLink.href)}`,
+          slug: 'telegram'
+        }
+      ]
+    : [])
 ];
 
 const longPathYearRe = /^(\d{4})\s*год:\s*(.+)$/i;
@@ -157,6 +203,7 @@ function parseDescription(desc?: string): DescriptionBlock[] {
       {currentRole}
       {stackShort}
       {contactLinks}
+      {connectLinks}
       {sections}
     />
 
