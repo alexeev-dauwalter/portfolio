@@ -22,7 +22,8 @@ export type Dictionary = {
     about: string;
     longPath: string;
     experience: string;
-    projects: string;
+    personalProjects: string;
+    commercialProjects: string;
     timeline: string;
     stack: string;
     reading: string;
@@ -74,7 +75,8 @@ export const en: Dictionary = {
     about: 'About',
     longPath: 'The long road',
     experience: 'Experience',
-    projects: 'Projects',
+    personalProjects: 'Personal projects',
+    commercialProjects: 'Commercial work',
     timeline: 'Timeline',
     stack: 'Stack',
     reading: 'Reading & languages'

@@ -16,7 +16,8 @@ export const ru: Dictionary = {
     about: 'Обо мне',
     longPath: 'Долгий путь',
     experience: 'Опыт работы',
-    projects: 'Проекты',
+    personalProjects: 'Личные проекты',
+    commercialProjects: 'Коммерческий опыт',
     timeline: 'Хронология',
     stack: 'Стек',
     reading: 'Чтение и языки'

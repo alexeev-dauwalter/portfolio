@@ -258,46 +258,154 @@ export const ruContent: Content = {
   ],
   projects: [
     {
-      name: 'Mini OS на Rust',
+      name: 'Kinsward',
+      description:
+        '2D colony sim в духе Dwarf Fortress: z-levels, два игровых режима и глубокая процедурная генерация мира.',
+      stack: [L.rust],
+      github: 'https://github.com/alexeev-dauwalter/kinsward-site'
+    },
+    {
+      name: 'Granite',
+      description:
+        'Локальное desktop-приложение для заметок в духе Obsidian: быстрый полнотекстовый поиск, граф связей, оффлайн.',
+      stack: [L.rust]
+    },
+    {
+      name: 'Plekt',
+      description:
+        'TUI-оркестратор ИИ-агентов: запуск, мониторинг и переключение между несколькими агентами из терминала.',
+      stack: [L.rust]
+    },
+    {
+      name: 'Self Coin Lane',
+      description:
+        'Личный сервис бюджетирования: счета, цели, регулярные платежи, аналитика расходов.',
+      stack: [L.typescript, T.svelte]
+    },
+    {
+      name: 'Mini OS',
       description:
         'Учебная микро-ОС на Rust: загрузчик, прерывания, простой шедулер и драйверы устройств.',
-      stack: [L.rust, T.linux],
-      github: 'https://github.com/alexeev-dauwalter/mini-os'
+      stack: [L.rust, T.linux]
     },
     {
-      name: 'Серверная лаборатория',
+      name: 'Selectel CLI',
       description:
-        'Домашний кластер с Kubernetes и Docker: эксперименты с networking, observability и self-hosted сервисами.',
-      stack: [T.k8s, T.docker, T.linux, T.nginx],
-      github: 'https://github.com/alexeev-dauwalter/homelab'
+        'CLI для управления ресурсами Selectel-облака из терминала: VM, K8s, DBaaS, бакеты, DNS.',
+      stack: [L.go]
     },
     {
-      name: 'E-commerce платформа',
+      name: 'AI D&D',
       description:
-        'Высоконагруженный магазин: NestJS API, очереди, кеш, админка на React и каталог с фасетной фильтрацией.',
-      stack: [T.nestjs, T.react, T.postgresql, T.tailwindcss],
-      gitlab: 'https://gitlab.com/alexeev-dauwalter/ecommerce'
+        'AI-ведущий настольных сессий Dungeons & Dragons на базе LLM: сценарии, состояние партии, инвентарь.',
+      stack: [L.python]
+    },
+    {
+      name: 'Claude plugins',
+      description:
+        'Собственные плагины для Claude Code: slash-команды, MCP-серверы, автоматизация рутины.',
+      stack: [L.python]
+    },
+    {
+      name: 'Shorten Link',
+      description:
+        'Сервис сокращения URL: backend, фронтенд на Svelte, документация, контейнеризация.',
+      stack: [T.nodejs, T.svelte, T.docker, L.javascript],
+      github: 'https://github.com/alexeev-dauwalter/shorten-link'
+    },
+    {
+      name: 'DiceCalc',
+      description:
+        'Калькулятор бросков костей с поддержкой сложных формул и модификаторов.',
+      stack: [L.rust],
+      github: 'https://github.com/alexeev-dauwalter/dicecalc'
+    },
+    {
+      name: 'My Keymap App',
+      description:
+        'Desktop-приложение на Tauri для управления раскладками клавиатуры и хоткеями.',
+      stack: [L.rust, T.astro, T.svelte],
+      github: 'https://github.com/alexeev-dauwalter/my-keymap-app'
+    }
+  ],
+  commercialProjects: [
+    {
+      name: 'Skolkovo ID',
+      description:
+        'SSO-платформа единой идентификации пользователей для интеграции данных с внутренними системами Школы.',
+      stack: [L.php, T.laravel, T.vuejs]
+    },
+    {
+      name: 'Платформа клубов выпускников',
+      description:
+        'Сообщество выпускников: заявки на вступление в клубы, менеджмент состава и внешних экспертов.',
+      stack: [T.nextjs, L.typescript]
+    },
+    {
+      name: 'Микросервис рендеринга графиков',
+      description:
+        'Сервис для отображения интерактивных графиков на лендингах, интегрирован в Twill как кастомный CMS-блок.',
+      stack: [L.php, T.react]
+    },
+    {
+      name: 'Система управления подарками',
+      description:
+        'Внутренний продукт для менеджеров: формирование заказов подарков для клиентов и партнёров, учёт.',
+      stack: [T.nextjs, L.typescript]
+    },
+    {
+      name: 'Система корпоративных благодарностей',
+      description:
+        'Внутренний сервис для ~600 сотрудников: годовой цикл благодарностей коллегам и подведение итогов.',
+      stack: [L.php, T.laravel]
+    },
+    {
+      name: 'Верификация Telegram-каналов',
+      description:
+        'Сервис проверки пользователей перед допуском в закрытые корпоративные Telegram-каналы.',
+      stack: [L.typescript, T.nextjs]
+    },
+    {
+      name: 'Random Coffee',
+      description:
+        'Внутренний Telegram-сервис для нетворкинга: автоматический подбор пары коллег для встречи за кофе.',
+      stack: [L.go]
+    },
+    {
+      name: 'Агентская платформа для базы знаний',
+      description:
+        'Платформа создания собственных ИИ-агентов сотрудниками с разграничением доступа к пространствам базы знаний.',
+      stack: [L.python]
+    },
+    {
+      name: 'Автоматизация заявок на гранты',
+      description:
+        'Автоматическая обработка заявок на грантовую поддержку образовательных программ с использованием ИИ-агентов.',
+      stack: [L.go]
+    },
+    {
+      name: 'Система проведения мероприятий',
+      description:
+        'Backend, API и админ-панель для корпоративных мероприятий: расписание, регистрации, отчёты.',
+      stack: [T.nestjs, T.postgresql, T.react]
+    },
+    {
+      name: 'Высоконагруженная e-commerce платформа',
+      description:
+        'Архитектура крупного интернет-магазина: NestJS API, очереди, кеш, фасетный каталог, админка.',
+      stack: [T.nestjs, T.react, T.postgresql, T.tailwindcss]
     },
     {
       name: 'Система ЭДО',
       description:
         'Внутренний электронный документооборот: версии документов, поручения и роутинг согласований.',
-      stack: [T.nextjs, T.nestjs, T.postgresql],
-      gitlab: 'https://gitlab.com/alexeev-dauwalter/edo'
-    },
-    {
-      name: 'Система мероприятий',
-      description:
-        'Бэкенд и админ-панель для проведения корпоративных мероприятий: расписание, регистрации, отчёты.',
-      stack: [T.nestjs, T.postgresql, T.react],
-      gitlab: 'https://gitlab.com/alexeev-dauwalter/events'
+      stack: [T.nextjs, T.nestjs, T.postgresql]
     },
     {
       name: 'Образовательная платформа',
       description:
-        'LMS со студенческими профилями, заданиями и проверкой кода на стороне сервера.',
-      stack: [T.nextjs, T.nestjs, T.mongodb, T.tailwindcss],
-      github: 'https://github.com/alexeev-dauwalter/lms'
+        'LMS со студенческими профилями, заданиями и серверной проверкой кода.',
+      stack: [T.nextjs, T.nestjs, T.react, L.java, T.tomcat]
     }
   ],
   books: [
@@ -367,9 +475,10 @@ export const ruContent: Content = {
     { number: '01', key: 'about', id: 'about' },
     { number: '02', key: 'longPath', id: 'longpath' },
     { number: '03', key: 'experience', id: 'experience' },
-    { number: '04', key: 'projects', id: 'projects' },
-    { number: '05', key: 'timeline', id: 'timeline' },
-    { number: '06', key: 'stack', id: 'stack' },
-    { number: '07', key: 'reading', id: 'reading' }
+    { number: '04', key: 'personalProjects', id: 'projects' },
+    { number: '05', key: 'commercialProjects', id: 'commercial' },
+    { number: '06', key: 'timeline', id: 'timeline' },
+    { number: '07', key: 'stack', id: 'stack' },
+    { number: '08', key: 'reading', id: 'reading' }
   ]
 };

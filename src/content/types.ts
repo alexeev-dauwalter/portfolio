@@ -66,7 +66,8 @@ export interface SectionMeta {
     | 'about'
     | 'longPath'
     | 'experience'
-    | 'projects'
+    | 'personalProjects'
+    | 'commercialProjects'
     | 'timeline'
     | 'stack'
     | 'reading';
@@ -107,6 +108,7 @@ export interface Content {
   };
   experience: Experience[];
   projects: Project[];
+  commercialProjects: Project[];
   about: string[];
   books: Book[];
   languages: Language[];
