@@ -14,7 +14,10 @@
   >
     {year}
   </time>
-  <div class="relative flex flex-col items-center pt-2.5">
+  <div
+    class="relative flex flex-col items-center pt-2.5"
+    aria-hidden="true"
+  >
     <span
       class="block h-2 w-2 shrink-0 rounded-full bg-rust dark:bg-rust-soft"
     ></span>
@@ -22,7 +25,7 @@
       <span class="mt-1 w-px flex-1 bg-ink/15 dark:bg-ink-dark/20"></span>
     {/if}
   </div>
-  <div class="space-y-1 pb-8 2xl:pb-12">
+  <section class="space-y-1 pb-8 2xl:pb-12">
     <h3
       class="font-inter text-base font-medium text-ink sm:text-lg 2xl:text-xl dark:text-ink-dark"
     >
@@ -50,5 +53,5 @@
         {/each}
       </ul>
     {/if}
-  </div>
+  </section>
 </article>

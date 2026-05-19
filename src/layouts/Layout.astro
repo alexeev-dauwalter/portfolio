@@ -16,7 +16,8 @@ import '@fontsource/lora/500-italic.css';
 import '@fontsource/jetbrains-mono/cyrillic-400.css';
 import '@fontsource/jetbrains-mono/400.css';
 
-import { LOCALES, DEFAULT_LOCALE, type Locale } from '@i18n';
+import { LOCALES, DEFAULT_LOCALE, type Locale, getDictionary } from '@i18n';
+import { getContent } from '@content';
 
 interface Props {
   title: string;
@@ -24,6 +25,37 @@ interface Props {
 }
 
 const { title, locale = DEFAULT_LOCALE } = Astro.props;
+const dict = getDictionary(locale);
+const content = getContent(locale);
+
+const siteUrl = Astro.site?.toString().replace(/\/$/, '') ?? '';
+const pageUrl = `${siteUrl}/${locale}/`;
+const ogImage = `${siteUrl}/og-cover.png`;
+
+const sameAs = content.nav.map((n) => n.href);
+const desiredPositions = content.desiredPositions.join(' / ');
+const currentJob = content.experience.find((e) => !e.end);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: content.fullName,
+  url: pageUrl,
+  jobTitle: desiredPositions,
+  email: `mailto:${content.email}`,
+  knowsAbout: content.skills.main.map((s) => s.title),
+  ...(currentJob && {
+    worksFor: {
+      '@type': 'Organization',
+      name: currentJob.company
+    }
+  }),
+  alumniOf: content.education.main.map((e) => ({
+    '@type': 'EducationalOrganization',
+    name: e.institution
+  })),
+  sameAs
+};
 ---
 
 <!doctype html>
@@ -33,17 +65,57 @@ const { title, locale = DEFAULT_LOCALE } = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
+
+    <title>{title}</title>
+    <meta name="description" content={dict.seo.description} />
+    <meta name="keywords" content={dict.seo.keywords} />
+    <meta name="author" content={content.fullName} />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href={pageUrl} />
+
     {
       LOCALES.map((l) => (
-        <link rel="alternate" hreflang={l} href={`/${l}/`} />
+        <link rel="alternate" hreflang={l} href={`${siteUrl}/${l}/`} />
       ))
     }
     <link
       rel="alternate"
       hreflang="x-default"
-      href={`/${DEFAULT_LOCALE}/`}
+      href={`${siteUrl}/${DEFAULT_LOCALE}/`}
     />
-    <title>{title}</title>
+
+    <meta property="og:type" content="profile" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={dict.seo.description} />
+    <meta property="og:url" content={pageUrl} />
+    <meta property="og:site_name" content={content.fullName} />
+    <meta property="og:locale" content={dict.seo.ogLocale} />
+    {
+      LOCALES.filter((l) => l !== locale).map((l) => (
+        <meta
+          property="og:locale:alternate"
+          content={getDictionary(l).seo.ogLocale}
+        />
+      ))
+    }
+    <meta property="og:image" content={ogImage} />
+    <meta property="profile:first_name" content="Peter" />
+    <meta property="profile:last_name" content="Alexeev" />
+    <meta property="profile:username" content="alexeev-dauwalter" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={dict.seo.description} />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:creator" content="@alxv_dwltr" />
+
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <script
+      is:inline
+      type="application/ld+json"
+      set:html={JSON.stringify(jsonLd)}
+    ></script>
   </head>
   <body
     class="bg-cream font-inter text-ink antialiased tabular-nums dark:bg-cream-dark dark:text-ink-dark"
