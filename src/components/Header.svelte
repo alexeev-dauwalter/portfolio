@@ -205,15 +205,19 @@
       <p
         class="font-lora text-ink dark:text-ink-dark flex flex-wrap items-baseline gap-x-2 text-base sm:text-lg 2xl:text-2xl"
       >
-        {#each currentJobs as job, i}
-          {#if i > 0}
-            <span
-              class="text-muted/70 dark:text-ink-dark-soft/60"
-              aria-hidden="true">·</span
-            >
-          {/if}
-          <span>{job}</span>
-        {/each}
+        {#if currentJobs.length === 0}
+          <span class="italic text-rust dark:text-rust-soft">В поиске работы</span>
+        {:else}
+          {#each currentJobs as job, i}
+            {#if i > 0}
+              <span
+                class="text-muted/70 dark:text-ink-dark-soft/60"
+                aria-hidden="true">·</span
+              >
+            {/if}
+            <span>{job}</span>
+          {/each}
+        {/if}
       </p>
     </section>
     <section class="space-y-2">
@@ -225,15 +229,22 @@
       <p
         class="font-lora text-ink dark:text-ink-dark flex flex-wrap items-baseline gap-x-2 text-base sm:text-lg 2xl:text-2xl"
       >
-        {#each currentRoles as role, i}
-          {#if i > 0}
-            <span
-              class="text-muted/70 dark:text-ink-dark-soft/60"
-              aria-hidden="true">·</span
-            >
-          {/if}
-          <span>{role}</span>
-        {/each}
+        {#if currentRoles.length === 0}
+          <span
+            class="text-muted/70 dark:text-ink-dark-soft/60"
+            aria-hidden="true">—</span
+          >
+        {:else}
+          {#each currentRoles as role, i}
+            {#if i > 0}
+              <span
+                class="text-muted/70 dark:text-ink-dark-soft/60"
+                aria-hidden="true">·</span
+              >
+            {/if}
+            <span>{role}</span>
+          {/each}
+        {/if}
       </p>
     </section>
     <section class="space-y-2">
