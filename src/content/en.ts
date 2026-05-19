@@ -256,6 +256,14 @@ export const enContent: Content = {
         L.java,
         L.kotlin
       ]
+    },
+    {
+      company: 'Freelance',
+      position: 'Web Developer',
+      begin: '2017-12',
+      end: '2021-07',
+      description:
+        'Commissioned web development: delivered many projects of varying scale — from landing pages and online stores to corporate sites and information platforms.'
     }
   ],
   projects: [
