@@ -56,14 +56,7 @@ export const ruContent: Content = {
       `отдать людям.`
   },
   skills: {
-    main: [
-      L.rust,
-      T.svelte,
-      T.tailwindcss,
-      T.nestjs,
-      T.tokio,
-      L.javascript
-    ],
+    main: [L.rust, T.svelte, T.tailwindcss, T.nestjs, T.tokio, L.javascript],
     hard: {
       languages: Object.values(L),
       technologies: Object.values(T),
@@ -86,7 +79,7 @@ export const ruContent: Content = {
   experience: [
     {
       company: 'Московская Школа Управления СКОЛКОВО',
-      shortLabel: 'Сколково',
+      shortLabel: 'СКОЛКОВО',
       position: 'Product Manager | Team Lead | Full Stack Engineer',
       begin: '2024-11',
       description:
