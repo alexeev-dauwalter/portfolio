@@ -692,6 +692,11 @@ export const links: Link[] = [
       title: 'Telegram'
     },
     {
+      href: 'https://x.com/alxv_dwltr',
+      slug: 'x',
+      title: 'X'
+    },
+    {
       href: 'https://linkedin.com/in/alexeev-dauwalter/',
       slug: 'linkedin',
       title: 'LinkedIn'
