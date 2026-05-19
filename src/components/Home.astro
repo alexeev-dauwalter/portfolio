@@ -200,7 +200,8 @@ const totalExperienceLabel = formatYearsMonths(
   dict
 );
 
-const projectsMeta = `${content.projects.length} ${plural(content.projects.length, locale, dict.count.project)}`;
+const personalProjectsMeta = `${content.projects.length} ${plural(content.projects.length, locale, dict.count.project)}`;
+const commercialProjectsMeta = `${content.commercialProjects.length} ${plural(content.commercialProjects.length, locale, dict.count.project)}`;
 
 function sectionTitle(key: typeof content.sections[number]['key']): string {
   return dict.sections[key];
@@ -385,8 +386,8 @@ function sectionTitle(key: typeof content.sections[number]['key']): string {
         <Section
           client:load
           number="04"
-          title={sectionTitle('projects')}
-          meta={projectsMeta}
+          title={sectionTitle('personalProjects')}
+          meta={personalProjectsMeta}
           id="projects"
         >
           <section class="grid gap-4 sm:gap-5 md:grid-cols-2 lg:grid-cols-3 2xl:gap-6">
@@ -407,10 +408,36 @@ function sectionTitle(key: typeof content.sections[number]['key']): string {
     }
 
     {
-      timeline?.length > 0 && (
+      content.commercialProjects?.length > 0 && (
         <Section
           client:load
           number="05"
+          title={sectionTitle('commercialProjects')}
+          meta={commercialProjectsMeta}
+          id="commercial"
+        >
+          <section class="grid gap-4 sm:gap-5 md:grid-cols-2 lg:grid-cols-3 2xl:gap-6">
+            {content.commercialProjects.map((p, i) => (
+              <ProjectCard
+                client:load
+                name={p.name}
+                description={p.description}
+                stack={p.stack}
+                github={p.github}
+                gitlab={p.gitlab}
+                index={i + 1}
+              />
+            ))}
+          </section>
+        </Section>
+      )
+    }
+
+    {
+      timeline?.length > 0 && (
+        <Section
+          client:load
+          number="06"
           title={sectionTitle('timeline')}
           id="timeline"
         >
@@ -435,7 +462,7 @@ function sectionTitle(key: typeof content.sections[number]['key']): string {
         content.skills.hard?.patterns?.length) && (
         <Section
           client:load
-          number="06"
+          number="07"
           title={sectionTitle('stack')}
           id="stack"
         >
@@ -550,7 +577,7 @@ function sectionTitle(key: typeof content.sections[number]['key']): string {
       (content.languages?.length || content.books?.length) && (
         <Section
           client:load
-          number="07"
+          number="08"
           title={sectionTitle('reading')}
           id="reading"
         >

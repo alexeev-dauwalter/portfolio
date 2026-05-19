@@ -98,9 +98,9 @@ export function buildLlmsTxt(locale: Locale, origin = ''): string {
     lines.push('');
   }
 
-  // Projects
+  // Personal projects
   if (content.projects.length > 0) {
-    lines.push(`## ${dict.sections.projects}`);
+    lines.push(`## ${dict.sections.personalProjects}`);
     lines.push('');
     for (const project of content.projects) {
       const link = project.github ?? project.gitlab;
@@ -109,6 +109,19 @@ export function buildLlmsTxt(locale: Locale, origin = ''): string {
         ? `- [${project.name}](${link})`
         : `- ${project.name}`;
       lines.push(head);
+      lines.push(`  ${project.description}`);
+      if (stack) lines.push(`  Stack: ${stack}`);
+    }
+    lines.push('');
+  }
+
+  // Commercial projects
+  if (content.commercialProjects.length > 0) {
+    lines.push(`## ${dict.sections.commercialProjects}`);
+    lines.push('');
+    for (const project of content.commercialProjects) {
+      const stack = project.stack.map((s) => s.title).join(', ');
+      lines.push(`- ${project.name}`);
       lines.push(`  ${project.description}`);
       if (stack) lines.push(`  Stack: ${stack}`);
     }

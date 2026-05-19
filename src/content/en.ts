@@ -268,46 +268,154 @@ export const enContent: Content = {
   ],
   projects: [
     {
-      name: 'Mini OS in Rust',
+      name: 'Kinsward',
       description:
-        'A study micro-OS in Rust: bootloader, interrupts, a simple scheduler and device drivers.',
-      stack: [L.rust, T.linux],
-      github: 'https://github.com/alexeev-dauwalter/mini-os'
+        '2D colony sim in the spirit of Dwarf Fortress: z-levels, dual game modes and deep procedural world generation.',
+      stack: [L.rust],
+      github: 'https://github.com/alexeev-dauwalter/kinsward-site'
     },
     {
-      name: 'Server lab',
+      name: 'Granite',
       description:
-        'Home cluster with Kubernetes and Docker: experiments with networking, observability and self-hosted services.',
-      stack: [T.k8s, T.docker, T.linux, T.nginx],
-      github: 'https://github.com/alexeev-dauwalter/homelab'
+        'Local Obsidian-style desktop notes app: fast full-text search, link graph, fully offline.',
+      stack: [L.rust]
     },
     {
-      name: 'E-commerce platform',
+      name: 'Plekt',
       description:
-        'High-load shop: NestJS API, queues, cache, React admin panel and a catalog with faceted filtering.',
-      stack: [T.nestjs, T.react, T.postgresql, T.tailwindcss],
-      gitlab: 'https://gitlab.com/alexeev-dauwalter/ecommerce'
+        'TUI orchestrator for AI agents: spawn, monitor and switch between multiple agents from the terminal.',
+      stack: [L.rust]
+    },
+    {
+      name: 'Self Coin Lane',
+      description:
+        'Personal budgeting app: accounts, goals, recurring payments, expense analytics.',
+      stack: [L.typescript, T.svelte]
+    },
+    {
+      name: 'Mini OS',
+      description:
+        'Study micro-OS in Rust: bootloader, interrupts, a simple scheduler and device drivers.',
+      stack: [L.rust, T.linux]
+    },
+    {
+      name: 'Selectel CLI',
+      description:
+        'CLI for managing Selectel cloud resources from the terminal: VMs, K8s, DBaaS, buckets, DNS.',
+      stack: [L.go]
+    },
+    {
+      name: 'AI D&D',
+      description:
+        'AI Dungeon Master for Dungeons & Dragons tabletop sessions: scenarios, party state, inventory.',
+      stack: [L.python]
+    },
+    {
+      name: 'Claude plugins',
+      description:
+        'Custom plugins for Claude Code: slash commands, MCP servers, routine automation.',
+      stack: [L.python]
+    },
+    {
+      name: 'Shorten Link',
+      description:
+        'URL shortener service: backend, Svelte frontend, docs, containerised deploy.',
+      stack: [T.nodejs, T.svelte, T.docker, L.javascript],
+      github: 'https://github.com/alexeev-dauwalter/shorten-link'
+    },
+    {
+      name: 'DiceCalc',
+      description:
+        'Dice-roll calculator supporting complex expressions and modifiers.',
+      stack: [L.rust],
+      github: 'https://github.com/alexeev-dauwalter/dicecalc'
+    },
+    {
+      name: 'My Keymap App',
+      description:
+        'Tauri desktop app for managing keyboard layouts and hotkeys.',
+      stack: [L.rust, T.astro, T.svelte],
+      github: 'https://github.com/alexeev-dauwalter/my-keymap-app'
+    }
+  ],
+  commercialProjects: [
+    {
+      name: 'Skolkovo ID',
+      description:
+        'Single sign-on identification platform integrating user data with the School\'s internal systems.',
+      stack: [L.php, T.laravel, T.vuejs]
+    },
+    {
+      name: 'Alumni clubs platform',
+      description:
+        'Alumni community: applications to join clubs, roster management for club heads and external experts.',
+      stack: [T.nextjs, L.typescript]
+    },
+    {
+      name: 'Chart rendering microservice',
+      description:
+        'Service rendering interactive charts on landing pages, integrated into Twill as a custom CMS block.',
+      stack: [L.php, T.react]
+    },
+    {
+      name: 'Gift management system',
+      description:
+        'Internal product for managers: composing gift orders for clients and partners, inventory tracking.',
+      stack: [T.nextjs, L.typescript]
+    },
+    {
+      name: 'Corporate appreciation system',
+      description:
+        'Internal service for ~600 employees: year-round thanks between colleagues with year-end summaries and awards.',
+      stack: [L.php, T.laravel]
+    },
+    {
+      name: 'Telegram channel verification',
+      description:
+        'Service vetting users before they get access to private corporate Telegram channels.',
+      stack: [L.typescript, T.nextjs]
+    },
+    {
+      name: 'Random Coffee',
+      description:
+        'Internal Telegram service for networking: automatic random colleague pairings for coffee meetings.',
+      stack: [L.go]
+    },
+    {
+      name: 'Agentic knowledge-base platform',
+      description:
+        'Platform letting employees build their own AI agents with granular access control over knowledge spaces.',
+      stack: [L.python]
+    },
+    {
+      name: 'Grant application automation',
+      description:
+        'Automatic processing of grant applications for educational programs using AI agents.',
+      stack: [L.go]
+    },
+    {
+      name: 'Events management system',
+      description:
+        'Backend, API and admin panel for corporate events: schedule, registrations, reports.',
+      stack: [T.nestjs, T.postgresql, T.react]
+    },
+    {
+      name: 'High-load e-commerce platform',
+      description:
+        'Architecture of a large online shop: NestJS API, queues, cache, faceted catalog, admin panel.',
+      stack: [T.nestjs, T.react, T.postgresql, T.tailwindcss]
     },
     {
       name: 'EDM system',
       description:
         'Internal electronic document workflow: document versions, assignments and approval routing.',
-      stack: [T.nextjs, T.nestjs, T.postgresql],
-      gitlab: 'https://gitlab.com/alexeev-dauwalter/edo'
-    },
-    {
-      name: 'Events platform',
-      description:
-        'Backend and admin panel for corporate events: schedule, registrations, reports.',
-      stack: [T.nestjs, T.postgresql, T.react],
-      gitlab: 'https://gitlab.com/alexeev-dauwalter/events'
+      stack: [T.nextjs, T.nestjs, T.postgresql]
     },
     {
       name: 'Educational platform',
       description:
         'LMS with student profiles, assignments and server-side code grading.',
-      stack: [T.nextjs, T.nestjs, T.mongodb, T.tailwindcss],
-      github: 'https://github.com/alexeev-dauwalter/lms'
+      stack: [T.nextjs, T.nestjs, T.react, L.java, T.tomcat]
     }
   ],
   books: [
@@ -377,9 +485,10 @@ export const enContent: Content = {
     { number: '01', key: 'about', id: 'about' },
     { number: '02', key: 'longPath', id: 'longpath' },
     { number: '03', key: 'experience', id: 'experience' },
-    { number: '04', key: 'projects', id: 'projects' },
-    { number: '05', key: 'timeline', id: 'timeline' },
-    { number: '06', key: 'stack', id: 'stack' },
-    { number: '07', key: 'reading', id: 'reading' }
+    { number: '04', key: 'personalProjects', id: 'projects' },
+    { number: '05', key: 'commercialProjects', id: 'commercial' },
+    { number: '06', key: 'timeline', id: 'timeline' },
+    { number: '07', key: 'stack', id: 'stack' },
+    { number: '08', key: 'reading', id: 'reading' }
   ]
 };
