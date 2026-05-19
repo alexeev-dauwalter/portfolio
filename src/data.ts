@@ -346,6 +346,8 @@ const ProgrammingLanguage = {
 export const fullName = 'Алексеев Пётр Сергеевич',
   email = 'alexeev.dauwalter@gmail.com';
 
+export const desiredPositions: string[] = ['Full Stack Engineer'];
+
 export const skills = {
   main: [
     ProgrammingLanguage.rust,

@@ -16,6 +16,7 @@
   export let email: string = '',
     currentJobs: string[] = [],
     currentRoles: string[] = [],
+    desiredPositions: string[] = [],
     stackShort: string[] = [],
     contactLinks: { href: string; label: string }[] = [],
     connectLinks: {
@@ -230,10 +231,22 @@
         class="font-lora text-ink dark:text-ink-dark flex flex-wrap items-baseline gap-x-2 text-base sm:text-lg 2xl:text-2xl"
       >
         {#if currentRoles.length === 0}
-          <span
-            class="text-muted/70 dark:text-ink-dark-soft/60"
-            aria-hidden="true">—</span
-          >
+          {#if desiredPositions.length === 0}
+            <span
+              class="text-muted/70 dark:text-ink-dark-soft/60"
+              aria-hidden="true">—</span
+            >
+          {:else}
+            {#each desiredPositions as role, i}
+              {#if i > 0}
+                <span
+                  class="text-muted/70 dark:text-ink-dark-soft/60"
+                  aria-hidden="true">·</span
+                >
+              {/if}
+              <span>{role}</span>
+            {/each}
+          {/if}
         {:else}
           {#each currentRoles as role, i}
             {#if i > 0}
