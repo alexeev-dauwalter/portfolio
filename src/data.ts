@@ -346,7 +346,7 @@ const ProgrammingLanguage = {
 export const fullName = 'Алексеев Пётр Сергеевич',
   email = 'alexeev.dauwalter@gmail.com';
 
-export const desiredPositions: string[] = ['Full Stack Engineer'];
+export const desiredPositions: string[] = ['Team Lead', 'Full Stack Engineer'];
 
 export const skills = {
   main: [
@@ -383,7 +383,7 @@ export const education = {
       faculty: 'Информатика и вычислительная техника',
       specialty:
         'Программное обеспечение вычислительной техники и автоматизированных систем',
-      graduation: 2025
+      graduation: 2026
     },
     {
       institution:
@@ -431,6 +431,7 @@ export const experience: Experience[] = [
     shortLabel: '41T',
     position: 'Founder | CEO | Full stack engineer',
     begin: 'Февраль 2023',
+    end: 'Октябрь 2024',
     description:
       'О компании:\n' +
       'Основал собственную компанию, специализирующуюся на проектной разработке.\n' +
@@ -638,7 +639,8 @@ export const books = [
   ],
   languages: Language[] = [
     { title: 'Русский', level: 'Родной' },
-    { title: 'Английский', level: 'A2 — Элементарный' }
+    { title: 'Английский', level: 'A2 — Элементарный' },
+    { title: 'Французский', level: 'A1 — Начальный' }
   ];
 
 export const about = [
