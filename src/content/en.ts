@@ -419,7 +419,7 @@ export const enContent: Content = {
   ],
   languages: [
     { title: 'Russian', level: 'Native' },
-    { title: 'English', level: 'A2 — Elementary' },
+    { title: 'English', level: 'B1 — Intermediate' },
     { title: 'French', level: 'A1 — Beginner' }
   ],
   about: [

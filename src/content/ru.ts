@@ -410,7 +410,7 @@ export const ruContent: Content = {
   ],
   languages: [
     { title: 'Русский', level: 'Родной' },
-    { title: 'Английский', level: 'A2 — Элементарный' },
+    { title: 'Английский', level: 'B1 — Средний' },
     { title: 'Французский', level: 'A1 — Начальный' }
   ],
   about: [
