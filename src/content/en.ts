@@ -91,6 +91,7 @@ export const enContent: Content = {
       shortLabel: 'SKOLKOVO',
       position: 'Product Manager | Team Lead | Full Stack Engineer',
       begin: '2024-11',
+      end: '2026-05',
       description:
         'About the company:\n' +
         'SKOLKOVO Moscow School of Management is one of the leading private business schools in Russia and the CIS, founded in 2006 on the initiative of the business community. The School holds the international EQUIS accreditation (held by about 1% of business schools worldwide) and has its own campus near Moscow. The portfolio of educational programs covers every stage of business development — from startups to large corporations — including MBA, Executive MBA and corporate education programs. More than 12,000 students go through the School\'s corporate programs every year.\n' +
