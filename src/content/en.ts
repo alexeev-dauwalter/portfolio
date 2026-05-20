@@ -116,7 +116,7 @@ export const enContent: Content = {
         '- Grant application processing automation — designed and led a project to automatically process grant applications for the School\'s educational programs with AI agents. Stack: Go.\n' +
         '- Professional development: completed the SKOLKOVO × ScrumTrek "Agile and hybrid project-management approaches" program.\n' +
         'Reason for leaving:\n' +
-        'Reduction in force.',
+        'Organizational changes within the company.',
       skills: [
         T.react,
         T.nextjs,
