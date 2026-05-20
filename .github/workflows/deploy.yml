@@ -75,4 +75,5 @@ jobs:
           AWS_ENDPOINT: ${{ secrets.AWS_ENDPOINT }}
           AWS_BUCKET_NAME: ${{ secrets.AWS_BUCKET_NAME }}
         run: |
-          aws s3 --endpoint-url="$AWS_ENDPOINT" sync ./dist "s3://$AWS_BUCKET_NAME" --delete
+          aws s3 --endpoint-url="$AWS_ENDPOINT" sync ./dist "s3://$AWS_BUCKET_NAME" --delete --exclude "*.txt"
+          aws s3 --endpoint-url="$AWS_ENDPOINT" cp ./dist "s3://$AWS_BUCKET_NAME" --recursive --exclude "*" --include "*.txt" --content-type "text/plain; charset=utf-8"
